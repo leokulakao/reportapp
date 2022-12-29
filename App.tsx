@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@shopify/restyle';
 
 import store from './src/store/store';
@@ -18,8 +19,10 @@ const App = () => {
       <ThemeProvider theme={themes.light.theme}>
         <PersistGate persistor={persistor} loading={null} />
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <LogicCore />
-          <Navigation />
+          <BottomSheetModalProvider>
+            <LogicCore />
+            <Navigation />
+          </BottomSheetModalProvider>
         </GestureHandlerRootView>
       </ThemeProvider>
     </Provider>
