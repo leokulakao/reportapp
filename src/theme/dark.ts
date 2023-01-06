@@ -4,26 +4,25 @@ import { createTheme } from '@shopify/restyle';
 // Palette
 const palette = {
   white: '#FFFFFF',
-  black: '#1F1F1F',
+  darkGray: '#1F1F1F',
+  black: '#000000',
   gray: '#EBEEF2',
   grayFont: '#AAAEB2',
+  green: '#68BF79',
 };
 
 const theme = createTheme({
   colors: {
-    statusBar: 'light',
+    statusBar: 'dark',
 
-    tabBarBackground: palette.white,
-    tabBarBackgroundFocus: palette.black,
-    tabBarIcon: palette.white,
-    tabBarIconFocus: palette.black,
+    backgroundColor: palette.white,
+    secondaryBackgroundColor: palette.gray,
 
-    homeBackground: palette.gray,
+    textColor: palette.black,
+    secondaryTextColor: palette.grayFont,
 
-    reportSliderBackground: palette.white,
-    reportSliderBr: palette.gray,
-    reportSliderHeader: palette.black,
-    reportSliderText: palette.black,
+    accentColor: palette.darkGray,
+    greenColor: palette.green,
   },
   spacing: {},
   breakpoints: {},

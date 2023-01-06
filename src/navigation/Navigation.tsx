@@ -38,7 +38,7 @@ const Navigation = () => {
 
 const Tabs = () => {
   const theme = useTheme<Theme>();
-  console.log(theme.colors.tabBarBackground);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -60,7 +60,7 @@ const Tabs = () => {
         lazy: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: theme.colors.tabBarBackground,
+          backgroundColor: theme.colors.accentColor,
           position: 'absolute',
           bottom: 25,
           left: 20,
@@ -118,13 +118,14 @@ const TabBarButtonIcon: React.FC<TabBarButtonIconProps> = (props) => {
     <View
       style={[
         styles.tabBarButtonIcon,
-        focused && { backgroundColor: theme.colors.tabBarIcon },
+        focused && { backgroundColor: theme.colors.backgroundColor },
       ]}
     >
       <Icon
         name={iconName || 'alert'}
         size={23}
-        color={focused ? theme.colors.tabBarIconFocus : theme.colors.tabBarIcon}
+        // eslint-disable-next-line prettier/prettier
+        color={focused ? theme.colors.accentColor : theme.colors.backgroundColor}
       />
     </View>
   );
