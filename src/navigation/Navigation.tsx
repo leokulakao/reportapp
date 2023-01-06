@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 
 import HomeStack from '../screens/home/HomeStack';
 import SettingsStack from '../screens/settings/SettingsStack';
@@ -21,6 +22,8 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
+  const theme = useTheme<Theme>();
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -32,6 +35,8 @@ const Navigation = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+
+      <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
     </SafeAreaProvider>
   );
 };

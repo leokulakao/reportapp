@@ -1,5 +1,4 @@
 import { createTheme } from '@shopify/restyle';
-// import { StatusBarStyle } from 'expo-status-bar';
 
 // Palette
 const palette = {
@@ -13,7 +12,7 @@ const palette = {
 
 const theme = createTheme({
   colors: {
-    statusBar: 'light',
+    statusBar: 'dark',
 
     backgroundColor: palette.white,
     secondaryBackgroundColor: palette.gray,
