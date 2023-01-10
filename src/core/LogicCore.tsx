@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { changeAppState } from '../store/slices/reportsSlice';
+import { doChangeAppState } from '../store/app/appService';
 
 const LogicCore = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const LogicCore = () => {
     //   doAppStateChange(dispatch, 'foreground');
     // }
     _appState.current = state;
-    dispatch(changeAppState({ appState: state }));
+    doChangeAppState(dispatch, state);
   };
 
   // Main useEffect

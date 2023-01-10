@@ -1,10 +1,11 @@
 import React, {
   forwardRef,
-  useState,
+  // useState,
   useImperativeHandle,
   useMemo,
   useRef,
   useCallback,
+  useEffect,
 } from 'react';
 import { useFormik } from 'formik';
 import { ReportSchema } from '../form-validation/validation';
@@ -12,11 +13,26 @@ import AddReportButton from '../buttons/AddReportButton';
 import BottomSheetModalComp from '../BottomSheetModalComp';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import ReportFormItem from './ReportFormItem';
-import { TextInput, StyleSheet, View } from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import MainButton from '../buttons/MainButton';
+import { useDispatch } from 'react-redux';
+// import { addReport } from '../../store/slices/reportsSlice';
+import { Report } from '../../models';
+import {
+  doAddReport,
+  doDeleteAllReports,
+} from '../../store/reports/reportsService';
+import { useSelector } from 'react-redux';
+import { selectAllReports } from '../../store/reports/reportsSelectors';
 
 type Props = {
-  reportsData?: any | null;
+  reportData?: Report | null;
   hasAddButton: boolean;
 };
 
@@ -26,9 +42,13 @@ type PropsForwardedRef = {
 };
 
 const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
-  const { reportsData, hasAddButton } = props;
+  const { hasAddButton } = props;
 
-  const formMode = reportsData === null ? 'create' : 'edit';
+  const dispatch = useDispatch();
+
+  const allReports = useSelector(selectAllReports());
+
+  // const formMode = reportData === null ? 'create' : 'edit';
 
   // BottomSheetModal Ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -39,11 +59,12 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
     handleChange,
     setFieldValue,
     handleSubmit,
+    // setValues,
     // handleBlur,
     values,
-    errors,
-    touched,
-    isValid,
+    // errors,
+    // touched,
+    // isValid,
   } = useFormik({
     validationSchema: ReportSchema,
     initialValues: {
@@ -59,14 +80,28 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
       specialMinutes: 0,
     },
     onSubmit: () => {
-      console.log('evented', values);
+      const newReport: Report = {
+        ...values,
+      };
+      doAddReport(dispatch, newReport);
+      bottomSheetModalRef.current?.close();
     },
   });
 
-  const handlePresentModalPress = useCallback(() => open(), []);
+  const handlePresentModalPress = useCallback(() => {
+    open();
+  }, []);
 
-  const open = () => {
-    console.log('open');
+  // const setFieldReportData = async () => {
+  //   await setFieldValue('date', new Date().toISOString());
+  //   await setFieldValue('hours', 0);
+  //   await setFieldValue('minutes', 0);
+  //   await setFieldValue('publications', 0);
+  //   await setFieldValue('returnVisits', 0);
+  //   await setFieldValue('bibleStudies', 0);
+  // };
+
+  const open = async () => {
     bottomSheetModalRef.current?.present();
   };
 
@@ -76,6 +111,10 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
     open: open,
     close: close,
   }));
+
+  useEffect(() => {
+    console.log(allReports);
+  }, [allReports]);
 
   return (
     <>
@@ -94,8 +133,8 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
         <ReportFormItem
           type="date"
           title="Date"
-          onChange={handleChange('date')}
-          value={new Date()}
+          onChange={(v) => setFieldValue('date', v)}
+          value={values.date}
           marginB
         />
         <ReportFormItem
@@ -165,6 +204,9 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
         <View style={styles.sheetButtonsContainer}>
           <MainButton icon="checkmark" onPress={() => handleSubmit()} />
         </View>
+        <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
+          <Text>Borrar</Text>
+        </TouchableOpacity>
       </BottomSheetModalComp>
     </>
   );

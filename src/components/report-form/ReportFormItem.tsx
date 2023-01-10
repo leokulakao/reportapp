@@ -1,9 +1,17 @@
 import Theme from '../../theme';
 import { useTheme } from '@shopify/restyle';
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from '@react-native-community/datetimepicker';
 
 type Props = {
   type: 'number' | 'date' | 'string';
@@ -29,6 +37,16 @@ const ReportFormItem: React.FC<Props> = (props) => {
   } = props;
 
   const theme = useTheme<Theme>();
+
+  const onDateItemAndroidPress = () => {
+    console.log(value);
+    DateTimePickerAndroid.open({
+      value: new Date(value),
+      mode: 'date',
+      is24Hour: true,
+      onChange: (e, selectedDate) => onChange(selectedDate),
+    });
+  };
 
   return (
     <>
@@ -95,7 +113,11 @@ const ReportFormItem: React.FC<Props> = (props) => {
         </View>
       ) : (
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() =>
+            Platform.OS === 'android'
+              ? onDateItemAndroidPress()
+              : () => console.log('ios')
+          }
           style={[
             styles.reportFormItem,
             marginB && styles.reportFormItemMargin,
@@ -117,17 +139,16 @@ const ReportFormItem: React.FC<Props> = (props) => {
           >
             {title}
           </Text>
-          {type === 'date' && typeof value ? (
+          {type === 'date' && typeof value && Platform.OS === 'ios' ? (
             <DateTimePicker
-              testID="dateTimePicker"
-              value={value as Date}
+              value={new Date(value)}
               mode={'date'}
               is24Hour={true}
-              onChange={(e) => console.log(e)}
+              onChange={(e, selectedDate) => onChange(selectedDate)}
             />
           ) : (
             <Text style={{ fontSize: 18, lineHeight: 22 }}>
-              {value.toString()}
+              {type === 'date' ? value.toLocaleString() : value.toString()}
             </Text>
           )}
         </TouchableOpacity>

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppState } from '../models';
+import { AppState } from './appState';
 
 const initialState: AppState = {
   appState: 'unknown',
