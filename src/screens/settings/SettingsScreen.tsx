@@ -36,7 +36,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             <SettingsNavLink
               text="Synchronization and backups"
               icon="cloud-upload-outline"
-              onPress={() => {}}
+              onPress={() => navigation?.navigate('BackupScreen')}
             />
             <SettingsNavLink
               text="Languages"

@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 
 type Props = {
-  icon: string;
+  icon?: string;
   onPress: () => void;
   text?: string;
   style?: object;
