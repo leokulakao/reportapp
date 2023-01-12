@@ -3,29 +3,22 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { ThemeProvider } from '@shopify/restyle';
 
 import './localization';
 import store from './src/store/store';
 import LogicCore from './src/core/LogicCore';
 import Navigation from './src/navigation/Navigation';
-import { themes } from './src/theme';
 
 const App = () => {
-  // const theme = useTheme<Theme>();
   const persistor = persistStore(store);
+
   return (
     <Provider store={store}>
-      <ThemeProvider theme={themes.light.theme}>
-        <PersistGate persistor={persistor} loading={null} />
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <LogicCore />
-            <Navigation />
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
+      <PersistGate persistor={persistor} loading={null} />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <LogicCore />
+        <Navigation />
+      </GestureHandlerRootView>
     </Provider>
   );
 };

@@ -7,7 +7,7 @@ import Theme from '../../theme';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 type Props = {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 };
 
 const BottomSheetSelect: React.FC<Props> = forwardRef((props, ref) => {

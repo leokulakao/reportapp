@@ -12,32 +12,41 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
+import { ThemeProvider } from '@shopify/restyle';
 
 import HomeStack from '../screens/home/HomeStack';
 import SettingsStack from '../screens/settings/SettingsStack';
 import { useTheme } from '@shopify/restyle';
-import Theme from '../theme';
+import Theme, { themes } from '../theme';
+import { useSelector } from 'react-redux';
+import { selectThemeState } from '../store/app/appSelectors';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   const theme = useTheme<Theme>();
+  const appTheme = useSelector(selectThemeState());
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Navigation"
-            component={Tabs}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <ThemeProvider theme={themes[appTheme].theme}>
+      <BottomSheetModalProvider>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Navigation"
+                component={Tabs}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
 
-      <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
-    </SafeAreaProvider>
+          <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
+        </SafeAreaProvider>
+      </BottomSheetModalProvider>
+    </ThemeProvider>
   );
 };
 

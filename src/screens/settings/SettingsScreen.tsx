@@ -16,6 +16,7 @@ import { expo } from '../../../app.json';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import Theme from '../../theme';
 import LanguageSelect from '../../components/language/LanguageSelect';
+import ThemeSelect from '../../components/theme/ThemeSelect';
 
 type Props = {
   navigation?: NavigationProp<any, any>;
@@ -26,6 +27,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();
   const languageFormRef = useRef<any>(null);
+  const themeFormRef = useRef<any>(null);
 
   return (
     <ScreenSafeAreaContainer style={styles(theme).screenContainer} tabsIndent>
@@ -49,7 +51,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             <SettingsNavLink
               text="Appearance"
               icon="color-palette-outline"
-              onPress={() => {}}
+              onPress={() => themeFormRef?.current.open()}
             />
             <SettingsNavLink
               text="Donations"
@@ -74,6 +76,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           </Text>
         </View>
         <LanguageSelect ref={languageFormRef} />
+        <ThemeSelect ref={themeFormRef} />
       </>
     </ScreenSafeAreaContainer>
   );
