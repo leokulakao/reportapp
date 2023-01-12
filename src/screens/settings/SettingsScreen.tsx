@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { expo } from '../../../app.json';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import Theme from '../../theme';
-import LanguageForm from '../../components/language/LanguageForm';
+import LanguageSelect from '../../components/language/LanguageSelect';
 
 type Props = {
   navigation?: NavigationProp<any, any>;
@@ -73,7 +73,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             {expo.version} ({expo.ios.buildNumber})
           </Text>
         </View>
-        <LanguageForm ref={languageFormRef} />
+        <LanguageSelect ref={languageFormRef} />
       </>
     </ScreenSafeAreaContainer>
   );

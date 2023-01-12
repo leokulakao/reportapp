@@ -1,27 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '@shopify/restyle';
-import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Theme from '../../theme';
 
 type Props = {
-  langId: string;
+  item: string;
+  isActive: boolean;
+  onPress: () => void;
 };
 
-const LanguageFormItem: React.FC<Props> = ({ langId }) => {
-  const { t, i18n } = useTranslation();
+const BottomSheetSelectItem: React.FC<Props> = ({
+  item,
+  isActive,
+  onPress,
+}) => {
   const theme = useTheme<Theme>();
 
   return (
     <TouchableOpacity
-      onPress={() => i18n.changeLanguage(langId)}
-      style={styles(theme).langItem}
+      onPress={() => onPress()}
+      style={styles(theme).selectItem}
       activeOpacity={0.7}
     >
-      <Text style={styles(theme).langItemText}>{t(langId)}</Text>
-      {langId === i18n.language ? (
+      <Text style={styles(theme).selectItemText}>{item}</Text>
+      {isActive ? (
         <Icon
           name="checkmark-outline"
           size={24}
@@ -36,7 +40,7 @@ const LanguageFormItem: React.FC<Props> = ({ langId }) => {
 
 const styles = (theme: Theme) =>
   StyleSheet.create({
-    langItem: {
+    selectItem: {
       height: 52,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -46,11 +50,11 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.colors.secondaryBackgroundColor,
       borderRadius: 8,
     },
-    langItemText: {
+    selectItemText: {
       // marginHorizontal: 15,
       fontSize: 18,
       lineHeight: 22,
     },
   });
 
-export default LanguageFormItem;
+export default BottomSheetSelectItem;

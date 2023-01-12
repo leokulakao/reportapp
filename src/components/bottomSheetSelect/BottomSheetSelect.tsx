@@ -1,20 +1,18 @@
 import React, { useMemo, useRef, useImperativeHandle, forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '@shopify/restyle';
-import { useTranslation } from 'react-i18next';
 
 import BottomSheetModalComp from '../BottomSheetModalComp';
 import Theme from '../../theme';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import LanguageFormItem from './LanguageFormItem';
 
 type Props = {
-  ref: any;
+  children?: JSX.Element;
 };
 
-const LanguageForm: React.FC<Props> = forwardRef((props, ref) => {
-  const { t, i18n } = useTranslation();
+const BottomSheetSelect: React.FC<Props> = forwardRef((props, ref) => {
   const theme = useTheme<Theme>();
+  const { children } = props;
 
   // BottomSheetModal
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -44,13 +42,7 @@ const LanguageForm: React.FC<Props> = forwardRef((props, ref) => {
         snapPoints={snapPoints}
         containerStyle={styles(theme).sheetContainer}
       >
-        {i18n.options.fallbackLng ? (
-          i18n.options.fallbackLng.map((lang: string) => (
-            <LanguageFormItem langId={lang} key={lang} />
-          ))
-        ) : (
-          <></>
-        )}
+        {children}
       </BottomSheetModalComp>
     </>
   );
@@ -65,11 +57,6 @@ const styles = (theme: Theme) =>
       paddingTop: 20,
       backgroundColor: theme.colors.backgroundColor,
     },
-    reportTitleinput: {
-      marginBottom: 25,
-      fontSize: 24,
-      lineHeight: 30,
-    },
   });
 
-export default LanguageForm;
+export default BottomSheetSelect;
