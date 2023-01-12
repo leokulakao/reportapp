@@ -1,40 +1,41 @@
 export default {
-    translation: {
-        'en': 'Inglés',
-        'es': 'Español',
-        'ru': 'Ruso',
-        
-        'Welcome': "Bienvenido",
-        'Year': 'Año',
+  translation: {
+    en: 'Inglés',
+    es: 'Español',
+    ru: 'Ruso',
 
-        'Day': 'Día',
-        'Confirm': 'Confirmar',
+    Welcome: 'Bienvenido',
+    Year: 'Año',
 
-        'Hours': 'Horas',
-        'Minutes': 'Minutos',
-        'Publications': 'Publicaciones',
-        'Videos': 'Vídeos',
-        'Return Visits': 'Revisitas',
-        'Bible Studies': 'Estudios Bíblicos',
+    Day: 'Día',
+    Confirm: 'Confirmar',
 
-        'Add a title': 'Añade un titulo',
-        'Send Report': 'Enviar informe',
+    Hours: 'Horas',
+    Minutes: 'Minutos',
+    Publications: 'Publicaciones',
+    Videos: 'Vídeos',
+    'Return Visits': 'Revisitas',
+    'Bible Studies': 'Estudios Bíblicos',
 
-        'Menu': 'Menú',
-        'Edit': 'Editar',
-        'Delete': 'Borrar',
+    'Add a title': 'Añade un titulo',
+    'Send Report': 'Enviar informe',
 
-        'Delete item': 'Eliminar elemento',
-        'Are you sure you want to delete it?': '¿Está seguro de que quieres eliminarlo?',
-        'Cancel': 'Cancelar',
-        'Yes': 'Sí',
+    Menu: 'Menú',
+    Edit: 'Editar',
+    Delete: 'Borrar',
 
-        'Settings': 'Ajustes',
-        'Synchronization and backups': 'Sincronización and backups',
-        'Languages': 'Idiomas',
-        'Appearance': 'Apariencia',
-        'Donations': 'Donaciones',
+    'Delete item': 'Eliminar elemento',
+    'Are you sure you want to delete it?':
+      '¿Está seguro de que quieres eliminarlo?',
+    Cancel: 'Cancelar',
+    Yes: 'Sí',
 
-        'Privacy Policy': 'Política de privacidad'
-    }
-}
+    Settings: 'Ajustes',
+    'Synchronization and backups': 'Sincronización and backups',
+    Languages: 'Idiomas',
+    Appearance: 'Apariencia',
+    Donations: 'Donaciones',
+
+    'Privacy Policy': 'Política de privacidad',
+  },
+};

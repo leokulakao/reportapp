@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@shopify/restyle';
 
+import './localization';
 import store from './src/store/store';
 import LogicCore from './src/core/LogicCore';
 import Navigation from './src/navigation/Navigation';
