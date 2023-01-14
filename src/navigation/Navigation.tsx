@@ -22,7 +22,13 @@ import { useSelector } from 'react-redux';
 import { selectThemeState } from '../store/app/appSelectors';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Navigation: undefined;
+  Home: undefined;
+  Settings: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {

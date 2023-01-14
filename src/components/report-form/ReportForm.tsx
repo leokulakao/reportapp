@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
-  useCallback,
+  // useCallback,
   useEffect,
 } from 'react';
 import { useFormik } from 'formik';
@@ -30,9 +30,10 @@ import {
 } from '../../store/reports/reportsService';
 import { useSelector } from 'react-redux';
 import { selectAllReports } from '../../store/reports/reportsSelectors';
+import { ReportStorage } from '../../store/reports/reportsState';
 
 type Props = {
-  reportData?: Report | null;
+  reportData?: ReportStorage;
   hasAddButton: boolean;
 };
 
@@ -42,13 +43,13 @@ type PropsForwardedRef = {
 };
 
 const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
-  const { hasAddButton } = props;
+  const { reportData, hasAddButton } = props;
 
   const dispatch = useDispatch();
 
   const allReports = useSelector(selectAllReports());
 
-  // const formMode = reportData === null ? 'create' : 'edit';
+  const formMode = reportData === null ? 'create' : 'edit';
 
   // BottomSheetModal Ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -88,20 +89,32 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
     },
   });
 
-  const handlePresentModalPress = useCallback(() => {
-    open();
-  }, []);
+  const handlePresentModalPress = () => open();
 
-  // const setFieldReportData = async () => {
-  //   await setFieldValue('date', new Date().toISOString());
-  //   await setFieldValue('hours', 0);
-  //   await setFieldValue('minutes', 0);
-  //   await setFieldValue('publications', 0);
-  //   await setFieldValue('returnVisits', 0);
-  //   await setFieldValue('bibleStudies', 0);
-  // };
+  const setFieldReportData = () => {
+    if (reportData?.id != null && formMode === 'edit') {
+      setFieldValue('title', reportData.title);
+      setFieldValue('date', new Date(reportData.date).toISOString());
+      setFieldValue('hours', reportData.hours);
+      setFieldValue('minutes', reportData.minutes);
+      setFieldValue('publications', reportData.publications);
+      setFieldValue('returnVisits', reportData.returnVisits);
+      setFieldValue('bibleStudies', reportData.bibleStudies);
+    } else {
+      ReportSchema.fields.date.max(new Date());
+      setFieldValue('title', '');
+      setFieldValue('date', new Date().toISOString());
+      setFieldValue('hours', 0);
+      setFieldValue('minutes', 0);
+      setFieldValue('publications', 0);
+      setFieldValue('returnVisits', 0);
+      setFieldValue('bibleStudies', 0);
+    }
+  };
 
-  const open = async () => {
+  const open = () => {
+    console.log('open');
+    setFieldReportData();
     bottomSheetModalRef.current?.present();
   };
 

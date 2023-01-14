@@ -7,7 +7,6 @@ import {
   View,
   Platform,
 } from 'react-native';
-import { NavigationProp } from '@react-navigation/core';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@shopify/restyle';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,14 +14,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { expo } from '../../../app.json';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import Theme from '../../theme';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/Navigation';
 import LanguageSelect from '../../components/language/LanguageSelect';
 import ThemeSelect from '../../components/theme/ThemeSelect';
 
-type Props = {
-  navigation?: NavigationProp<any, any>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
-const SettingsScreen: React.FC<Props> = ({ navigation }) => {
+const SettingsScreen: React.FC<Props> = (props) => {
+  const { navigation } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();

@@ -35,6 +35,7 @@ const BottomSheetModalComp: React.FC<Props> = (props) => {
       // backgroundStyle={{ backgroundColor: THEME.BACKGROUND_COLOR }}
       handleIndicatorStyle={{ backgroundColor: 'grey' }}
       enablePanDownToClose
+      // enableContentPanningGesture={false}
       backdropComponent={renderBackdrop}
     >
       <BottomSheetScrollView contentContainerStyle={[containerStyle]}>

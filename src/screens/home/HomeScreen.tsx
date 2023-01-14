@@ -1,22 +1,26 @@
 import React from 'react';
-import { NavigationProp } from '@react-navigation/core';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { useTheme } from '@shopify/restyle';
 import Theme from '../../theme';
 import ReportForm from '../../components/report-form/ReportForm';
+import MonthSlider from '../../components/month-slider/MonthSlider';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/Navigation';
 
-type Props = {
-  navigation?: NavigationProp<any, any>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const HomeScreen: React.FC<Props> = () => {
+const HomeScreen: React.FC<Props> = (props) => {
+  const { navigation } = props;
   const theme = useTheme<Theme>();
-  console.log(theme);
+  // console.log(theme);
   return (
     <ScreenSafeAreaContainer
-      style={{ backgroundColor: theme.colors.homeBackground }}
+      style={{ backgroundColor: theme.colors.secondaryBackgroundColor }}
     >
-      <ReportForm hasAddButton={true} />
+      <>
+        <MonthSlider navigation={navigation} />
+        <ReportForm hasAddButton={true} />
+      </>
     </ScreenSafeAreaContainer>
   );
 };

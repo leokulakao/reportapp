@@ -1,15 +1,18 @@
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import React from 'react';
-import { NavigationProp } from '@react-navigation/core';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import BackupScreen from './BackupScreen';
+import { RootStackParamList } from '../../navigation/Navigation';
 
 import SettingsScreen from './SettingsScreen';
 import { HeaderBackButton } from '../../components/buttons/HeaderBackButton';
 
-type Props = {
-  navigation?: NavigationProp<any, any>;
-};
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'Settings',
+  'SettingsStack'
+>;
 
 const Stack = createNativeStackNavigator();
 

@@ -1,20 +1,20 @@
+import { NavigationProp } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { NavigationProp } from '@react-navigation/core';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   navigation?: NavigationProp<any, any>;
   onPress?: void;
 };
 
-export const HeaderBackButton: React.FC<Props> = ({ navigation, onPress }) => {
+const HeaderBackButton: React.FC<Props> = (props) => {
+  const { navigation, onPress } = props;
+
   const goBack = () => {
     const canGoBack = navigation?.canGoBack();
     return canGoBack ? navigation?.goBack() : navigation?.popToTop();
   };
-  // console.log('onPress', !!onPress);
-
   return (
     <TouchableOpacity
       onPress={onPress ? onPress : () => goBack()}
@@ -24,3 +24,5 @@ export const HeaderBackButton: React.FC<Props> = ({ navigation, onPress }) => {
     </TouchableOpacity>
   );
 };
+
+export default HeaderBackButton;
