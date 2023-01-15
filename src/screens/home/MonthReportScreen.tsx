@@ -1,17 +1,17 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
 
 import MonthReportHeader from '../../components/month-report/MonthReportHeader';
 import MonthReportItem from '../../components/month-report/MonthReportItem';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
-import { RootStackParamList } from '../../navigation/Navigation';
 import Theme from '../../theme';
+import { HomeStackParamList } from './HomeStack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = NativeStackScreenProps<HomeStackParamList, 'MonthReport'>;
 
-const MonthReportScreen: React.FC<Props> = (props) => {
+const MonthReportScreen: React.FC<Props> = () => {
   // const { navigation } = props;
   const theme = useTheme<Theme>();
 
@@ -24,8 +24,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
         data={[]}
         ListHeaderComponent={() => <MonthReportHeader />}
         renderItem={({ item }) => <MonthReportItem item={item} />}
-        keyExtractor={(item) => item.day}
-        key={(item) => item.day}
+        // keyExtractor={(item) => item.day}
+        // key={(item) => item.day}
       />
     </ScreenSafeAreaContainer>
   );
@@ -33,8 +33,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
 
 export default MonthReportScreen;
 
-const styles = StyleSheet.create({
-  screenContainer: {
-    backgroundColor: '#ffffff',
-  },
-});
+// const styles = StyleSheet.create({
+//   screenContainer: {
+//     backgroundColor: '#ffffff',
+//   },
+// });

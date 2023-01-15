@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { NavigationProp } from '@react-navigation/core';
 import { useTheme } from '@shopify/restyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTranslation } from 'react-i18next';
@@ -11,10 +10,10 @@ import * as DocumentPicker from 'expo-document-picker';
 import Theme from '../../theme';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import MainButton from '../../components/buttons/MainButton';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { SettingsStackParamList } from './SettingsStack';
 
-type Props = {
-  navigation?: NavigationProp<any, any>;
-};
+type Props = NativeStackScreenProps<SettingsStackParamList, 'Backup'>;
 
 const BackupScreen: React.FC<Props> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

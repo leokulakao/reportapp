@@ -4,13 +4,22 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import HeaderBackButton from '../../components/buttons/HeaderBackButton';
-import { RootStackParamList } from '../../navigation/Navigation';
+import { NavigationTabParamList } from '../../navigation/Navigation';
 import HomeScreen from './HomeScreen';
 import MonthReportScreen from './MonthReportScreen';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home', 'HomeStack'>;
+type Props = NativeStackScreenProps<
+  NavigationTabParamList,
+  'Home',
+  'HomeStack'
+>;
 
-const Stack = createNativeStackNavigator();
+export type HomeStackParamList = {
+  Home: undefined;
+  MonthReport: undefined;
+};
+
+const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const HomeStack: React.FC<Props> = (props) => {
   const { navigation } = props;
@@ -23,10 +32,10 @@ const HomeStack: React.FC<Props> = (props) => {
         headerLeft: () => <HeaderBackButton navigation={navigation} />,
       }}
     >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
 
       <Stack.Screen
-        name="MonthReportScreen"
+        name="MonthReport"
         component={MonthReportScreen}
         options={{
           headerShown: true,

@@ -5,9 +5,9 @@ import Theme from '../../theme';
 import ReportForm from '../../components/report-form/ReportForm';
 import MonthSlider from '../../components/month-slider/MonthSlider';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/Navigation';
+import { HomeStackParamList } from './HomeStack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<Props> = (props) => {
   const { navigation } = props;

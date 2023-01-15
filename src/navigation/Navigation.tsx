@@ -7,7 +7,10 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -18,29 +21,32 @@ import HomeStack from '../screens/home/HomeStack';
 import SettingsStack from '../screens/settings/SettingsStack';
 import { useTheme } from '@shopify/restyle';
 import Theme, { themes } from '../theme';
-import { useSelector } from 'react-redux';
-import { selectThemeState } from '../store/app/appSelectors';
+// import { useSelector } from 'react-redux';
+// import { selectThemeState } from '../store/app/appSelectors';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export type RootStackParamList = {
-  Navigation: undefined;
+  Navigation: NavigatorScreenParams<NavigationTabParamList>;
+};
+
+export type NavigationTabParamList = {
   Home: undefined;
   Settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<NavigationTabParamList>();
 
 const Navigation = () => {
   const theme = useTheme<Theme>();
-  const appTheme = useSelector(selectThemeState());
+  // const appTheme = useSelector(selectThemeState());
 
   return (
-    <ThemeProvider theme={themes[appTheme].theme}>
+    <ThemeProvider theme={themes.light.theme}>
       <BottomSheetModalProvider>
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName={'Navigation'}>
               <Stack.Screen
                 name="Navigation"
                 component={Tabs}

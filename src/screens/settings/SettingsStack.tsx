@@ -3,20 +3,27 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import React from 'react';
-import { RootStackParamList } from '../../navigation/Navigation';
+import { NavigationTabParamList } from '../../navigation/Navigation';
 
+import HeaderBackButton from '../../components/buttons/HeaderBackButton';
 import SettingsScreen from './SettingsScreen';
-import { HeaderBackButton } from '../../components/buttons/HeaderBackButton';
+import BackupScreen from './BackupScreen';
 
 type Props = NativeStackScreenProps<
-  RootStackParamList,
+  NavigationTabParamList,
   'Settings',
   'SettingsStack'
 >;
 
-const Stack = createNativeStackNavigator();
+export type SettingsStackParamList = {
+  Settings: undefined;
+  Backup: undefined;
+  PrivacyPolicy: undefined;
+};
 
-const SettingsStack: React.FC<Props> = ({ navigation }) => {
+const Stack = createNativeStackNavigator<SettingsStackParamList>();
+
+const SettingsStack: React.FC<Props> = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,15 +31,17 @@ const SettingsStack: React.FC<Props> = ({ navigation }) => {
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
 
       <Stack.Screen
-        name="BackupScreen"
+        name="Backup"
         component={BackupScreen}
         options={{
           headerShown: true,
           title: '',
-          headerLeft: () => <HeaderBackButton onPress={() => navigation?.popToTop()} />
+          headerLeft: () => (
+            <HeaderBackButton onPress={() => console.log('123')} />
+          ),
         }}
       />
     </Stack.Navigator>

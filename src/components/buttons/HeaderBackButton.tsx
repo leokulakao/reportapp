@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 
 type Props = {
   navigation?: NavigationProp<any, any>;
-  onPress?: void;
+  onPress?: () => void;
 };
 
 const HeaderBackButton: React.FC<Props> = (props) => {

@@ -11,8 +11,7 @@ type Props = {
 const MonthItem: React.FC<Props> = (props) => {
   const { index, navigation } = props;
 
-  const onPressToMonthNavigate = () =>
-    navigation?.navigate('MonthReportScreen');
+  const onPressToMonthNavigate = () => navigation?.navigate('MonthReport');
 
   return (
     <TouchableOpacity style={styles.mainPress} onPress={onPressToMonthNavigate}>

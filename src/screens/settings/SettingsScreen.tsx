@@ -15,11 +15,11 @@ import { expo } from '../../../app.json';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import Theme from '../../theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/Navigation';
 import LanguageSelect from '../../components/language/LanguageSelect';
 import ThemeSelect from '../../components/theme/ThemeSelect';
+import { SettingsStackParamList } from './SettingsStack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
+type Props = NativeStackScreenProps<SettingsStackParamList, 'Settings'>;
 
 const SettingsScreen: React.FC<Props> = (props) => {
   const { navigation } = props;
@@ -39,7 +39,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
             <SettingsNavLink
               text="Synchronization and backups"
               icon="cloud-upload-outline"
-              onPress={() => navigation?.navigate('BackupScreen')}
+              onPress={() => navigation?.navigate('Backup')}
             />
             <SettingsNavLink
               text="Languages"
@@ -63,7 +63,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
 
         <View style={styles(theme).screenFooter}>
           <TouchableOpacity
-            onPress={() => navigation?.navigate('PrivacyPolicyScreen')}
+            onPress={() => navigation?.navigate('PrivacyPolicy')}
             activeOpacity={0.7}
           >
             <Text style={styles(theme).screenFooterText}>
