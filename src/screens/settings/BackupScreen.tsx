@@ -12,6 +12,7 @@ import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import MainButton from '../../components/buttons/MainButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SettingsStackParamList } from './SettingsStack';
+import ScreenHeader from '../../components/ScreenHeader';
 
 type Props = NativeStackScreenProps<SettingsStackParamList, 'Backup'>;
 
@@ -66,28 +67,29 @@ const BackupScreen: React.FC<Props> = () => {
       disableSafeAreaEdges={['top']}
     >
       <>
-        <View style={styles(theme).container}>
-          <Text style={styles(theme).title}>Syncranización</Text>
-        </View>
+        <ScreenHeader title={t('Synchronization')} />
 
         <View style={[styles(theme).container, styles(theme).backupInfoBlock]}>
           <View style={styles(theme).backupInfo}>
-            <Icon name="sync-outline" size={50} />
-            <Text style={styles(theme).backupInfoDay}>
-              Última copia: viernes 9:41
+            <Icon
+              name="sync-outline"
+              size={50}
+              color={theme.colors.accentColor}
+            />
+            <Text style={styles(theme).backupInfoText}>
+              {t('Here you can back up & restore your reports and statistics')}
             </Text>
           </View>
-          <Text>....</Text>
         </View>
 
         <View style={[styles(theme).container, styles(theme).backupActions]}>
           <MainButton
-            text="Realizar copia de seguridad"
+            text={t('Create a back up')}
             onPress={createBackupFile}
             style={styles(theme).backupButtonMargin}
           />
           <MainButton
-            text="Restaurar una copia de seguridad"
+            text={t('Restore a backup')}
             onPress={restoreBackupFile}
           />
         </View>
@@ -104,25 +106,19 @@ const styles = (theme: Theme) =>
     container: {
       paddingHorizontal: 25,
     },
-    title: {
-      color: theme.colors.textColor,
-      fontSize: 49,
-      lineHeight: 58,
-      marginBottom: 30,
-      marginTop: 10,
-    },
     backupInfoBlock: {
       paddingVertical: 22,
       backgroundColor: theme.colors.secondaryBackgroundColor,
     },
     backupInfo: {
       flexDirection: 'row',
-      marginBottom: 22,
+      marginBottom: 20,
+      paddingRight: 30,
     },
-    backupInfoDay: {
+    backupInfoText: {
       marginLeft: 22,
       marginTop: 10,
-      color: '#7C7C7C',
+      color: theme.colors.secondaryTextColor,
     },
     backupActions: {
       paddingVertical: 25,

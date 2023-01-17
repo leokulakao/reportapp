@@ -8,6 +8,7 @@ const palette = {
   gray: '#EBEEF2',
   grayFont: '#AAAEB2',
   green: '#68BF79',
+  pink: '#C94F82',
 };
 
 const theme = createTheme({
@@ -22,6 +23,7 @@ const theme = createTheme({
 
     accentColor: palette.white,
     greenColor: palette.green,
+    pinkColor: palette.pink,
   },
   spacing: {},
   breakpoints: {},

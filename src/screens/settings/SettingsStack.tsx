@@ -8,6 +8,8 @@ import { NavigationTabParamList } from '../../navigation/Navigation';
 import HeaderBackButton from '../../components/buttons/HeaderBackButton';
 import SettingsScreen from './SettingsScreen';
 import BackupScreen from './BackupScreen';
+import DonationScreen from './DonationScreen';
+import PrivacyPolicyScreen from './PrivacyPolicyScreen';
 
 type Props = NativeStackScreenProps<
   NavigationTabParamList,
@@ -18,6 +20,7 @@ type Props = NativeStackScreenProps<
 export type SettingsStackParamList = {
   Settings: undefined;
   Backup: undefined;
+  Donation: undefined;
   PrivacyPolicy: undefined;
 };
 
@@ -40,6 +43,27 @@ const SettingsStack: React.FC<Props> = () => {
           headerShown: true,
           title: '',
           headerLeft: () => <HeaderBackButton onPress={navigation.goBack} />,
+        })}
+      />
+
+      <Stack.Screen
+        name="Donation"
+        component={DonationScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          title: '',
+          headerLeft: () => <HeaderBackButton onPress={navigation.goBack} />,
+        })}
+      />
+
+      <Stack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicyScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          title: '',
+          headerLeft: () => <HeaderBackButton onPress={navigation.goBack} />,
+          presentation: 'modal',
         })}
       />
     </Stack.Navigator>

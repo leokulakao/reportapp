@@ -1,5 +1,6 @@
 export default {
   translation: {
+    // SHARED
     en: 'Inglés',
     es: 'Español',
     ru: 'Ruso',
@@ -10,6 +11,7 @@ export default {
     Day: 'Día',
     Confirm: 'Confirmar',
 
+    // REPORT FORM
     Hours: 'Horas',
     Minutes: 'Minutos',
     Publications: 'Publicaciones',
@@ -30,11 +32,19 @@ export default {
     Cancel: 'Cancelar',
     Yes: 'Sí',
 
+    // SETTINGS
     Settings: 'Ajustes',
-    'Synchronization and backups': 'Sincronización and backups',
+    'Synchronization and backups': 'Sincronización y backups',
     Languages: 'Idiomas',
     Appearance: 'Apariencia',
     Donations: 'Donaciones',
+
+    // SYNC SCREEN
+    Synchronization: 'Sincronización',
+    'Create a back up': 'Realizar copia de seguridad',
+    'Restore a backup': 'Restaurar una copia de seguridad',
+    'Here you can back up & restore your reports and statistics':
+      'Aquí puede hacer una copia de seguridad y restaurar sus informes y estadísticas',
 
     'Privacy Policy': 'Política de privacidad',
   },

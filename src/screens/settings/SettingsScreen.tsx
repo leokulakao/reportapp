@@ -56,7 +56,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
             <SettingsNavLink
               text="Donations"
               icon="heart-outline"
-              onPress={() => {}}
+              onPress={() => navigation?.navigate('Donation')}
             />
           </View>
         </View>
