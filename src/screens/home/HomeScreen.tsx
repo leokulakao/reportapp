@@ -1,11 +1,12 @@
 import React from 'react';
-import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { useTheme } from '@shopify/restyle';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import Theme from '../../theme';
 import ReportForm from '../../components/report-form/ReportForm';
 import MonthSlider from '../../components/month-slider/MonthSlider';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeStackParamList } from './HomeStack';
+import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 

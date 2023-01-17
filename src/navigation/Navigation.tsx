@@ -93,8 +93,7 @@ const Tabs = () => {
         lazy: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          borderTopColor: theme.colors.blockBackgroudColor,
-          backgroundColor: theme.colors.blockBackgroudColor,
+          backgroundColor: theme.colors.accentColor,
           position: 'absolute',
           bottom: 25,
           left: 20,

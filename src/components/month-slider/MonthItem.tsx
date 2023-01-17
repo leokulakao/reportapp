@@ -107,7 +107,7 @@ const styles = (theme: Theme) =>
       paddingBottom: 30,
       marginLeft: '2.5%',
       marginRight: '2.5%',
-      backgroundColor: theme.colors.blockBackgroudColor,
+      backgroundColor: theme.colors.backgroundColor,
     },
     title: {
       fontSize: 49,

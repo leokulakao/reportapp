@@ -139,7 +139,7 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       padding: 10,
-      backgroundColor: theme.colors.blockBackgroudColor,
+      backgroundColor: theme.colors.secondaryBackgroundColor,
       borderRadius: 15,
     },
     navLinkText: {
