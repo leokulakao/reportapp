@@ -1,6 +1,5 @@
-import { useTheme } from '@shopify/restyle';
 import React, { forwardRef, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectThemeState } from '../../store/app/appSelectors';
 import { doChangeThemeState } from '../../store/app/appService';
@@ -17,8 +16,12 @@ const THEMES: ThemeNames[] = ['light', 'dark'];
 
 const ThemeSelect: React.FC<Props> = forwardRef((props, ref) => {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
-  const theme = useSelector(selectThemeState());
+  // const { t, i18n } = useTranslation();
+  const theme: ThemeNames = useSelector(selectThemeState());
+
+  useEffect(() => {
+    console.log(theme);
+  }, [theme]);
 
   return (
     <BottomSheetSelect ref={ref}>

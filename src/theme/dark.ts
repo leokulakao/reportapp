@@ -6,6 +6,7 @@ const palette = {
   darkGray: '#1F1F1F',
   black: '#000000',
   gray: '#EBEEF2',
+  grayBlock: '#47484a',
   grayFont: '#AAAEB2',
   green: '#68BF79',
 };
@@ -14,13 +15,14 @@ const theme = createTheme({
   colors: {
     statusBar: 'light',
 
-    backgroundColor: palette.white,
-    secondaryBackgroundColor: palette.gray,
+    backgroundColor: palette.black,
+    secondaryBackgroundColor: palette.darkGray,
+    blockBackgroudColor: palette.grayBlock,
 
-    textColor: palette.black,
-    secondaryTextColor: palette.grayFont,
+    textColor: palette.white,
+    secondaryTextColor: palette.white,
 
-    accentColor: palette.darkGray,
+    accentColor: palette.white,
     greenColor: palette.green,
   },
   spacing: {},

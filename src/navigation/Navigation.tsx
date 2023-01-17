@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unstable-nested-components */
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
   GestureResponderEvent,
   TouchableOpacity,
@@ -20,10 +19,10 @@ import { ThemeProvider } from '@shopify/restyle';
 import HomeStack from '../screens/home/HomeStack';
 import SettingsStack from '../screens/settings/SettingsStack';
 import { useTheme } from '@shopify/restyle';
-import Theme, { themes } from '../theme';
-// import { useSelector } from 'react-redux';
-// import { selectThemeState } from '../store/app/appSelectors';
+import Theme, { ThemeNames, themes } from '../theme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { selectThemeState } from '../store/app/appSelectors';
+import { useSelector } from 'react-redux';
 
 export type RootStackParamList = {
   Navigation: NavigatorScreenParams<NavigationTabParamList>;
@@ -39,10 +38,18 @@ const Tab = createBottomTabNavigator<NavigationTabParamList>();
 
 const Navigation = () => {
   const theme = useTheme<Theme>();
-  // const appTheme = useSelector(selectThemeState());
+  const appTheme: ThemeNames = useSelector(selectThemeState());
+
+  const [selectedTheme, setSelectedTheme] = useState<Theme>();
+
+  useEffect(() => {
+    appTheme === 'dark'
+      ? setSelectedTheme(themes.dark.theme)
+      : setSelectedTheme(themes.light.theme);
+  }, [appTheme]);
 
   return (
-    <ThemeProvider theme={themes.light.theme}>
+    <ThemeProvider theme={selectedTheme}>
       <BottomSheetModalProvider>
         <SafeAreaProvider>
           <NavigationContainer>
@@ -86,7 +93,8 @@ const Tabs = () => {
         lazy: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: theme.colors.accentColor,
+          borderTopColor: theme.colors.blockBackgroudColor,
+          backgroundColor: theme.colors.blockBackgroudColor,
           position: 'absolute',
           bottom: 25,
           left: 20,

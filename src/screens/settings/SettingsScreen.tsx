@@ -103,7 +103,7 @@ const SettingsNavLink: React.FC<SettingsNavLinkProps> = ({
       onPress={() => onPress()}
       activeOpacity={0.7}
     >
-      <Icon name={icon} size={55} />
+      <Icon name={icon} size={55} color={theme.colors.textColor} />
       <Text style={styles(theme).navLinkText}>{t(text)}</Text>
     </TouchableOpacity>
   );
@@ -120,6 +120,7 @@ const styles = (theme: Theme) =>
       marginBottom: 30,
       fontSize: 49,
       lineHeight: 58,
+      color: theme.colors.textColor,
     },
     // GRID LAYOUT
     buttonsGridContainer: {
@@ -138,12 +139,13 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       padding: 10,
-      backgroundColor: theme.colors.secondaryBackgroundColor,
+      backgroundColor: theme.colors.blockBackgroudColor,
       borderRadius: 15,
     },
     navLinkText: {
       marginTop: 10,
       textAlign: 'center',
+      color: theme.colors.textColor,
     },
     // ------
     screenFooter: {

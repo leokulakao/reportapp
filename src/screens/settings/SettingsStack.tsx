@@ -36,13 +36,11 @@ const SettingsStack: React.FC<Props> = () => {
       <Stack.Screen
         name="Backup"
         component={BackupScreen}
-        options={{
+        options={({ navigation }) => ({
           headerShown: true,
           title: '',
-          headerLeft: () => (
-            <HeaderBackButton onPress={() => console.log('123')} />
-          ),
-        }}
+          headerLeft: () => <HeaderBackButton onPress={navigation.goBack} />,
+        })}
       />
     </Stack.Navigator>
   );

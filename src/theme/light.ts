@@ -6,6 +6,7 @@ const palette = {
   darkGray: '#1F1F1F',
   black: '#000000',
   gray: '#EBEEF2',
+  grayBlock: '#ffffff',
   grayFont: '#AAAEB2',
   green: '#68BF79',
 };
@@ -16,6 +17,7 @@ const theme = createTheme({
 
     backgroundColor: palette.white,
     secondaryBackgroundColor: palette.gray,
+    blockBackgroudColor: palette.grayBlock,
 
     textColor: palette.black,
     secondaryTextColor: palette.grayFont,

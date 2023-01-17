@@ -8,6 +8,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
+  ref: any;
 };
 
 const BottomSheetSelect: React.FC<Props> = forwardRef((props, ref) => {

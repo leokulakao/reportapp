@@ -1,25 +1,29 @@
-import { NavigationProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-type Props = {
-  navigation?: NavigationProp<any, any>;
+// type HeaderBackButtonPropsCustomRight = NativeStackHeaderProps & {
+//   onPress?: () => void;
+// };
+
+type HeaderBackButtonPropsCustomRight = {
   onPress?: () => void;
 };
 
-const HeaderBackButton: React.FC<Props> = (props) => {
-  const { navigation, onPress } = props;
+const HeaderBackButton: React.FC<HeaderBackButtonPropsCustomRight> = (
+  props
+) => {
+  const { onPress } = props;
 
-  const goBack = () => {
-    const canGoBack = navigation?.canGoBack();
-    return canGoBack ? navigation?.goBack() : navigation?.popToTop();
-  };
+  console.log(onPress);
+
+  // const goBack = () => {
+  //   // const canGoBack = navigation?.navigation.canGoBack();
+  //   console.log(onPress);
+  //   return onPress;
+  // };
   return (
-    <TouchableOpacity
-      onPress={onPress ? onPress : () => goBack()}
-      style={{ marginLeft: 0 }}
-    >
+    <TouchableOpacity onPress={onPress} style={{ marginLeft: 0 }}>
       <Icon name="arrow-back-outline" size={40} />
     </TouchableOpacity>
   );
