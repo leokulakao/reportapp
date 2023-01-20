@@ -1,15 +1,68 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { ReportsByDays } from '../../store/reports/reportsState';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 
 type Props = {
-  item: any;
+  reports: ReportsByDays;
 };
 
 const MonthReportItem: React.FC<Props> = (props) => {
-  const { item } = props;
+  const { reports } = props;
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const handleActionSheet = () => {
+    const options = ['Delete', 'Save', 'Cancel'];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      (selectedIndex: number | undefined) => {
+        switch (selectedIndex) {
+          case 1:
+            // Save
+            break;
+
+          case destructiveButtonIndex:
+            // Delete
+            break;
+
+          case cancelButtonIndex:
+          // Canceled
+        }
+      }
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <Text>{item}</Text>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>{reports?.day}</Text>
+      </View>
+      {reports.reports.length > 0 ? (
+        reports.reports.map((report) => (
+          <View style={styles.item} key={report.date}>
+            <Text style={styles.itemText}>
+              {report.title === ''
+                ? new Date(report.date).toISOString()
+                : report.title}
+            </Text>
+            <View style={styles.actionContainer}>
+              <TouchableOpacity onPress={handleActionSheet}>
+                <Icon name="ellipsis-horizontal-outline" size={24} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))
+      ) : (
+        <></>
+      )}
     </View>
   );
 };

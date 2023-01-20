@@ -1,12 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-type Props = {};
+type Props = {
+  month: number;
+};
 
-const MonthReportHeader: React.FC<Props> = () => {
+const MonthReportHeader: React.FC<Props> = (props) => {
+  const { month } = props;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{'123'}</Text>
+      <Text style={styles.text}>{month}</Text>
     </View>
   );
 };

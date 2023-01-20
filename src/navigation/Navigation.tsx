@@ -23,6 +23,7 @@ import Theme, { ThemeNames, themes } from '../theme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { selectThemeState } from '../store/app/appSelectors';
 import { useSelector } from 'react-redux';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 export type RootStackParamList = {
   Navigation: NavigatorScreenParams<NavigationTabParamList>;
@@ -49,23 +50,25 @@ const Navigation = () => {
   }, [appTheme]);
 
   return (
-    <ThemeProvider theme={selectedTheme}>
-      <BottomSheetModalProvider>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName={'Navigation'}>
-              <Stack.Screen
-                name="Navigation"
-                component={Tabs}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
+    <ActionSheetProvider>
+      <ThemeProvider theme={selectedTheme}>
+        <BottomSheetModalProvider>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName={'Navigation'}>
+                <Stack.Screen
+                  name="Navigation"
+                  component={Tabs}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
 
-          <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
-        </SafeAreaProvider>
-      </BottomSheetModalProvider>
-    </ThemeProvider>
+            <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
+          </SafeAreaProvider>
+        </BottomSheetModalProvider>
+      </ThemeProvider>
+    </ActionSheetProvider>
   );
 };
 

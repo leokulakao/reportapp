@@ -15,7 +15,7 @@ const HeaderBackButton: React.FC<HeaderBackButtonPropsCustomRight> = (
 ) => {
   const { onPress } = props;
 
-  console.log(onPress);
+  // console.log(onPress);
 
   // const goBack = () => {
   //   // const canGoBack = navigation?.navigation.canGoBack();

@@ -21,7 +21,6 @@ export const reportsSlice = createSlice({
         id: uuidv4(),
       };
       state.reports.push(newReport);
-      console.log(newReport, state.reports);
     },
 
     deleteAllReports: (state: ReportsState) => {

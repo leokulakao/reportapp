@@ -126,7 +126,7 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
   }));
 
   useEffect(() => {
-    console.log(allReports);
+    // console.log(allReports);
   }, [allReports]);
 
   return (

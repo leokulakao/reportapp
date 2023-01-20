@@ -18,7 +18,10 @@ export type Props = NativeStackScreenProps<
 
 export type HomeStackParamList = {
   Home: undefined;
-  MonthReport: undefined;
+  MonthReport: {
+    year: number;
+    month: number;
+  };
 };
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();

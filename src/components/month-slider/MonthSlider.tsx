@@ -55,7 +55,7 @@ const MonthSlider: React.FC<Props> = (props) => {
         scrollAnimationDuration={1000}
         onSnapToItem={() => {}}
         renderItem={({ index }) => (
-          <MonthItem index={index} navigation={navigation} />
+          <MonthItem year={year} month={index} navigation={navigation} />
         )}
       />
     </View>

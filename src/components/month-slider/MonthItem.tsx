@@ -6,23 +6,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 
 type Props = {
-  index: number;
+  year: number;
+  month: number;
   navigation?: NavigationProp<any, any>;
 };
 
 const MonthItem: React.FC<Props> = (props) => {
-  const { index, navigation } = props;
+  const { year, month, navigation } = props;
   const theme = useTheme<Theme>();
 
-  const onPressToMonthNavigate = () => navigation?.navigate('MonthReport');
+  const onPressToMonthNavigate = (month: number) =>
+    navigation?.navigate('MonthReport', { year: year, month: month });
 
   return (
     <TouchableOpacity
       style={styles(theme).mainPress}
-      onPress={onPressToMonthNavigate}
+      onPress={() => onPressToMonthNavigate(month)}
     >
       <View style={styles(theme).item}>
-        <Text style={styles(theme).title}>{index}</Text>
+        <Text style={styles(theme).title}>{month}</Text>
         <View style={styles(theme).containerLine}>
           <View style={styles(theme).firstLine} />
         </View>
