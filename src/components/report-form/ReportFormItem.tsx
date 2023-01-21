@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   type: 'number' | 'date' | 'string';
@@ -37,6 +38,9 @@ const ReportFormItem: React.FC<Props> = (props) => {
   } = props;
 
   const theme = useTheme<Theme>();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t, i18n } = useTranslation();
 
   const onDateItemAndroidPress = () => {
     console.log(value);
@@ -141,6 +145,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
           </Text>
           {type === 'date' && typeof value && Platform.OS === 'ios' ? (
             <DateTimePicker
+              locale={i18n.language}
               value={new Date(value)}
               mode={'date'}
               is24Hour={true}

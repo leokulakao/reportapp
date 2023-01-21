@@ -9,7 +9,21 @@ export default {
     Year: 'Year',
 
     Day: 'Day',
+    Date: 'Date',
     Confirm: 'Confirm',
+
+    'month-0': 'January',
+    'month-1': 'February',
+    'month-2': 'March',
+    'month-3': 'April',
+    'month-4': 'May',
+    'month-5': 'June',
+    'month-6': 'July',
+    'month-7': 'August',
+    'month-8': 'September',
+    'month-9': 'October',
+    'month-10': 'November',
+    'month-11': 'December',
 
     // REPORT FORM
     Hours: 'Hours',
@@ -18,6 +32,8 @@ export default {
     Videos: 'Videos',
     'Return Visits': 'Retirn Visits',
     'Bible Studies': 'Bible Studies',
+    'Special Hours': 'Special Hours',
+    'Special Minutes': 'Special Minutes',
 
     'Add a title': 'Add a title',
     'Send Report': 'Send report',

@@ -23,7 +23,7 @@ const getArrayMonth = () => {
 
 const getMonths = (year: number) =>
   year === currentYear
-    ? getArrayMonth().slice(0, currentMonth + 1)
+    ? getArrayMonth().slice(0, currentMonth)
     : getArrayMonth();
 
 const MonthSlider: React.FC<Props> = (props) => {

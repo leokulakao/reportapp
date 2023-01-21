@@ -26,9 +26,27 @@ export const reportsSlice = createSlice({
     deleteAllReports: (state: ReportsState) => {
       state.reports = [];
     },
+
+    deleteReportById: (state: ReportsState, action: PayloadAction<string>) => {
+      state.reports = state.reports.filter(
+        (report) => report.id !== action.payload
+      );
+    },
+
+    editReportById: (
+      state: ReportsState,
+      action: PayloadAction<ReportStorage>
+    ) => {
+      for (let i = 0; i < state.reports.length; i++) {
+        if (state.reports[i].id === action.payload.id) {
+          state.reports[i] = action.payload;
+        }
+      }
+    },
   },
 });
 
-export const { addReport, deleteAllReports } = reportsSlice.actions;
+export const { addReport, deleteAllReports, deleteReportById, editReportById } =
+  reportsSlice.actions;
 
 export default reportsSlice.reducer;

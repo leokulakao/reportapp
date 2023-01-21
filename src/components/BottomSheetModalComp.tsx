@@ -4,6 +4,7 @@ import {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
+import { Platform } from 'react-native';
 
 type Props = {
   innerRef: any;
@@ -35,7 +36,7 @@ const BottomSheetModalComp: React.FC<Props> = (props) => {
       // backgroundStyle={{ backgroundColor: THEME.BACKGROUND_COLOR }}
       handleIndicatorStyle={{ backgroundColor: 'grey' }}
       enablePanDownToClose
-      // enableContentPanningGesture={false}
+      enableContentPanningGesture={Platform.OS === 'android' ? false : true}
       backdropComponent={renderBackdrop}
     >
       <BottomSheetScrollView contentContainerStyle={[containerStyle]}>

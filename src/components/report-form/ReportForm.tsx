@@ -27,23 +27,28 @@ import { Report } from '../../models';
 import {
   doAddReport,
   doDeleteAllReports,
+  doEditReportById,
 } from '../../store/reports/reportsService';
 import { useSelector } from 'react-redux';
 import { selectAllReports } from '../../store/reports/reportsSelectors';
 import { ReportStorage } from '../../store/reports/reportsState';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
-  reportData?: ReportStorage;
+  reportData?: ReportStorage | null;
   hasAddButton: boolean;
 };
 
-type PropsForwardedRef = {
+export type ReportFormRef = {
   open: () => void;
   close: () => void;
 };
 
-const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
-  const { reportData, hasAddButton } = props;
+const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
+  const { reportData = null, hasAddButton } = props;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -81,11 +86,21 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
       specialMinutes: 0,
     },
     onSubmit: () => {
-      const newReport: Report = {
-        ...values,
-      };
-      doAddReport(dispatch, newReport);
-      bottomSheetModalRef.current?.close();
+      console.log('123', formMode);
+      if (formMode === 'create') {
+        const newReport: Report = {
+          ...values,
+        };
+        doAddReport(dispatch, newReport);
+        bottomSheetModalRef.current?.close();
+      } else if (formMode === 'edit' && !!reportData) {
+        const editReport: ReportStorage = {
+          ...values,
+          id: reportData.id,
+        };
+        doEditReportById(dispatch, editReport);
+        bottomSheetModalRef.current?.close();
+      }
     },
   });
 
@@ -141,25 +156,25 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
           style={styles.reportTitleinput}
           onChangeText={handleChange('title')}
           value={values.title}
-          placeholder={`Add a title...`}
+          placeholder={`${t('Add a title')}...`}
         />
         <ReportFormItem
           type="date"
-          title="Date"
+          title={t('Date')}
           onChange={(v) => setFieldValue('date', v)}
           value={values.date}
           marginB
         />
         <ReportFormItem
           type="number"
-          title="Hours"
+          title={t('Hours')}
           icon="time-outline"
           value={values.hours}
           onChange={(v) => setFieldValue('hours', v)}
         />
         <ReportFormItem
           type="number"
-          title="Minutes"
+          title={t('Minutes')}
           icon="time-outline"
           value={values.minutes}
           onChange={(v) => setFieldValue('minutes', v)}
@@ -169,28 +184,28 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
         />
         <ReportFormItem
           type="number"
-          title="Publications"
+          title={t('Publications')}
           icon="library-outline"
           value={values.publications}
           onChange={(v) => setFieldValue('publications', v)}
         />
         <ReportFormItem
           type="number"
-          title="Videos"
+          title={t('Videos')}
           icon="play-outline"
           value={values.videos}
           onChange={(v) => setFieldValue('videos', v)}
         />
         <ReportFormItem
           type="number"
-          title="Return Visits"
+          title={t('Return Visits')}
           icon="chatbubbles-outline"
           value={values.returnVisits}
           onChange={(v) => setFieldValue('returnVisits', v)}
         />
         <ReportFormItem
           type="number"
-          title="Bible Studies"
+          title={t('Bible Studies')}
           icon="people-outline"
           value={values.bibleStudies}
           onChange={(v) => setFieldValue('bibleStudies', v)}
@@ -198,14 +213,14 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
         />
         <ReportFormItem
           type="number"
-          title="Special Hours"
+          title={t('Special Hours')}
           icon="time-outline"
           value={values.specialHours}
           onChange={(v) => setFieldValue('specialHours', v)}
         />
         <ReportFormItem
           type="number"
-          title="Special Minutes"
+          title={t('Special Minutes')}
           icon="time-outline"
           value={values.specialMinutes}
           onChange={(v) => setFieldValue('specialMinutes', v)}
@@ -215,10 +230,15 @@ const ReportForm = forwardRef<PropsForwardedRef, Props>((props, ref) => {
         />
 
         <View style={styles.sheetButtonsContainer}>
-          <MainButton icon="checkmark" onPress={() => handleSubmit()} />
+          <MainButton
+            icon="checkmark"
+            onPress={() => {
+              handleSubmit();
+            }}
+          />
         </View>
         <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
-          <Text>Borrar</Text>
+          <Text>{t('Delete')}</Text>
         </TouchableOpacity>
       </BottomSheetModalComp>
     </>

@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { ReportsByDays } from '../../store/reports/reportsState';
+import { ReportsByDays, ReportStorage } from '../../store/reports/reportsState';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import { doDeleteReportById } from '../../store/reports/reportsService';
+import { useDispatch } from 'react-redux';
+import { ReportFormRef } from '../report-form/ReportForm';
 
 type Props = {
   reports: ReportsByDays;
+  setReportFormDataEdit: React.Dispatch<
+    React.SetStateAction<ReportStorage | undefined>
+  >;
+  reportFormRef: RefObject<ReportFormRef>;
 };
 
 const MonthReportItem: React.FC<Props> = (props) => {
-  const { reports } = props;
+  const { reports, setReportFormDataEdit, reportFormRef } = props;
   const { showActionSheetWithOptions } = useActionSheet();
+  const dispatch = useDispatch();
 
-  const handleActionSheet = () => {
-    const options = ['Delete', 'Save', 'Cancel'];
+  const handleActionSheet = (selectedReport: ReportStorage) => {
+    const options = ['Delete', 'Edit', 'Cancel'];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
 
@@ -26,11 +34,12 @@ const MonthReportItem: React.FC<Props> = (props) => {
       (selectedIndex: number | undefined) => {
         switch (selectedIndex) {
           case 1:
-            // Save
+            setReportFormDataEdit(selectedReport);
+            reportFormRef.current?.open();
             break;
 
           case destructiveButtonIndex:
-            // Delete
+            doDeleteReportById(dispatch, selectedReport.id);
             break;
 
           case cancelButtonIndex:
@@ -54,7 +63,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
                 : report.title}
             </Text>
             <View style={styles.actionContainer}>
-              <TouchableOpacity onPress={handleActionSheet}>
+              <TouchableOpacity onPress={() => handleActionSheet(report)}>
                 <Icon name="ellipsis-horizontal-outline" size={24} />
               </TouchableOpacity>
             </View>
