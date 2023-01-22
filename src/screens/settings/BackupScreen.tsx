@@ -13,6 +13,11 @@ import MainButton from '../../components/buttons/MainButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SettingsStackParamList } from './SettingsStack';
 import ScreenHeader from '../../components/ScreenHeader';
+import { useSelector } from 'react-redux';
+import { selectBackup } from '../../store/reports/reportsSelectors';
+import { useDispatch } from 'react-redux';
+import { doUploadBackup } from '../../store/reports/reportsService';
+import { Backup } from '../../store/reports/reportsState';
 
 type Props = NativeStackScreenProps<SettingsStackParamList, 'Backup'>;
 
@@ -21,16 +26,19 @@ const BackupScreen: React.FC<Props> = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();
 
-  const createBackupFile = async () => {
-    let fileUri = FileSystem.documentDirectory + 'text.txt';
+  const dispatch = useDispatch();
 
-    // CREATE BACKUP FILE
-    FileSystem.writeAsStringAsync(fileUri, 'Hello World', {
+  const backupData = useSelector(selectBackup());
+  const backupDataJson = JSON.stringify(backupData);
+
+  const createBackupFile = async () => {
+    let fileUri = FileSystem.documentDirectory + `reportapp.reportbackup`;
+
+    FileSystem.writeAsStringAsync(fileUri, backupDataJson, {
       encoding: FileSystem.EncodingType.UTF8,
     })
       .then(() => {
         Sharing.shareAsync(fileUri);
-        // ADD --> Detach Modal
       })
       .catch((err) => {
         console.log('[FILE CREATION ERROR]', err);
@@ -41,16 +49,16 @@ const BackupScreen: React.FC<Props> = () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
         copyToCacheDirectory: false,
-        type: ['text/*'],
+        type: ['*/*'],
       });
 
       if (result.type !== 'cancel') {
         FileSystem.readAsStringAsync(result.uri, {
           encoding: FileSystem.EncodingType.UTF8,
         })
-          .then((r) => {
-            // GET BACKUP FILE CONTENT AS A TEXT
-            console.log('[READ FILE]', r);
+          .then((r: string) => {
+            const _backup: Backup = JSON.parse(r);
+            doUploadBackup(dispatch, _backup.reports);
           })
           .catch((err) => {
             console.log('[READ BACKUP FILE ERROR]', err);

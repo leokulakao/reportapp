@@ -1,6 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../rootState';
-import { ReportsByDays, ReportsByMonth, ReportStatsYear } from './reportsState';
+import {
+  Backup,
+  ReportsByDays,
+  ReportsByMonth,
+  ReportStatsYear,
+} from './reportsState';
 
 const reports = (state: RootState) => state.reports.reports;
 
@@ -112,5 +117,14 @@ export const selectStatsReportsByYear = (year: number) =>
         }
       }
     }
+    return result;
+  });
+
+export const selectBackup = () =>
+  createSelector(reports, (_) => {
+    const result: Backup = {
+      version: '1.0.0',
+      reports: _,
+    };
     return result;
   });

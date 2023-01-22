@@ -28,6 +28,11 @@ export interface ReportStatsYear {
   statsMonths: ReportStatsMonth[];
 }
 
+export interface Backup {
+  version: string;
+  reports: ReportStorage[];
+}
+
 export interface ReportStatsMonth {
   year: number;
   month: number;

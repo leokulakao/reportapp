@@ -43,10 +43,22 @@ export const reportsSlice = createSlice({
         }
       }
     },
+
+    uploadBackup: (
+      state: ReportsState,
+      action: PayloadAction<ReportStorage[]>
+    ) => {
+      state.reports = action.payload;
+    },
   },
 });
 
-export const { addReport, deleteAllReports, deleteReportById, editReportById } =
-  reportsSlice.actions;
+export const {
+  addReport,
+  deleteAllReports,
+  deleteReportById,
+  editReportById,
+  uploadBackup,
+} = reportsSlice.actions;
 
 export default reportsSlice.reducer;

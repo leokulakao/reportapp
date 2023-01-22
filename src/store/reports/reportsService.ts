@@ -5,6 +5,7 @@ import {
   deleteAllReports,
   deleteReportById,
   editReportById,
+  uploadBackup,
 } from './reportsSlice';
 import { ReportStorage } from './reportsState';
 
@@ -35,6 +36,14 @@ export function doDeleteReportById(dispatch: Dispatch, id: string) {
 export function doEditReportById(dispatch: Dispatch, report: ReportStorage) {
   try {
     dispatch(editReportById(report));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function doUploadBackup(dispatch: Dispatch, reports: ReportStorage[]) {
+  try {
+    dispatch(uploadBackup(reports));
   } catch (e) {
     console.log(e);
   }
