@@ -4,6 +4,9 @@ import { Dimensions, View, StyleSheet } from 'react-native';
 import YearForm from '../year-form/YearForm';
 import Carousel from 'react-native-reanimated-carousel';
 import MonthItem from './MonthItem';
+// import { ReportStatsYear } from '../../store/reports/reportsState';
+import { useSelector } from 'react-redux';
+import { selectStatsReportsByYear } from '../../store/reports/reportsSelectors';
 // import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 type Props = {
@@ -34,11 +37,17 @@ const MonthSlider: React.FC<Props> = (props) => {
   const [year, setYear] = useState<number>(currentYear);
   const [months, setMonths] = useState<number[]>(getMonths(currentYear));
   const [defaultIndex, setDefaultIndex] = useState<number>();
+  // const [stats, setStats] = useState<ReportStatsYear>();
+
+  const stats = useSelector(selectStatsReportsByYear(year));
+
+  // console.log('------------>', year, stats);
 
   useEffect(() => {
     const newMonths = getMonths(year);
     setDefaultIndex(newMonths.length - 1);
     setMonths(newMonths);
+    // setStats(returnStats);
   }, [year]);
 
   return (
@@ -55,7 +64,17 @@ const MonthSlider: React.FC<Props> = (props) => {
         scrollAnimationDuration={1000}
         onSnapToItem={() => {}}
         renderItem={({ index }) => (
-          <MonthItem year={year} month={index} navigation={navigation} />
+          <MonthItem
+            stats={
+              stats.statsMonths.filter((elem) => elem.month === index).length >
+              0
+                ? stats.statsMonths.filter((elem) => elem.month === index)[0]
+                : null
+            }
+            year={year}
+            month={index}
+            navigation={navigation}
+          />
         )}
       />
     </View>

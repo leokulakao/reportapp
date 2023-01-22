@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../rootState';
-import { ReportsByDays, ReportsByMonth } from './reportsState';
+import { ReportsByDays, ReportsByMonth, ReportStatsYear } from './reportsState';
 
 const reports = (state: RootState) => state.reports.reports;
 
@@ -42,5 +42,75 @@ export const selectReportsByMonth = (year: number, month: number) =>
       }
     }
     // console.log(result);
+    return result;
+  });
+
+export const selectStatsReportsByYear = (year: number) =>
+  createSelector(reports, (_) => {
+    const _reports = _;
+    const result: ReportStatsYear = {
+      year: year,
+      statsMonths: [],
+    };
+
+    if (_reports.length > 0) {
+      for (let i = 0; i < 12; i++) {
+        const month = i;
+        const start = new Date(year, month, 1, 1, 0, 0);
+        const end = new Date(year, month + 1, 1, 0, 0, 0);
+        const r = _reports
+          // .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .filter((elem) => {
+            const d = new Date(elem.date);
+            return (
+              d.getTime() >= start.getTime() && d.getTime() <= end.getTime()
+            );
+          });
+        if (r.length > 0) {
+          let statHours: number = 0;
+          let statMinutes: number = 0;
+          let statPublications: number = 0;
+          let statVideos: number = 0;
+          let statReturnVisits: number = 0;
+          let statBibleStudies: number = 0;
+          let statSpecialHours: number = 0;
+          let statSpecialMinutes: number = 0;
+          r.forEach((elem) => {
+            statHours = statHours + elem.hours;
+            statMinutes = statMinutes + elem.minutes;
+            statPublications = statPublications + elem.publications;
+            statVideos = statVideos + elem.videos;
+            statReturnVisits = statReturnVisits + elem.returnVisits;
+
+            if (elem.bibleStudies > statBibleStudies) {
+              statBibleStudies = elem.bibleStudies;
+            }
+
+            statSpecialHours = statSpecialHours + elem.specialHours;
+            statSpecialMinutes = statSpecialMinutes + elem.specialMinutes;
+          });
+
+          if (statMinutes >= 60) {
+            statHours = statHours + Math.trunc(statMinutes / 60);
+          }
+
+          if (statSpecialMinutes >= 60) {
+            statSpecialHours =
+              statSpecialHours + Math.trunc(statSpecialMinutes / 60);
+          }
+
+          result.statsMonths.push({
+            year: year,
+            month: month,
+            hours: statHours,
+            publications: statPublications,
+            videos: statPublications,
+            returnVisits: statReturnVisits,
+            biblieStudies: statBibleStudies,
+            specialHours: statSpecialHours,
+          });
+        }
+      }
+    }
     return result;
   });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 type Props = {
@@ -8,6 +9,8 @@ type Props = {
 
 const SelectYearButton: React.FC<Props> = (props) => {
   const { year, onPress } = props;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [t, i18n] = useTranslation();
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -15,7 +18,7 @@ const SelectYearButton: React.FC<Props> = (props) => {
       activeOpacity={0.7}
     >
       <Text style={styles.text}>
-        {'Year'} {year}
+        {t('Year')} {year}
       </Text>
     </TouchableOpacity>
   );

@@ -22,3 +22,19 @@ export interface ReportsByDays {
   end: string;
   reports: ReportStorage[];
 }
+
+export interface ReportStatsYear {
+  year: number;
+  statsMonths: ReportStatsMonth[];
+}
+
+export interface ReportStatsMonth {
+  year: number;
+  month: number;
+  hours: number;
+  publications: number;
+  videos: number;
+  returnVisits: number;
+  biblieStudies: number;
+  specialHours: number;
+}

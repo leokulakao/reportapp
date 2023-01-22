@@ -4,16 +4,22 @@ import { useTheme } from '@shopify/restyle';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
+import { ReportStatsMonth } from '../../store/reports/reportsState';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   year: number;
   month: number;
   navigation?: NavigationProp<any, any>;
+  stats: ReportStatsMonth | null;
 };
 
 const MonthItem: React.FC<Props> = (props) => {
-  const { year, month, navigation } = props;
+  const { year, month, navigation, stats } = props;
   const theme = useTheme<Theme>();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [t, i18n] = useTranslation();
 
   const onPressToMonthNavigate = (month: number) =>
     navigation?.navigate('MonthReport', { year: year, month: month });
@@ -24,7 +30,7 @@ const MonthItem: React.FC<Props> = (props) => {
       onPress={() => onPressToMonthNavigate(month)}
     >
       <View style={styles(theme).item}>
-        <Text style={styles(theme).title}>{month}</Text>
+        <Text style={styles(theme).title}>{t(`month-${month}`)}</Text>
         <View style={styles(theme).containerLine}>
           <View style={styles(theme).firstLine} />
         </View>
@@ -34,8 +40,8 @@ const MonthItem: React.FC<Props> = (props) => {
             size={24}
             color={theme.colors.textColor}
           />
-          <Text style={styles(theme).statTitle}>{'Hours'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Hours')}</Text>
+          <Text style={styles(theme).statValue}>{stats?.hours || 0}</Text>
         </View>
         <View style={styles(theme).statContainer}>
           <Icon
@@ -43,13 +49,15 @@ const MonthItem: React.FC<Props> = (props) => {
             size={24}
             color={theme.colors.textColor}
           />
-          <Text style={styles(theme).statTitle}>{'Publications'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Publications')}</Text>
+          <Text style={styles(theme).statValue}>
+            {stats?.publications || 0}
+          </Text>
         </View>
         <View style={styles(theme).statContainer}>
           <Icon name="play-outline" size={24} color={theme.colors.textColor} />
-          <Text style={styles(theme).statTitle}>{'Videos'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Videos')}</Text>
+          <Text style={styles(theme).statValue}>{stats?.videos || 0}</Text>
         </View>
         <View style={styles(theme).statContainer}>
           <Icon
@@ -57,8 +65,10 @@ const MonthItem: React.FC<Props> = (props) => {
             size={24}
             color={theme.colors.textColor}
           />
-          <Text style={styles(theme).statTitle}>{'Return Visits'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Return Visits')}</Text>
+          <Text style={styles(theme).statValue}>
+            {stats?.returnVisits || 0}
+          </Text>
         </View>
         <View style={styles(theme).statContainer}>
           <Icon
@@ -66,8 +76,10 @@ const MonthItem: React.FC<Props> = (props) => {
             size={24}
             color={theme.colors.textColor}
           />
-          <Text style={styles(theme).statTitle}>{'Bible Studies'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Bible Studies')}</Text>
+          <Text style={styles(theme).statValue}>
+            {stats?.biblieStudies || 0}
+          </Text>
         </View>
         <View style={styles(theme).statContainer}>
           <Icon
@@ -75,8 +87,10 @@ const MonthItem: React.FC<Props> = (props) => {
             size={24}
             color={theme.colors.textColor}
           />
-          <Text style={styles(theme).statTitle}>{'Special Hours'}</Text>
-          <Text style={styles(theme).statValue}>{0}</Text>
+          <Text style={styles(theme).statTitle}>{t('Special Hours')}</Text>
+          <Text style={styles(theme).statValue}>
+            {stats?.specialHours || 0}
+          </Text>
         </View>
         <View style={styles(theme).containerLine}>
           <View style={styles(theme).secondLine} />
@@ -86,7 +100,7 @@ const MonthItem: React.FC<Props> = (props) => {
           onPress={() => console.log(123)}
         >
           <Icon name="share-outline" size={24} color={theme.colors.textColor} />
-          <Text style={styles(theme).buttonShareText}>{'Send Report'}</Text>
+          <Text style={styles(theme).buttonShareText}>{t('Send Report')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
