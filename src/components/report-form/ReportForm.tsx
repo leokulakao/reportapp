@@ -17,8 +17,8 @@ import {
   TextInput,
   StyleSheet,
   View,
-  Text,
-  TouchableOpacity,
+  // Text,
+  // TouchableOpacity,
 } from 'react-native';
 import MainButton from '../buttons/MainButton';
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ import { useDispatch } from 'react-redux';
 import { Report } from '../../models';
 import {
   doAddReport,
-  doDeleteAllReports,
+  // doDeleteAllReports,
   doEditReportById,
 } from '../../store/reports/reportsService';
 import { useSelector } from 'react-redux';
@@ -115,6 +115,8 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
       setFieldValue('publications', reportData.publications);
       setFieldValue('returnVisits', reportData.returnVisits);
       setFieldValue('bibleStudies', reportData.bibleStudies);
+      setFieldValue('specialHours', reportData.specialHours);
+      setFieldValue('specialMinutes', reportData.specialMinutes);
     } else {
       ReportSchema.fields.date.max(new Date());
       setFieldValue('title', '');
@@ -124,6 +126,8 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
       setFieldValue('publications', 0);
       setFieldValue('returnVisits', 0);
       setFieldValue('bibleStudies', 0);
+      setFieldValue('specialHours', 0);
+      setFieldValue('specialMinutes', 0);
     }
   };
 
@@ -237,9 +241,9 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
             }}
           />
         </View>
-        <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
+        {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
           <Text>{t('Delete')}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </BottomSheetModalComp>
     </>
   );
