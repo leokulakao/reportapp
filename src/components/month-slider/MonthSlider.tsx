@@ -56,7 +56,7 @@ const MonthSlider: React.FC<Props> = (props) => {
       <Carousel
         loop={false}
         width={width * 0.85}
-        height={430}
+        // height={430}
         autoPlay={false}
         data={months}
         style={styles.carousel}

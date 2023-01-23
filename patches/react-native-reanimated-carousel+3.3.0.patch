@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-reanimated-carousel/src/layouts/BaseLayout.tsx b/node_modules/react-native-reanimated-carousel/src/layouts/BaseLayout.tsx
+index 5447cef..adddce6 100644
+--- a/node_modules/react-native-reanimated-carousel/src/layouts/BaseLayout.tsx
++++ b/node_modules/react-native-reanimated-carousel/src/layouts/BaseLayout.tsx
+@@ -104,7 +104,7 @@ export const BaseLayout: React.FC<{
+       style={[
+         {
+           width: width || "100%",
+-          height: height || "100%",
++          // fixed height: height || "100%",
+           position: "absolute",
+         },
+         animatedStyle,
