@@ -123,7 +123,9 @@ const BackupScreen: React.FC<Props> = () => {
         >
           <View style={styles(theme).sheetContentContainer}>
             <LottieView
-              autoPlay
+              onLayout={() => {
+                animation.current?.play();
+              }}
               ref={animation}
               style={styles(theme).sheetAnimatedIcon}
               source={require('../../../assets/lottie/loadingCheck.json')}
