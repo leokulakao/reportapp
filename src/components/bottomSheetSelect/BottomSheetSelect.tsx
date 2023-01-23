@@ -56,7 +56,7 @@ const styles = (theme: Theme) =>
       paddingHorizontal: 24,
       paddingBottom: 45,
       paddingTop: 20,
-      backgroundColor: theme.colors.backgroundColor,
+      // backgroundColor: theme.colors.backgroundColor,
     },
   });
 

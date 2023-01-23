@@ -5,16 +5,22 @@ import {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import { Platform } from 'react-native';
+import { useTheme } from '@shopify/restyle';
+
+import Theme from '../theme';
 
 type Props = {
   innerRef: any;
   snapPoints: any;
   containerStyle?: any;
   children?: any;
+  bottomInset?: number;
+  detached?: boolean;
 };
 
 const BottomSheetModalComp: React.FC<Props> = (props) => {
   const { innerRef, snapPoints, containerStyle, children } = props;
+  const theme = useTheme<Theme>();
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -33,11 +39,12 @@ const BottomSheetModalComp: React.FC<Props> = (props) => {
     <BottomSheetModal
       ref={innerRef}
       snapPoints={snapPoints}
-      // backgroundStyle={{ backgroundColor: THEME.BACKGROUND_COLOR }}
+      backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
       handleIndicatorStyle={{ backgroundColor: 'grey' }}
       enablePanDownToClose
       enableContentPanningGesture={Platform.OS === 'android' ? false : true}
       backdropComponent={renderBackdrop}
+      {...props}
     >
       <BottomSheetScrollView contentContainerStyle={[containerStyle]}>
         {children}
