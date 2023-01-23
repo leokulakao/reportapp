@@ -7,7 +7,6 @@ import ReportForm from '../../components/report-form/ReportForm';
 import MonthSlider from '../../components/month-slider/MonthSlider';
 import { HomeStackParamList } from './HomeStack';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
-import { View } from 'react-native';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 
