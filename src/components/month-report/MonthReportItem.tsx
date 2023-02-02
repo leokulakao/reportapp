@@ -6,6 +6,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import { doDeleteReportById } from '../../store/reports/reportsService';
 import { useDispatch } from 'react-redux';
 import { ReportFormRef } from '../report-form/ReportForm';
+import { dateToLocale } from '../../utils/date';
 
 type Props = {
   reports: ReportsByDays;
@@ -59,7 +60,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
           <View style={styles.item} key={report.date}>
             <Text style={styles.itemText}>
               {report.title === ''
-                ? new Date(report.date).toISOString()
+                ? dateToLocale(new Date(report.date))
                 : report.title}
             </Text>
             <View style={styles.actionContainer}>

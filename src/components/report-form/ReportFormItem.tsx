@@ -14,6 +14,8 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker';
 import { useTranslation } from 'react-i18next';
 
+import { dateToLocale } from '../../utils/date';
+
 type Props = {
   type: 'number' | 'date' | 'string';
   title: string;
@@ -153,7 +155,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             />
           ) : (
             <Text style={{ fontSize: 18, lineHeight: 22 }}>
-              {type === 'date' ? value.toLocaleString() : value.toString()}
+              {type === 'date' ? dateToLocale(value as Date) : value.toString()}
             </Text>
           )}
         </TouchableOpacity>
