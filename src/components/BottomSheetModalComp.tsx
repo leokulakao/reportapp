@@ -8,10 +8,11 @@ import { Platform } from 'react-native';
 import { useTheme } from '@shopify/restyle';
 
 import Theme from '../theme';
+import { SharedValue } from 'react-native-reanimated';
 
 type Props = {
   innerRef: any;
-  snapPoints: any;
+  snapPoints: (string | number)[] | SharedValue<(string | number)[]>;
   containerStyle?: any;
   children?: any;
   bottomInset?: number;

@@ -34,6 +34,7 @@ export default {
     'Bible Studies': 'Библейские изучения',
     'Special Hours': 'Специальные часы',
     'Special Minutes': 'Специальные минуты',
+    Notes: 'Заметки',
 
     'Add a title': 'Добавить заголовок',
     'Send Report': 'Отправить отчет',

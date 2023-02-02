@@ -9,6 +9,8 @@ import { ReportsByDays, ReportStorage } from '../../store/reports/reportsState';
 import { doDeleteReportById } from '../../store/reports/reportsService';
 import { ReportFormRef } from '../report-form/ReportForm';
 import Theme from '../../theme';
+import { dateToLocale } from '../../utils/date';
+import i18n from '../../../localization';
 
 type Props = {
   reports: ReportsByDays;
@@ -25,7 +27,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
   const theme = useTheme<Theme>();
 
   const handleActionSheet = (selectedReport: ReportStorage) => {
-    const options = ['Delete', 'Edit', 'Cancel'];
+    const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Canceli')];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
 
@@ -63,7 +65,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
           <View style={styles(theme).item} key={report.date}>
             <Text style={styles(theme).itemText}>
               {report.title === ''
-                ? new Date(report.date).toISOString()
+                ? dateToLocale(new Date(report.date))
                 : report.title}
             </Text>
             <View style={styles(theme).actionContainer}>
