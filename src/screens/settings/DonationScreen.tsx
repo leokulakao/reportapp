@@ -12,7 +12,7 @@ import MainButton from '../../components/buttons/MainButton';
 
 type Props = NativeStackScreenProps<SettingsStackParamList, 'Donation'>;
 
-const DonationScreen: React.FC<Props> = () => {
+const DonationScreen: React.FC<Props> = ({ navigation }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();
@@ -29,7 +29,7 @@ const DonationScreen: React.FC<Props> = () => {
           <MainButton
             text="Donate"
             icon="heart"
-            onPress={() => {}}
+            onPress={() => navigation?.navigate('PayPal')}
             style={styles(theme).button}
             iconColor="white"
             textColor="white"

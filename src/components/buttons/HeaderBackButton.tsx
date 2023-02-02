@@ -1,6 +1,9 @@
 import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useTheme } from '@shopify/restyle';
+
+import Theme from '../../theme';
 
 // type HeaderBackButtonPropsCustomRight = NativeStackHeaderProps & {
 //   onPress?: () => void;
@@ -14,6 +17,7 @@ const HeaderBackButton: React.FC<HeaderBackButtonPropsCustomRight> = (
   props
 ) => {
   const { onPress } = props;
+  const theme = useTheme<Theme>();
 
   // console.log(onPress);
 
@@ -24,7 +28,11 @@ const HeaderBackButton: React.FC<HeaderBackButtonPropsCustomRight> = (
   // };
   return (
     <TouchableOpacity onPress={onPress} style={{ marginLeft: 0 }}>
-      <Icon name="arrow-back-outline" size={40} />
+      <Icon
+        name="arrow-back-outline"
+        size={40}
+        color={theme.colors.iconColor}
+      />
     </TouchableOpacity>
   );
 };

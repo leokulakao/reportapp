@@ -3,8 +3,11 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import React from 'react';
+import { useTheme } from '@shopify/restyle';
+
 import HeaderBackButton from '../../components/buttons/HeaderBackButton';
 import { NavigationTabParamList } from '../../navigation/Navigation';
+import Theme from '../../theme';
 import HomeScreen from './HomeScreen';
 import MonthReportScreen from './MonthReportScreen';
 
@@ -27,6 +30,8 @@ export type HomeStackParamList = {
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const HomeStack: React.FC<Props> = () => {
+  const theme = useTheme<Theme>();
+
   return (
     <Stack.Navigator>
       <Stack.Group
@@ -44,6 +49,9 @@ const HomeStack: React.FC<Props> = () => {
           options={{
             headerShown: true,
             title: '',
+            headerStyle: {
+              backgroundColor: theme.colors.backgroundColor,
+            },
             // presentation: 'modal',
           }}
         />

@@ -7,12 +7,8 @@ import React, {
   // useCallback,
   useEffect,
 } from 'react';
-import { useFormik } from 'formik';
-import { ReportSchema } from '../form-validation/validation';
-import AddReportButton from '../buttons/AddReportButton';
-import BottomSheetModalComp from '../BottomSheetModalComp';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import ReportFormItem from './ReportFormItem';
+import { useFormik } from 'formik';
 import {
   TextInput,
   StyleSheet,
@@ -20,6 +16,13 @@ import {
   // Text,
   // TouchableOpacity,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '@shopify/restyle';
+
+import { ReportSchema } from '../form-validation/validation';
+import AddReportButton from '../buttons/AddReportButton';
+import BottomSheetModalComp from '../BottomSheetModalComp';
+import ReportFormItem from './ReportFormItem';
 import MainButton from '../buttons/MainButton';
 import { useDispatch } from 'react-redux';
 // import { addReport } from '../../store/slices/reportsSlice';
@@ -32,7 +35,7 @@ import {
 import { useSelector } from 'react-redux';
 import { selectAllReports } from '../../store/reports/reportsSelectors';
 import { ReportStorage } from '../../store/reports/reportsState';
-import { useTranslation } from 'react-i18next';
+import Theme from '../../theme';
 
 type Props = {
   reportData?: ReportStorage | null;
@@ -46,6 +49,7 @@ export type ReportFormRef = {
 
 const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
   const { reportData = null, hasAddButton } = props;
+  const theme = useTheme<Theme>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
@@ -154,13 +158,14 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
       <BottomSheetModalComp
         innerRef={bottomSheetModalRef}
         snapPoints={snapPoints}
-        containerStyle={styles.sheetContainer}
+        containerStyle={styles(theme).sheetContainer}
       >
         <TextInput
-          style={styles.reportTitleinput}
+          style={styles(theme).reportTitleinput}
           onChangeText={handleChange('title')}
           value={values.title}
           placeholder={`${t('Add a title')}...`}
+          placeholderTextColor={theme.colors.secondaryTextColor}
         />
         <ReportFormItem
           type="date"
@@ -233,9 +238,10 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
           isMinutes
         />
 
-        <View style={styles.sheetButtonsContainer}>
+        <View style={styles(theme).sheetButtonsContainer}>
           <MainButton
             icon="checkmark"
+            style={{ backgroundColor: theme.colors.cardItemColor }}
             onPress={() => {
               handleSubmit();
             }}
@@ -251,18 +257,20 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
 export default ReportForm;
 
-const styles = StyleSheet.create({
-  sheetContainer: {
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    paddingBottom: 45,
-  },
-  reportTitleinput: {
-    marginBottom: 25,
-    fontSize: 24,
-    lineHeight: 30,
-  },
-  sheetButtonsContainer: {
-    flexDirection: 'row',
-  },
-});
+const styles = (theme: Theme) =>
+  StyleSheet.create({
+    sheetContainer: {
+      justifyContent: 'space-between',
+      paddingHorizontal: 24,
+      paddingBottom: 45,
+    },
+    reportTitleinput: {
+      marginBottom: 25,
+      fontSize: 24,
+      lineHeight: 30,
+      color: theme.colors.textColor,
+    },
+    sheetButtonsContainer: {
+      flexDirection: 'row',
+    },
+  });

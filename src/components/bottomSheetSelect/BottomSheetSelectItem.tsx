@@ -51,7 +51,7 @@ const styles = (theme: Theme) =>
       borderRadius: 8,
     },
     selectItemText: {
-      // marginHorizontal: 15,
+      color: theme.colors.textColor,
       fontSize: 18,
       lineHeight: 22,
     },

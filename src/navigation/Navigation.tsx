@@ -38,7 +38,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<NavigationTabParamList>();
 
 const Navigation = () => {
-  const theme = useTheme<Theme>();
   const appTheme: ThemeNames = useSelector(selectThemeState());
 
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
@@ -64,7 +63,9 @@ const Navigation = () => {
               </Stack.Navigator>
             </NavigationContainer>
 
-            <StatusBar style={theme.colors.statusBar as StatusBarStyle} />
+            <StatusBar
+              style={selectedTheme?.colors.statusBar as StatusBarStyle}
+            />
           </SafeAreaProvider>
         </BottomSheetModalProvider>
       </ThemeProvider>
@@ -96,8 +97,9 @@ const Tabs = () => {
         lazy: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: theme.colors.accentColor,
+          backgroundColor: theme.colors.tabBarColor,
           position: 'absolute',
+          borderTopWidth: 0,
           bottom: 25,
           left: 20,
           right: 20,
@@ -154,14 +156,14 @@ const TabBarButtonIcon: React.FC<TabBarButtonIconProps> = (props) => {
     <View
       style={[
         styles.tabBarButtonIcon,
-        focused && { backgroundColor: theme.colors.backgroundColor },
+        focused && { backgroundColor: theme.colors.tabBarActiveItemColor },
       ]}
     >
       <Icon
         name={iconName || 'alert'}
         size={23}
         // eslint-disable-next-line prettier/prettier
-        color={focused ? theme.colors.accentColor : theme.colors.backgroundColor}
+        color={focused ? theme.colors.secondaryIconColor : theme.colors.contrastIconColor}
       />
     </View>
   );

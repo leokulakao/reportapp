@@ -30,7 +30,7 @@ const styles = (theme: Theme) =>
     },
     title: {
       color: theme.colors.textColor,
-      fontSize: 49,
+      fontSize: 35,
       lineHeight: 58,
       marginTop: 10,
     },

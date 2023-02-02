@@ -5,6 +5,8 @@ import BottomSheetModalComp from '../BottomSheetModalComp';
 import MainButton from '../buttons/MainButton';
 import SelectYearButton from '../buttons/SelectYearButton';
 import WheelPicker from 'react-native-wheely';
+import { Theme } from '@react-navigation/native';
+import { useTheme } from '@shopify/restyle';
 
 type Props = {
   year: number;
@@ -13,6 +15,7 @@ type Props = {
 
 const YearForm: React.FC<Props> = (props) => {
   const { year, setYear } = props;
+  const theme = useTheme<Theme>();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   // BottomSheetModal
@@ -54,6 +57,10 @@ const YearForm: React.FC<Props> = (props) => {
           selectedIndex={selectedIndex}
           options={setYears()}
           onChange={(index) => setSelectedIndex(index)}
+          itemTextStyle={{ color: theme.colors.textColor }}
+          selectedIndicatorStyle={{
+            backgroundColor: theme.colors.secondaryBackgroundColor,
+          }}
         />
 
         <View>

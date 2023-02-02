@@ -24,13 +24,30 @@ const MainButton: React.FC<Props> = (props) => {
       style={[styles(theme).button, style]}
       activeOpacity={0.7}
     >
-      {!!icon && !text && <Icon name={icon} size={29} color={iconColor} />}
+      {!!icon && !text && (
+        <Icon
+          name={icon}
+          size={29}
+          color={iconColor || theme.colors.iconColor}
+        />
+      )}
       {!!text && (
         <View>
-          <Text style={[styles(theme).text, { color: textColor }]}>{text}</Text>
+          <Text
+            style={[
+              styles(theme).text,
+              { color: textColor || theme.colors.textColor },
+            ]}
+          >
+            {text}
+          </Text>
           {!!icon && (
             <View style={styles(theme).iconContainerAbsolute}>
-              <Icon name={icon} size={29} color={iconColor} />
+              <Icon
+                name={icon}
+                size={29}
+                color={iconColor || theme.colors.iconColor}
+              />
             </View>
           )}
         </View>

@@ -24,7 +24,7 @@ const AddReportButton: React.FC<Props> = (props) => {
       ]}
       activeOpacity={0.7}
     >
-      <Icon name="add" size={42} color={theme.colors.backgroundColor} />
+      <Icon name="add" size={42} color={theme.colors.contrastIconColor} />
     </TouchableOpacity>
   );
 };
