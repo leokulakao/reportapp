@@ -23,11 +23,11 @@ const DonationScreen: React.FC<Props> = ({ navigation }) => {
       disableSafeAreaEdges={['top']}
     >
       <>
-        <ScreenHeader title="Donations" />
+        <ScreenHeader title={t("Donations")} />
 
         <View style={styles(theme).buttonContainer}>
           <MainButton
-            text="Donate"
+            text={t("Donate")}
             icon="heart"
             onPress={() => navigation?.navigate('PayPal')}
             style={styles(theme).button}
@@ -37,7 +37,7 @@ const DonationScreen: React.FC<Props> = ({ navigation }) => {
         </View>
 
         <View style={styles(theme).aboutUsContainer}>
-          <Text style={styles(theme).aboutUsTitle}>Sobre Nosotros</Text>
+          <Text style={styles(theme).aboutUsTitle}>About us</Text>
           <Text style={styles(theme).aboutUsText}>
             We are a small app development team. Thank you very much for using
             our app. We made it with a lot of love and affection. We decided

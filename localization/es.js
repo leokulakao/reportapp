@@ -54,7 +54,7 @@ export default {
     'Synchronization and backups': 'Sincronización y backups',
     Languages: 'Idiomas',
     Appearance: 'Apariencia',
-    Donations: 'Donaciones',
+    Donations: 'Apoyar el desarrollo',
 
     // SYNC SCREEN
     Synchronization: 'Sincronización',
@@ -62,6 +62,9 @@ export default {
     'Restore a backup': 'Restaurar una copia de seguridad',
     'Here you can back up & restore your reports and statistics':
       'Aquí puede hacer una copia de seguridad y restaurar sus informes y estadísticas',
+
+    // DONATE SCREEN
+    Donate: 'Donar',
 
     'Privacy Policy': 'Política de privacidad',
   },
