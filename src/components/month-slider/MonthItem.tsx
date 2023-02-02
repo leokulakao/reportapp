@@ -1,11 +1,12 @@
 import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from '@shopify/restyle';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Share } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 import { ReportStatsMonth } from '../../store/reports/reportsState';
 import { useTranslation } from 'react-i18next';
+import { defaultTemplate } from '../../utils/templates';
 
 type Props = {
   year: number;
@@ -18,11 +19,23 @@ const MonthItem: React.FC<Props> = (props) => {
   const { year, month, navigation, stats } = props;
   const theme = useTheme<Theme>();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [t, i18n] = useTranslation();
 
   const onPressToMonthNavigate = (month: number) =>
     navigation?.navigate('MonthReport', { year: year, month: month });
+
+  const shareMessage = () => {
+    //Here is the Share API
+    if (stats) {
+      Share.share({
+        message: defaultTemplate(i18n, stats),
+      })
+        //after successful share return result
+        .then((result) => console.log(result))
+        //If any thing goes wrong it comes here
+        .catch((errorMsg) => console.log(errorMsg));
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -97,7 +110,7 @@ const MonthItem: React.FC<Props> = (props) => {
         </View>
         <TouchableOpacity
           style={styles(theme).buttonShare}
-          onPress={() => console.log(123)}
+          onPress={() => shareMessage()}
         >
           <Icon name="share-outline" size={24} color={theme.colors.textColor} />
           <Text style={styles(theme).buttonShareText}>{t('Send Report')}</Text>
