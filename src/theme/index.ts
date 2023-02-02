@@ -1,7 +1,7 @@
 import light, { Theme } from './light';
 import dark from './dark';
 
-export type ThemeNames = 'light' | 'dark';
+export type ThemeNames = 'light' | 'dark' | string;
 
 export interface ThemesMeta {
   light: ThemeMeta;

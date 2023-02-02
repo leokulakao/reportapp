@@ -12,7 +12,7 @@ type Props = {
   ref: any;
 };
 
-const THEMES: ThemeNames[] = ['light', 'dark'];
+const THEMES: ThemeNames[] = ['light', 'dark', 'auto'];
 
 const ThemeSelect: React.FC<Props> = forwardRef((props, ref) => {
   const dispatch = useDispatch();

@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
+  Appearance,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
@@ -39,14 +40,19 @@ const Tab = createBottomTabNavigator<NavigationTabParamList>();
 
 const Navigation = () => {
   const appTheme: ThemeNames = useSelector(selectThemeState());
+  const appearanceTheme = Appearance.getColorScheme();
 
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
 
   useEffect(() => {
-    appTheme === 'dark'
+    appTheme === 'auto'
+      ? setSelectedTheme(
+          appearanceTheme === 'dark' ? themes.dark.theme : themes.light.theme
+        )
+      : appTheme === 'dark'
       ? setSelectedTheme(themes.dark.theme)
       : setSelectedTheme(themes.light.theme);
-  }, [appTheme]);
+  }, [appTheme, appearanceTheme]);
 
   return (
     <ActionSheetProvider>
