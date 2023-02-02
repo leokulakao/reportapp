@@ -7,6 +7,7 @@ import { doDeleteReportById } from '../../store/reports/reportsService';
 import { useDispatch } from 'react-redux';
 import { ReportFormRef } from '../report-form/ReportForm';
 import { dateToLocale } from '../../utils/date';
+import i18n from '../../../localization';
 
 type Props = {
   reports: ReportsByDays;
@@ -22,7 +23,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   const handleActionSheet = (selectedReport: ReportStorage) => {
-    const options = ['Delete', 'Edit', 'Cancel'];
+    const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Canceli')];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
 

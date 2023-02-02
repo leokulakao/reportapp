@@ -39,16 +39,12 @@ const DonationScreen: React.FC<Props> = () => {
         <View style={styles(theme).aboutUsContainer}>
           <Text style={styles(theme).aboutUsTitle}>Sobre Nosotros</Text>
           <Text style={styles(theme).aboutUsText}>
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source. Lorem Ipsum comes from sections
-            1.10.32 and 1.10.33 of “de Finibus Bonorum et Malorum” (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a
-            treatise on the theory of ethics, very popu
+            We are a small app development team. Thank you very much for using
+            our app. We made it with a lot of love and affection. We decided
+            that the app is free so that you can use it without problems. Even
+            so, we would appreciate it if you would help us with a donation to
+            be able to continue updating and improving the app. Thank you! Arsen
+            and Lev.
           </Text>
         </View>
       </>
