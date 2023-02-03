@@ -159,7 +159,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             <DateTimePicker
               locale={i18n.language}
               accentColor="#1F1F1F"
-              themeVariant={theme.colors.theme}
+              themeVariant={theme.colors.theme as 'light' | 'dark' | undefined}
               value={new Date(value)}
               mode={'date'}
               is24Hour={true}
@@ -220,5 +220,5 @@ const styles = (theme: Theme) =>
       marginLeft: 'auto',
       flexDirection: 'row',
       alignItems: 'center',
-    }
+    },
   });

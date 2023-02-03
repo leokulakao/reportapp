@@ -49,6 +49,7 @@ const BottomSheetSelect: React.FC<Props> = forwardRef((props, ref) => {
   );
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const styles = (theme: Theme) =>
   StyleSheet.create({
     sheetContainer: {
