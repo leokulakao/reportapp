@@ -2,8 +2,9 @@ export default {
   translation: {
     // SHARED
     en: 'English',
-    es: 'Spanish',
-    ru: 'Russian',
+    es: 'Español',
+    ru: 'Русский',
+    uk: 'Українська',
 
     Welcome: 'Welcome',
     Year: 'Year',

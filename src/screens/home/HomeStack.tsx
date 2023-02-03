@@ -20,7 +20,7 @@ export type Props = NativeStackScreenProps<
 >;
 
 export type HomeStackParamList = {
-  Home: undefined;
+  HomeScreen: undefined;
   MonthReport: {
     year: number;
     month: number;
@@ -41,7 +41,7 @@ const HomeStack: React.FC<Props> = () => {
           headerLeft: () => <HeaderBackButton onPress={navigation.goBack} />,
         })}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
 
         <Stack.Screen
           name="MonthReport"

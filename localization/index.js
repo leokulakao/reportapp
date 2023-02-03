@@ -10,11 +10,13 @@ import 'moment/locale/ru';
 import en from './en';
 import es from './es';
 import ru from './ru';
+import uk from './uk';
 
 const resources = {
   en: en,
   es: es,
   ru: ru,
+  uk: uk,
 };
 
 const setStorageLang = async (lang) => {
@@ -49,7 +51,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: ['en', 'es', 'ru'],
+    fallbackLng: ['en', 'es', 'ru', 'uk'],
     compatibilityJSON: 'v3',
     resources,
     keySeparator: false,

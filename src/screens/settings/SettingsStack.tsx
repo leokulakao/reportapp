@@ -21,7 +21,7 @@ type Props = NativeStackScreenProps<
 >;
 
 export type SettingsStackParamList = {
-  Settings: undefined;
+  SettingsScreen: undefined;
   Backup: undefined;
   Donation: undefined;
   PrivacyPolicy: undefined;
@@ -43,7 +43,7 @@ const SettingsStack: React.FC<Props> = () => {
         },
       }}
     >
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
 
       <Stack.Screen
         name="Backup"
