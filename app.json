@@ -3,6 +3,7 @@
     "name": "reportapp",
     "slug": "reportapp",
     "version": "1.0.0",
+    "owner": "reportapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -24,12 +25,12 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.reportapp",
+      "bundleIdentifier": "com.reportapp.app",
       "buildNumber": "1"
     },
     "android": {
       "versionCode": 1,
-      "package": "com.reportapp",
+      "package": "com.reportapp.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -37,6 +38,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "63c87908-edcf-4dc2-892a-a055ad7f3ce8"
+      }
     }
   }
 }
