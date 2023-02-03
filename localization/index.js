@@ -2,10 +2,10 @@ import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import moment from 'moment';
+// import moment from 'moment';
 // import 'moment/locale/en';
-import 'moment/locale/es';
-import 'moment/locale/ru';
+// import 'moment/locale/es';
+// import 'moment/locale/ru';
 
 import en from './en';
 import es from './es';
@@ -63,6 +63,6 @@ i18n
     },
   });
 
-i18n.on('languageChanged', (lng) => moment.locale(lng));
+// i18n.on('languageChanged', (lng) => moment.locale(lng));
 
 export default i18n;
