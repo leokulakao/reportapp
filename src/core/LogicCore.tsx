@@ -1,8 +1,11 @@
 import React from 'react';
 import { useEffect, useRef } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
+import { Appearance, AppState, AppStateStatus } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { doChangeAppState } from '../store/app/appService';
+import {
+  doChangeAppState,
+  doChangeAppAppearance,
+} from '../store/app/appService';
 
 const LogicCore = () => {
   const dispatch = useDispatch();
@@ -12,7 +15,9 @@ const LogicCore = () => {
     // if (_appState.current.match(/inactive|background/) && state === 'active') {
     //   doAppStateChange(dispatch, 'foreground');
     // }
+    const appearanceTheme = Appearance.getColorScheme();
     _appState.current = state;
+    doChangeAppAppearance(dispatch, appearanceTheme);
     doChangeAppState(dispatch, state);
   };
 

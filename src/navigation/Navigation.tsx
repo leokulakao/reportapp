@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  Appearance,
+  ColorSchemeName,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
@@ -22,7 +22,10 @@ import SettingsStack from '../screens/settings/SettingsStack';
 import { useTheme } from '@shopify/restyle';
 import Theme, { ThemeNames, themes } from '../theme';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { selectThemeState } from '../store/app/appSelectors';
+import {
+  selectAppAppearance,
+  selectThemeState,
+} from '../store/app/appSelectors';
 import { useSelector } from 'react-redux';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
@@ -40,7 +43,8 @@ const Tab = createBottomTabNavigator<NavigationTabParamList>();
 
 const Navigation = () => {
   const appTheme: ThemeNames = useSelector(selectThemeState());
-  const appearanceTheme = Appearance.getColorScheme();
+  const appearanceTheme: ColorSchemeName = useSelector(selectAppAppearance());
+  console.log(appearanceTheme);
 
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
 

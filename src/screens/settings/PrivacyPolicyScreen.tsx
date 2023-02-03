@@ -26,7 +26,7 @@ const PrivacyPolicyScreen: React.FC<Props> = () => {
         <ScreenHeader title={t('Privacy Policy')} />
 
         <View style={styles(theme).container}>
-          <Text>
+          <Text style={styles(theme).text}>
             ReportApp built the ReportApp app as a Free app. This SERVICE is
             provided by ReportApp at no cost and is intended for use as is. This
             page is used to inform visitors regarding my policies with the
@@ -111,6 +111,10 @@ const styles = (theme: Theme) =>
     },
     container: {
       paddingHorizontal: 25,
+    },
+    text: {
+      color: theme.colors.textColor,
+      paddingBottom: 100,
     },
   });
 
