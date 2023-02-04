@@ -7,6 +7,8 @@ import SelectYearButton from '../buttons/SelectYearButton';
 import WheelPicker from 'react-native-wheely';
 import { Theme } from '@react-navigation/native';
 import { useTheme } from '@shopify/restyle';
+import { useSelector } from 'react-redux';
+import { selectMinYear } from '../../store/reports/reportsSelectors';
 
 type Props = {
   year: number;
@@ -19,6 +21,7 @@ const YearForm: React.FC<Props> = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   // BottomSheetModal
+  const minYear = useSelector(selectMinYear());
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => [340], []);
   // const width = Dimensions.get('window').width;
@@ -28,7 +31,7 @@ const YearForm: React.FC<Props> = (props) => {
   }, []);
 
   const handleMainButtonPress = () => {
-    setYear(+setYears()[selectedIndex]);
+    setYear(+setYears(minYear)[selectedIndex]);
     bottomSheetModalRef.current?.close();
   };
 
@@ -40,6 +43,10 @@ const YearForm: React.FC<Props> = (props) => {
       for (let i = 1; i < 3; i++) {
         const y = currentYear - i;
         result.push(y.toString());
+      }
+    } else {
+      for (let i = 0; i < currentYear - minYear + 1; i++) {
+        result.push(String(currentYear - i));
       }
     }
     return result;
@@ -55,7 +62,7 @@ const YearForm: React.FC<Props> = (props) => {
       >
         <WheelPicker
           selectedIndex={selectedIndex}
-          options={setYears()}
+          options={setYears(minYear)}
           onChange={(index) => setSelectedIndex(index)}
           itemTextStyle={{ color: theme.colors.textColor }}
           selectedIndicatorStyle={{

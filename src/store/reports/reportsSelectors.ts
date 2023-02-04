@@ -5,6 +5,7 @@ import {
   ReportsByDays,
   ReportsByMonth,
   ReportStatsYear,
+  ReportStorage,
 } from './reportsState';
 
 const reports = (state: RootState) => state.reports.reports;
@@ -12,7 +13,8 @@ const reports = (state: RootState) => state.reports.reports;
 export const selectAllReports = () => createSelector(reports, (_) => _);
 export const selectReportsByMonth = (year: number, month: number) =>
   createSelector(reports, (_) => {
-    const _reports = _;
+    const _reports: ReportStorage[] = [];
+    _.map((report) => _reports.push(report));
     const result: ReportsByMonth = {
       year: year,
       month: month,
@@ -52,7 +54,8 @@ export const selectReportsByMonth = (year: number, month: number) =>
 
 export const selectStatsReportsByYear = (year: number) =>
   createSelector(reports, (_) => {
-    const _reports = _;
+    const _reports: ReportStorage[] = [];
+    _.map((report) => _reports.push(report));
     const result: ReportStatsYear = {
       year: year,
       statsMonths: [],
@@ -127,4 +130,16 @@ export const selectBackup = () =>
       reports: _,
     };
     return result;
+  });
+
+export const selectMinYear = () =>
+  createSelector(reports, (_) => {
+    const _reports: ReportStorage[] = [];
+    _.map((report) => _reports.push(report));
+    _reports.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    return _reports.length > 0
+      ? new Date(_reports[0].date).getFullYear()
+      : 2021;
   });
