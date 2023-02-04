@@ -11,17 +11,23 @@ type Props = {
   text?: any;
   textColor?: string;
   style?: object;
+  disabled?: boolean;
 };
 
 const MainButton: React.FC<Props> = (props) => {
-  const { icon, iconColor, onPress, text, textColor, style } = props;
+  const { icon, iconColor, onPress, text, textColor, style, disabled } = props;
 
   const theme = useTheme<Theme>();
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles(theme).button, style]}
+      disabled={disabled}
+      style={[
+        styles(theme).button,
+        disabled && styles(theme).buttonDisabled,
+        style,
+      ]}
       activeOpacity={0.7}
     >
       {!!icon && !text && (
@@ -68,6 +74,9 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       borderRadius: 8,
       backgroundColor: theme.colors.secondaryBackgroundColor,
+    },
+    buttonDisabled: {
+      opacity: 0.4,
     },
     text: {
       fontSize: 18,

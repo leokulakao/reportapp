@@ -74,7 +74,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     values,
     // errors,
     // touched,
-    // isValid,
+    isValid,
   } = useFormik({
     validationSchema: ReportSchema,
     initialValues: {
@@ -141,7 +141,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     bottomSheetModalRef.current?.present();
   };
 
-  const close = () => {};
+  const close = () => { };
 
   useImperativeHandle(ref, () => ({
     open: open,
@@ -245,6 +245,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
             onPress={() => {
               handleSubmit();
             }}
+            disabled={!isValid}
           />
         </View>
         {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>

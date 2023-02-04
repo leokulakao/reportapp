@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useTheme } from '@shopify/restyle';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -51,7 +51,6 @@ const BackupScreen: React.FC<Props> = () => {
   const restoreBackupFile = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
-        copyToCacheDirectory: false,
         type: ['*/*'],
       });
 
@@ -175,8 +174,8 @@ const styles = (theme: Theme) =>
     },
     sheetAnimatedIcon: {
       flexGrow: 1,
-      width: 150,
-      height: 150,
+      width: 160,
+      height: 160,
     },
   });
 

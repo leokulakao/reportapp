@@ -27,7 +27,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
   const theme = useTheme<Theme>();
 
   const handleActionSheet = (selectedReport: ReportStorage) => {
-    const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Canceli')];
+    const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Cancel')];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
 
