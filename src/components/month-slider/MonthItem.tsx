@@ -1,7 +1,8 @@
 import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from '@shopify/restyle';
-import { StyleSheet, TouchableOpacity, Text, View, Share } from 'react-native';
+import { StyleSheet, Text, View, Share } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 import { ReportStatsMonth } from '../../store/reports/reportsState';
