@@ -19,10 +19,13 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@shopify/restyle": "^2.1.0",
     "expo": "~47.0.8",
+    "expo-asset": "~8.7.0",
+    "expo-constants": "~14.0.2",
     "expo-document-picker": "~11.0.1",
     "expo-file-system": "~15.1.1",
     "expo-localization": "~14.0.0",
     "expo-sharing": "~11.0.1",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "formik": "^2.2.9",
     "i18next": "^22.4.6",
@@ -48,8 +51,7 @@
     "redux-starter-kit": "^2.0.0",
     "reselect": "^4.1.7",
     "uuid": "^9.0.0",
-    "yup": "^0.32.11",
-    "expo-splash-screen": "~0.17.5"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
