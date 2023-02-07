@@ -26,7 +26,17 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
-      "buildNumber": "2"
+      "buildNumber": "2",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff",
+        "dark": {
+          "image": "./assets/splash-dark.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      }
     },
     "android": {
       "versionCode": 1002,

@@ -8,7 +8,7 @@ import MonthSlider from '../../components/month-slider/MonthSlider';
 import { HomeStackParamList } from './HomeStack';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 
-type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
+type Props = NativeStackScreenProps<HomeStackParamList, 'HomeScreen'>;
 
 const HomeScreen: React.FC<Props> = (props) => {
   const { navigation } = props;
