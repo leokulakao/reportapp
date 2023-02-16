@@ -61,8 +61,8 @@ const MonthReportItem: React.FC<Props> = (props) => {
         <Text style={styles(theme).titleText}>{reports?.day}</Text>
       </View>
       {reports.reports.length > 0 ? (
-        reports.reports.map((report) => (
-          <View style={styles(theme).item} key={report.date}>
+        reports.reports.map((report, index) => (
+          <View style={styles(theme).item} key={index}>
             <Text style={styles(theme).itemText}>
               {report.title === ''
                 ? dateToLocale(new Date(report.date))
