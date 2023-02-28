@@ -175,8 +175,8 @@ const styles = (theme: Theme) =>
     },
     sheetAnimatedIcon: {
       flexGrow: 1,
-      width: 160,
-      height: 160,
+      width: 150,
+      height: 150,
     },
   });
 

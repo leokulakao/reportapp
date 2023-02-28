@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import React, { useRef, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import MonthReportItem from '../../components/month-report/MonthReportItem';
@@ -44,10 +44,10 @@ const MonthReportScreen: React.FC<Props> = (props) => {
               setReportFormDataEdit={setReportFormDataEdit}
               reportFormRef={reportFormRef}
               reports={item}
+              key={index}
             />
           )}
-          keyExtractor={(item) => item.day.toString()}
-          // key={(key) => key}
+          contentContainerStyle={styles.listContainer}
         />
         <ReportForm
           reportData={reportFormDataEdit}
@@ -61,8 +61,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
 
 export default MonthReportScreen;
 
-// const styles = StyleSheet.create({
-//   screenContainer: {
-//     backgroundColor: '#ffffff',
-//   },
-// });
+const styles = StyleSheet.create({
+  listContainer: {
+    paddingBottom: 85,
+  },
+});
