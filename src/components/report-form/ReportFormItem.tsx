@@ -13,6 +13,7 @@ import DateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import { useTranslation } from 'react-i18next';
+import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 
 import { dateToLocale } from '../../utils/date';
 
@@ -100,14 +101,19 @@ const ReportFormItem: React.FC<Props> = (props) => {
               />
             </TouchableOpacity>
 
-            <Text
+            <BottomSheetTextInput
+              keyboardType="numeric"
               style={[
                 styles(theme).reportFormItemText,
                 styles(theme).reportFormItemTextMarginH,
               ]}
-            >
-              {value + ''}
-            </Text>
+              onChangeText={(text: string) => {
+                Number(text) && onChange(+text);
+              }}
+              value={value === 0 ? '' : value + ''}
+              placeholder="0"
+              placeholderTextColor={theme.colors.textColor}
+            />
 
             <TouchableOpacity
               onPress={() => {

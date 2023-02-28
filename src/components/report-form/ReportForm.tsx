@@ -9,13 +9,7 @@ import React, {
 } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useFormik } from 'formik';
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  // Text,
-  // TouchableOpacity,
-} from 'react-native';
+import { TextInput, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@shopify/restyle';
 
@@ -141,7 +135,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     bottomSheetModalRef.current?.present();
   };
 
-  const close = () => { };
+  const close = () => {};
 
   useImperativeHandle(ref, () => ({
     open: open,
@@ -159,6 +153,8 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
         innerRef={bottomSheetModalRef}
         snapPoints={snapPoints}
         containerStyle={styles(theme).sheetContainer}
+        keyboardBlurBehavior="restore"
+        android_keyboardInputMode="adjustResize"
       >
         <TextInput
           style={styles(theme).reportTitleinput}
