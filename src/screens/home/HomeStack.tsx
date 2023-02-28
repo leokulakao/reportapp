@@ -10,6 +10,8 @@ import { NavigationTabParamList } from '../../navigation/Navigation';
 import Theme from '../../theme';
 import HomeScreen from './HomeScreen';
 import MonthReportScreen from './MonthReportScreen';
+import ReportForm from '../../components/report-form/ReportForm';
+import { View } from 'react-native';
 
 // import type { StackNavigationOptions } from '@react-navigation/stack';
 
@@ -52,6 +54,9 @@ const HomeStack: React.FC<Props> = () => {
             headerStyle: {
               backgroundColor: theme.colors.backgroundColor,
             },
+            headerRight: () => (
+              <ReportForm hasAddButton={true} headerButton={true} />
+            ),
             // presentation: 'modal',
           }}
         />

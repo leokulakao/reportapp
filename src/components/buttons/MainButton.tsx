@@ -79,7 +79,7 @@ const styles = (theme: Theme) =>
       opacity: 0.4,
     },
     text: {
-      fontSize: 18,
+      fontSize: 14,
       color: theme.colors.textColor,
       marginHorizontal: 15,
     },

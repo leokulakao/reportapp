@@ -72,7 +72,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
               <TouchableOpacity onPress={() => handleActionSheet(report)}>
                 <Icon
                   name="ellipsis-horizontal-outline"
-                  size={24}
+                  size={22}
                   color={theme.colors.secondaryIconColor}
                 />
               </TouchableOpacity>
@@ -100,7 +100,7 @@ const styles = (theme: Theme) =>
       paddingRight: 20,
     },
     titleText: {
-      fontSize: 18,
+      fontSize: 14,
       color: theme.colors.secondaryTextColor,
     },
     item: {
@@ -115,7 +115,8 @@ const styles = (theme: Theme) =>
       marginLeft: 'auto',
     },
     itemText: {
-      fontSize: 18,
+      fontSize: 14,
+      lineHeight: 22,
       color: theme.colors.textColor,
     },
   });

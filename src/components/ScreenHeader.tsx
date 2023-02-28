@@ -17,7 +17,7 @@ const ScreenHeader: React.FC<Props> = (props) => {
 
   return (
     <View style={styles(theme).container}>
-      <Text style={styles(theme).title}>{title || ''}</Text>
+      <Text style={styles(theme).title}>{t(title) || ''}</Text>
     </View>
   );
 };
@@ -25,14 +25,14 @@ const ScreenHeader: React.FC<Props> = (props) => {
 const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
+      paddingTop: 10,
       paddingHorizontal: 25,
-      marginBottom: 30,
+      marginBottom: 15,
     },
     title: {
       color: theme.colors.textColor,
       fontSize: 35,
       lineHeight: 48,
-      marginTop: 10,
     },
   });
 
