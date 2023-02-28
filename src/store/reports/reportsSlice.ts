@@ -4,6 +4,7 @@ import {
   Report,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
+  ReportRounded,
   ReportSaved,
   ReportsDataMonths,
   ReportsDataYear,
@@ -56,7 +57,7 @@ export const reportsSlice = createSlice({
           year: currentYear,
           month: currentMonth,
           reports: [],
-          reportRounded: false,
+          reportRounded: ReportRounded.NONE,
         } as ReportsDataMonths;
       }
 

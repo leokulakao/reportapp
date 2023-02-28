@@ -22,7 +22,12 @@ export interface ReportsDataMonths {
   month: number;
   reports: ReportSaved[];
   minutesPassed?: number;
-  reportRounded: boolean;
+  reportRounded: ReportRounded;
+}
+
+export enum ReportRounded {
+  NONE = 'NONE',
+  PASSED = 'PASSED',
 }
 
 export interface ReportsDataYear {
@@ -70,11 +75,13 @@ export interface ReportStatsMonthView {
   year: number;
   month: number;
   hours: number;
+  minutes: number;
   publications: number;
   videos: number;
   returnVisits: number;
   biblieStudies: number;
   specialHours: number;
+  specialMinutes: number;
 }
 
 // backup

@@ -39,7 +39,7 @@ const MonthReportScreen: React.FC<Props> = (props) => {
         <FlatList
           data={reportsByMonth.reportsByDays}
           ListHeaderComponent={() => <ScreenHeader title={`month-${month}`} />}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <MonthReportItem
               setReportFormDataEdit={setReportFormDataEdit}
               reportFormRef={reportFormRef}

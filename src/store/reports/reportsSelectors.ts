@@ -63,7 +63,7 @@ export const selectStatsReportsByYear = (year: number) =>
 
     monthsStr.forEach((month: string) => {
       const currentMonth = _data.years[year].months[+month];
-      const lastMonth = _data.years[year].months[+month - 1] ?? null;
+      // const lastMonth = _data.years[year].months[+month - 1] ?? null;
 
       const start = new Date(year, currentMonth.month, 1, 1, 0, 0);
       const end = new Date(year, currentMonth.month + 1, 1, 0, 0, 0);
@@ -107,19 +107,17 @@ export const selectStatsReportsByYear = (year: number) =>
             statSpecialHours + Math.trunc(statSpecialMinutes / 60);
         }
 
-        if (lastMonth && lastMonth.minutesPassed) {
-          statMinutes = statMinutes + lastMonth.minutesPassed;
-        }
-
         result.statsMonths.push({
           year: year,
           month: currentMonth.month,
           hours: statHours,
+          minutes: statMinutes,
           publications: statPublications,
           videos: statVideos,
           returnVisits: statReturnVisits,
           biblieStudies: statBibleStudies,
           specialHours: statSpecialHours,
+          specialMinutes: statSpecialMinutes,
         });
       }
     });

@@ -110,7 +110,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
                 styles(theme).reportFormItemTextMarginH,
               ]}
               onChangeText={(text: string) => {
-                Number(text) && onChange(+text);
+                (!!Number(text) || +text === 0) && onChange(+text);
               }}
               value={value === 0 ? '' : value + ''}
               placeholder="0"
@@ -213,7 +213,7 @@ const styles = (theme: Theme) =>
       minWidth: 22,
       marginHorizontal: 15,
       fontSize: 14,
-      lineHeight: 22,
+      lineHeight: 18,
       color: theme.colors.textColor,
       backgroundColor: theme.colors.cardItemColor,
     },

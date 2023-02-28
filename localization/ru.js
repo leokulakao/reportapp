@@ -1,5 +1,8 @@
 export default {
   translation: {
+    h: 'ч',
+    m: 'м',
+
     // SHARED
     en: 'English',
     es: 'Español',

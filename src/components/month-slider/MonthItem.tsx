@@ -1,7 +1,7 @@
 import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from '@shopify/restyle';
-import { StyleSheet, Text, View, Share } from 'react-native';
+import { StyleSheet, Text, View, Share, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
@@ -26,6 +26,21 @@ const MonthItem: React.FC<Props> = (props) => {
     navigation?.navigate('MonthReport', { year: year, month: month });
 
   const shareMessage = () => {
+    if (stats) {
+      if (stats.minutes > 0 || stats.specialMinutes > 0) {
+        Alert.alert('Alert Title', 'My Alert Msg', [
+          {
+            text: 'Cancel',
+            onPress: () => shareConfig(),
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: () => shareConfig() },
+        ]);
+      }
+    }
+  };
+
+  const shareConfig = () => {
     //Here is the Share API
     if (stats) {
       Share.share({
@@ -53,7 +68,13 @@ const MonthItem: React.FC<Props> = (props) => {
               color={theme.colors.textColor}
             />
             <Text style={styles(theme).statTitle}>{t('Hours')}</Text>
-            <Text style={styles(theme).statValue}>{stats?.hours || 0}</Text>
+            <Text style={styles(theme).statValue}>
+              {stats?.hours || 0}
+              {`${t('h')}`}
+              {stats?.minutes && stats?.minutes > 0
+                ? ` ${stats?.minutes}${t('m')}`
+                : ''}
+            </Text>
           </View>
           <View style={styles(theme).statContainer}>
             <Icon
@@ -67,7 +88,11 @@ const MonthItem: React.FC<Props> = (props) => {
             </Text>
           </View>
           <View style={styles(theme).statContainer}>
-            <Icon name="play-outline" size={22} color={theme.colors.textColor} />
+            <Icon
+              name="play-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
             <Text style={styles(theme).statTitle}>{t('Videos')}</Text>
             <Text style={styles(theme).statValue}>{stats?.videos || 0}</Text>
           </View>
@@ -102,6 +127,10 @@ const MonthItem: React.FC<Props> = (props) => {
             <Text style={styles(theme).statTitle}>{t('Special Hours')}</Text>
             <Text style={styles(theme).statValue}>
               {stats?.specialHours || 0}
+              {`${t('h')}`}
+              {stats?.specialMinutes && stats?.specialMinutes > 0
+                ? ` ${stats?.specialMinutes}${t('m')}`
+                : ''}
             </Text>
           </View>
         </View>
