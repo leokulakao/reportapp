@@ -93,7 +93,7 @@ const BackupScreen: React.FC<Props> = () => {
         <View style={[styles(theme).container, styles(theme).backupInfoBlock]}>
           <Icon
             name="sync-outline"
-            size={50}
+            size={48}
             color={theme.colors.accentColor}
           />
           <Text style={styles(theme).backupInfoText}>
@@ -142,6 +142,7 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.colors.backgroundColor,
     },
     container: {
+      marginTop: 15,
       paddingHorizontal: 25,
     },
     backupInfoBlock: {
@@ -174,8 +175,8 @@ const styles = (theme: Theme) =>
     },
     sheetAnimatedIcon: {
       flexGrow: 1,
-      width: 160,
-      height: 160,
+      width: 150,
+      height: 150,
     },
   });
 

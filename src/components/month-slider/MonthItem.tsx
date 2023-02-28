@@ -39,85 +39,86 @@ const MonthItem: React.FC<Props> = (props) => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles(theme).mainPress}
-      onPress={() => onPressToMonthNavigate(month)}
-    >
-      <View style={styles(theme).item}>
+    <View style={styles(theme).item}>
+      <TouchableOpacity
+        style={styles(theme).mainPress}
+        onPress={() => onPressToMonthNavigate(month)}
+      >
         <Text style={styles(theme).title}>{t(`month-${month}`)}</Text>
-        <View style={styles(theme).containerLine}>
-          <View style={styles(theme).firstLine} />
+        <View style={styles(theme).statsSection}>
+          <View style={styles(theme).statContainer}>
+            <Icon
+              name="stopwatch-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
+            <Text style={styles(theme).statTitle}>{t('Hours')}</Text>
+            <Text style={styles(theme).statValue}>{stats?.hours || 0}</Text>
+          </View>
+          <View style={styles(theme).statContainer}>
+            <Icon
+              name="library-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
+            <Text style={styles(theme).statTitle}>{t('Publications')}</Text>
+            <Text style={styles(theme).statValue}>
+              {stats?.publications || 0}
+            </Text>
+          </View>
+          <View style={styles(theme).statContainer}>
+            <Icon name="play-outline" size={22} color={theme.colors.textColor} />
+            <Text style={styles(theme).statTitle}>{t('Videos')}</Text>
+            <Text style={styles(theme).statValue}>{stats?.videos || 0}</Text>
+          </View>
+          <View style={styles(theme).statContainer}>
+            <Icon
+              name="chatbubbles-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
+            <Text style={styles(theme).statTitle}>{t('Return Visits')}</Text>
+            <Text style={styles(theme).statValue}>
+              {stats?.returnVisits || 0}
+            </Text>
+          </View>
+          <View style={styles(theme).statContainer}>
+            <Icon
+              name="people-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
+            <Text style={styles(theme).statTitle}>{t('Bible Studies')}</Text>
+            <Text style={styles(theme).statValue}>
+              {stats?.biblieStudies || 0}
+            </Text>
+          </View>
+          <View style={styles(theme).statContainer}>
+            <Icon
+              name="stopwatch-outline"
+              size={22}
+              color={theme.colors.textColor}
+            />
+            <Text style={styles(theme).statTitle}>{t('Special Hours')}</Text>
+            <Text style={styles(theme).statValue}>
+              {stats?.specialHours || 0}
+            </Text>
+          </View>
         </View>
-        <View style={styles(theme).statContainer}>
-          <Icon
-            name="stopwatch-outline"
-            size={24}
-            color={theme.colors.textColor}
-          />
-          <Text style={styles(theme).statTitle}>{t('Hours')}</Text>
-          <Text style={styles(theme).statValue}>{stats?.hours || 0}</Text>
-        </View>
-        <View style={styles(theme).statContainer}>
-          <Icon
-            name="library-outline"
-            size={24}
-            color={theme.colors.textColor}
-          />
-          <Text style={styles(theme).statTitle}>{t('Publications')}</Text>
-          <Text style={styles(theme).statValue}>
-            {stats?.publications || 0}
-          </Text>
-        </View>
-        <View style={styles(theme).statContainer}>
-          <Icon name="play-outline" size={24} color={theme.colors.textColor} />
-          <Text style={styles(theme).statTitle}>{t('Videos')}</Text>
-          <Text style={styles(theme).statValue}>{stats?.videos || 0}</Text>
-        </View>
-        <View style={styles(theme).statContainer}>
-          <Icon
-            name="chatbubbles-outline"
-            size={24}
-            color={theme.colors.textColor}
-          />
-          <Text style={styles(theme).statTitle}>{t('Return Visits')}</Text>
-          <Text style={styles(theme).statValue}>
-            {stats?.returnVisits || 0}
-          </Text>
-        </View>
-        <View style={styles(theme).statContainer}>
-          <Icon
-            name="people-outline"
-            size={24}
-            color={theme.colors.textColor}
-          />
-          <Text style={styles(theme).statTitle}>{t('Bible Studies')}</Text>
-          <Text style={styles(theme).statValue}>
-            {stats?.biblieStudies || 0}
-          </Text>
-        </View>
-        <View style={styles(theme).statContainer}>
-          <Icon
-            name="stopwatch-outline"
-            size={24}
-            color={theme.colors.textColor}
-          />
-          <Text style={styles(theme).statTitle}>{t('Special Hours')}</Text>
-          <Text style={styles(theme).statValue}>
-            {stats?.specialHours || 0}
-          </Text>
-        </View>
-        <View style={styles(theme).containerLine}>
-          <View style={styles(theme).secondLine} />
-        </View>
-        <TouchableOpacity
-          style={styles(theme).buttonShare}
-          onPress={() => shareMessage()}
-        >
-          <Icon name="share-outline" size={24} color={theme.colors.textColor} />
-          <Text style={styles(theme).buttonShareText}>{t('Send Report')}</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          styles(theme).buttonShare,
+          !stats && styles(theme).buttonShareDiseabled,
+        ]}
+        disabled={!stats}
+        onPress={() => shareMessage()}
+      >
+        <Icon name="share-outline" size={22} color={theme.colors.textColor} />
+        <Text style={styles(theme).buttonShareText}>{t('Send Report')}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -133,33 +134,20 @@ const styles = (theme: Theme) =>
       borderRadius: 10,
       paddingLeft: 20,
       paddingRight: 20,
-      paddingTop: 30,
-      paddingBottom: 30,
       marginLeft: '2.5%',
       marginRight: '2.5%',
       backgroundColor: theme.colors.backgroundColor,
     },
     title: {
-      fontSize: 49,
-      paddingBottom: 20,
+      fontSize: 38,
+      paddingVertical: 20,
       color: theme.colors.textColor,
     },
-    containerLine: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    firstLine: {
-      marginBottom: 20,
-      flex: 1,
-      height: 1,
-      backgroundColor: theme.colors.secondaryBackgroundColor,
-    },
-    secondLine: {
-      marginTop: 20,
-      marginBottom: 10,
-      flex: 1,
-      height: 1,
-      backgroundColor: theme.colors.secondaryBackgroundColor,
+    statsSection: {
+      paddingVertical: 15,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderColor: theme.colors.secondaryBackgroundColor,
     },
     statContainer: {
       paddingTop: 4,
@@ -170,26 +158,30 @@ const styles = (theme: Theme) =>
     statTitle: {
       flex: 1,
       paddingLeft: 15,
-      fontSize: 16,
+      fontSize: 14,
+      lineHeight: 18,
       color: theme.colors.textColor,
     },
     statValue: {
       flex: 1,
       paddingLeft: 5,
       textAlign: 'right',
-      fontSize: 16,
+      fontSize: 14,
+      lineHeight: 18,
       color: theme.colors.textColor,
     },
     buttonShare: {
-      paddingTop: 5,
-      paddingBottom: 5,
+      paddingVertical: 20,
       flexDirection: 'row',
       alignItems: 'center',
     },
     buttonShareText: {
       flex: 1,
       paddingLeft: 15,
-      fontSize: 16,
+      fontSize: 14,
       color: theme.colors.textColor,
+    },
+    buttonShareDiseabled: {
+      opacity: 0.6,
     },
   });

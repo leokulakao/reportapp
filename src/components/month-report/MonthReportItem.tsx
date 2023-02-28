@@ -65,8 +65,8 @@ const MonthReportItem: React.FC<Props> = (props) => {
         <Text style={styles(theme).titleText}>{reports?.day}</Text>
       </View>
       {reports.reports.length > 0 ? (
-        reports.reports.map((report) => (
-          <View style={styles(theme).item} key={report.date}>
+        reports.reports.map((report, index) => (
+          <View style={styles(theme).item} key={index}>
             <Text style={styles(theme).itemText}>
               {report.title === ''
                 ? dateToLocale(new Date(report.date))
@@ -76,7 +76,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
               <TouchableOpacity onPress={() => handleActionSheet(report)}>
                 <Icon
                   name="ellipsis-horizontal-outline"
-                  size={24}
+                  size={22}
                   color={theme.colors.secondaryIconColor}
                 />
               </TouchableOpacity>
@@ -104,7 +104,7 @@ const styles = (theme: Theme) =>
       paddingRight: 20,
     },
     titleText: {
-      fontSize: 18,
+      fontSize: 14,
       color: theme.colors.secondaryTextColor,
     },
     item: {
@@ -119,7 +119,8 @@ const styles = (theme: Theme) =>
       marginLeft: 'auto',
     },
     itemText: {
-      fontSize: 18,
+      fontSize: 14,
+      lineHeight: 22,
       color: theme.colors.textColor,
     },
   });

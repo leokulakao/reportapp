@@ -28,7 +28,7 @@ const BottomSheetSelectItem: React.FC<Props> = ({
       {isActive ? (
         <Icon
           name="checkmark-outline"
-          size={24}
+          size={22}
           color={theme.colors.textColor}
         />
       ) : (
@@ -52,7 +52,7 @@ const styles = (theme: Theme) =>
     },
     selectItemText: {
       color: theme.colors.textColor,
-      fontSize: 18,
+      fontSize: 14,
       lineHeight: 22,
     },
   });

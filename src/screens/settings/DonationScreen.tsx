@@ -23,11 +23,11 @@ const DonationScreen: React.FC<Props> = ({ navigation }) => {
       disableSafeAreaEdges={['top']}
     >
       <>
-        <ScreenHeader title={t("Donations")} />
+        <ScreenHeader title={t('Donations')} />
 
         <View style={styles(theme).buttonContainer}>
           <MainButton
-            text={t("Donate")}
+            text={t('Donate')}
             icon="heart"
             onPress={() => navigation?.navigate('PayPal')}
             style={styles(theme).button}
@@ -58,6 +58,7 @@ const styles = (theme: Theme) =>
       backgroundColor: theme.colors.backgroundColor,
     },
     buttonContainer: {
+      marginTop: 15,
       paddingHorizontal: 25,
       marginBottom: 30,
     },
@@ -76,8 +77,8 @@ const styles = (theme: Theme) =>
       marginBottom: 22,
     },
     aboutUsText: {
-      fontSize: 14,
-      lineHeight: 18,
+      fontSize: 12,
+      lineHeight: 20,
       color: theme.colors.textColor,
     },
   });

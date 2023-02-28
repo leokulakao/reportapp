@@ -39,7 +39,7 @@ const styles = (theme: Theme) =>
       padding: 5,
     },
     text: {
-      fontSize: 16,
+      fontSize: 14,
       color: theme.colors.textColor,
     },
   });

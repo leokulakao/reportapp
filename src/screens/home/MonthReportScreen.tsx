@@ -1,14 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import React, { useRef, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import MonthReportHeader from '../../components/month-report/MonthReportHeader';
 import MonthReportItem from '../../components/month-report/MonthReportItem';
 import ReportForm, {
   ReportFormRef,
 } from '../../components/report-form/ReportForm';
+import ScreenHeader from '../../components/ScreenHeader';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { ReportSaved } from '../../models';
 import { selectReportsByMonthView } from '../../store/reports/reportsSelectors';
@@ -38,16 +38,16 @@ const MonthReportScreen: React.FC<Props> = (props) => {
       <>
         <FlatList
           data={reportsByMonth.reportsByDays}
-          ListHeaderComponent={() => <MonthReportHeader month={month} />}
+          ListHeaderComponent={() => <ScreenHeader title={`month-${month}`} />}
           renderItem={({ item }) => (
             <MonthReportItem
               setReportFormDataEdit={setReportFormDataEdit}
               reportFormRef={reportFormRef}
               reports={item}
+              key={index}
             />
           )}
-          keyExtractor={(item) => item.day.toString()}
-          // key={(key) => key}
+          contentContainerStyle={styles.listContainer}
         />
         <ReportForm
           reportData={reportFormDataEdit}
@@ -61,8 +61,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
 
 export default MonthReportScreen;
 
-// const styles = StyleSheet.create({
-//   screenContainer: {
-//     backgroundColor: '#ffffff',
-//   },
-// });
+const styles = StyleSheet.create({
+  listContainer: {
+    paddingBottom: 85,
+  },
+});

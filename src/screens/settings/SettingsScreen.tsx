@@ -103,7 +103,7 @@ const SettingsNavLink: React.FC<SettingsNavLinkProps> = ({
       onPress={() => onPress()}
       activeOpacity={0.7}
     >
-      <Icon name={icon} size={55} color={theme.colors.textColor} />
+      <Icon name={icon} size={52} color={theme.colors.textColor} />
       <Text style={styles(theme).navLinkText}>{t(text)}</Text>
     </TouchableOpacity>
   );
@@ -118,7 +118,7 @@ const styles = (theme: Theme) =>
     },
     title: {
       marginBottom: 30,
-      fontSize: 49,
+      fontSize: 35,
       lineHeight: 58,
       color: theme.colors.textColor,
     },
@@ -155,7 +155,7 @@ const styles = (theme: Theme) =>
       paddingBottom: Platform.OS === 'android' ? 75 : 20,
     },
     screenFooterText: {
-      fontSize: 14,
+      fontSize: 12,
       lineHeight: 17,
       color: theme.colors.secondaryTextColor,
     },

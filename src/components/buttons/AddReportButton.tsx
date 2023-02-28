@@ -8,23 +8,36 @@ import Theme from '../../theme';
 
 type Props = {
   onPress: () => void;
+  headerButton?: boolean;
 };
 
 const AddReportButton: React.FC<Props> = (props) => {
-  const { onPress } = props;
+  const { onPress, headerButton } = props;
   const theme = useTheme<Theme>();
   const insets = useSafeAreaInsets();
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[
-        styles(theme).button,
-        { bottom: insets.bottom + (Platform.OS === 'android' ? 100 : 70) },
-      ]}
+      style={
+        headerButton
+          ? styles(theme).headerButton
+          : [
+              styles(theme).button,
+              {
+                bottom: insets.bottom + (Platform.OS === 'android' ? 105 : 75),
+              },
+            ]
+      }
       activeOpacity={0.7}
     >
-      <Icon name="add" size={42} color={theme.colors.contrastIconColor} />
+      <Icon
+        name="add"
+        size={40}
+        color={
+          headerButton ? theme.colors.iconColor : theme.colors.contrastIconColor
+        }
+      />
     </TouchableOpacity>
   );
 };
@@ -37,12 +50,19 @@ const styles = (theme: Theme) =>
       position: 'absolute',
       bottom: 0,
       right: 40,
-      width: 64,
-      height: 64,
+      width: 62,
+      height: 62,
       paddingLeft: 3,
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.accentColor,
+    },
+    headerButton: {
+      width: 36,
+      height: 36,
+      paddingLeft: 2,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

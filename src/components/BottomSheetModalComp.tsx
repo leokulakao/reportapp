@@ -17,6 +17,8 @@ type Props = {
   children?: any;
   bottomInset?: number;
   detached?: boolean;
+  keyboardBlurBehavior?: 'none' | 'restore';
+  android_keyboardInputMode?: 'adjustPan' | 'adjustResize';
 };
 
 const BottomSheetModalComp: React.FC<Props> = (props) => {
