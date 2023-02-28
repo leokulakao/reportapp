@@ -4,11 +4,11 @@ import React, { useRef, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import MonthReportHeader from '../../components/month-report/MonthReportHeader';
 import MonthReportItem from '../../components/month-report/MonthReportItem';
 import ReportForm, {
   ReportFormRef,
 } from '../../components/report-form/ReportForm';
+import ScreenHeader from '../../components/ScreenHeader';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { selectReportsByMonth } from '../../store/reports/reportsSelectors';
 import { ReportStorage } from '../../store/reports/reportsState';
@@ -38,8 +38,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
       <>
         <FlatList
           data={reportsByMonth.reportsByDays}
-          ListHeaderComponent={() => <MonthReportHeader month={month} />}
-          renderItem={({ item, index }) => (
+          ListHeaderComponent={() => <ScreenHeader title={`month-${month}`} />}
+          renderItem={({ item }) => (
             <MonthReportItem
               setReportFormDataEdit={setReportFormDataEdit}
               reportFormRef={reportFormRef}

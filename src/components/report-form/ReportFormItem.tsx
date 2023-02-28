@@ -66,7 +66,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
         >
           <Icon
             name={icon || 'help-outline'}
-            size={24}
+            size={22}
             color={theme.colors.iconColor}
           />
           <Text
@@ -96,7 +96,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             >
               <Icon
                 name="remove"
-                size={26}
+                size={24}
                 color={theme.colors.secondaryIconColor}
               />
             </TouchableOpacity>
@@ -129,7 +129,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             >
               <Icon
                 name="add"
-                size={26}
+                size={24}
                 color={theme.colors.secondaryIconColor}
               />
             </TouchableOpacity>
@@ -150,7 +150,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
         >
           <Icon
             name="calendar-outline"
-            size={24}
+            size={22}
             color={theme.colors.iconColor}
           />
           <Text
@@ -172,13 +172,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
               onChange={(e, selectedDate) => onChange(selectedDate)}
             />
           ) : (
-            <Text
-              style={{
-                fontSize: 18,
-                lineHeight: 22,
-                color: theme.colors.textColor,
-              }}
-            >
+            <Text style={styles(theme).reportFormDateText}>
               {type === 'date' ? dateToLocale(value as Date) : value.toString()}
             </Text>
           )}
@@ -193,7 +187,7 @@ export default ReportFormItem;
 const styles = (theme: Theme) =>
   StyleSheet.create({
     reportFormItem: {
-      height: 52,
+      height: 50,
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 10,
@@ -202,12 +196,17 @@ const styles = (theme: Theme) =>
       borderRadius: 8,
     },
     reportFormItemMargin: {
-      marginBottom: 35,
+      marginBottom: 30,
+    },
+    reportFormDateText: {
+      fontSize: 14,
+      lineHeight: 22,
+      color: theme.colors.textColor,
     },
     reportFormItemText: {
       minWidth: 22,
       marginHorizontal: 15,
-      fontSize: 18,
+      fontSize: 14,
       lineHeight: 22,
       color: theme.colors.textColor,
       backgroundColor: theme.colors.cardItemColor,
@@ -219,7 +218,7 @@ const styles = (theme: Theme) =>
       flexGrow: 1,
     },
     reportFormItemTextMarginH: {
-      marginHorizontal: 5,
+      marginHorizontal: 6,
       textAlign: 'center',
     },
     reportFormInputContainer: {

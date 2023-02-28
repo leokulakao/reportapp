@@ -34,6 +34,7 @@ import Theme from '../../theme';
 type Props = {
   reportData?: ReportStorage | null;
   hasAddButton: boolean;
+  headerButton?: boolean;
 };
 
 export type ReportFormRef = {
@@ -42,7 +43,7 @@ export type ReportFormRef = {
 };
 
 const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
-  const { reportData = null, hasAddButton } = props;
+  const { reportData = null, hasAddButton, headerButton = false } = props;
   const theme = useTheme<Theme>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,7 +57,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
   // BottomSheetModal Ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['85%'], []);
+  const snapPoints = useMemo(() => ['90%'], []);
 
   // Formik form
   const {
@@ -148,7 +149,13 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
   return (
     <>
-      {hasAddButton && <AddReportButton onPress={handlePresentModalPress} />}
+      {hasAddButton && (
+        <AddReportButton
+          onPress={handlePresentModalPress}
+          headerButton={headerButton}
+        />
+      )}
+
       <BottomSheetModalComp
         innerRef={bottomSheetModalRef}
         snapPoints={snapPoints}
@@ -262,8 +269,8 @@ const styles = (theme: Theme) =>
       paddingBottom: 45,
     },
     reportTitleinput: {
-      marginBottom: 25,
-      fontSize: 24,
+      marginBottom: 20,
+      fontSize: 22,
       lineHeight: 30,
       color: theme.colors.textColor,
     },

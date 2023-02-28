@@ -169,7 +169,7 @@ const TabBarButtonIcon: React.FC<TabBarButtonIconProps> = (props) => {
     >
       <Icon
         name={iconName || 'alert'}
-        size={23}
+        size={22}
         // eslint-disable-next-line prettier/prettier
         color={focused ? theme.colors.secondaryIconColor : theme.colors.contrastIconColor}
       />
