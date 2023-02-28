@@ -5,15 +5,15 @@ import { StyleSheet, Text, View, Share } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
-import { ReportStatsMonth } from '../../store/reports/reportsState';
 import { useTranslation } from 'react-i18next';
 import { defaultTemplate } from '../../utils/templates';
+import { ReportStatsMonthView } from '../../models';
 
 type Props = {
   year: number;
   month: number;
   navigation?: NavigationProp<any, any>;
-  stats: ReportStatsMonth | null;
+  stats: ReportStatsMonthView | null;
 };
 
 const MonthItem: React.FC<Props> = (props) => {

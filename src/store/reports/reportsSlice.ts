@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
+  Backup,
   Report,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
@@ -11,10 +12,9 @@ import {
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ReportsState, ReportStorage } from './reportsState';
+import { ReportsState } from './reportsState';
 
 const initialState: ReportsState = {
-  reports: [],
   data: {
     years: {},
   },
@@ -26,11 +26,6 @@ export const reportsSlice = createSlice({
   reducers: {
     addReport: (state: ReportsState, action: PayloadAction<Report>) => {
       const payload = action.payload;
-      // const report: ReportStorage = {
-      //   ...payload,
-      //   id: uuidv4(),
-      // };
-      // state.reports.push(report);
 
       const newReport: ReportSaved = {
         id: uuidv4(),
@@ -74,7 +69,6 @@ export const reportsSlice = createSlice({
     },
 
     deleteAllReports: (state: ReportsState) => {
-      state.reports = [];
       state.data.years = {};
     },
 
@@ -153,11 +147,8 @@ export const reportsSlice = createSlice({
       console.log(JSON.stringify(state.data, null, 2));
     },
 
-    uploadBackup: (
-      state: ReportsState,
-      action: PayloadAction<ReportStorage[]>
-    ) => {
-      state.reports = action.payload;
+    uploadBackup: (state: ReportsState, action: PayloadAction<Backup>) => {
+      state.data = action.payload.data;
     },
   },
 });

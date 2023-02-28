@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import {
+  Backup,
   Report,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
@@ -11,7 +12,6 @@ import {
   editReportById,
   uploadBackup,
 } from './reportsSlice';
-import { ReportStorage } from './reportsState';
 
 export function doAddReport(dispatch: Dispatch, report: Report) {
   try {
@@ -51,9 +51,9 @@ export function doEditReportById(
   }
 }
 
-export function doUploadBackup(dispatch: Dispatch, reports: ReportStorage[]) {
+export function doUploadBackup(dispatch: Dispatch, backup: Backup) {
   try {
-    dispatch(uploadBackup(reports));
+    dispatch(uploadBackup(backup));
   } catch (e) {
     console.log(e);
   }

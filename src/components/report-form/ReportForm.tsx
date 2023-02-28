@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useRef,
   // useCallback,
-  useEffect,
 } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useFormik } from 'formik';
@@ -27,19 +26,16 @@ import ReportFormItem from './ReportFormItem';
 import MainButton from '../buttons/MainButton';
 import { useDispatch } from 'react-redux';
 // import { addReport } from '../../store/slices/reportsSlice';
-import { Report } from '../../models';
+import { Report, ReportSaved } from '../../models';
 import {
   doAddReport,
   doDeleteAllReports,
   doEditReportById,
 } from '../../store/reports/reportsService';
-import { useSelector } from 'react-redux';
-import { selectAllReports } from '../../store/reports/reportsSelectors';
-import { ReportStorage } from '../../store/reports/reportsState';
 import Theme from '../../theme';
 
 type Props = {
-  reportData?: ReportStorage | null;
+  reportData?: ReportSaved | null;
   hasAddButton: boolean;
 };
 
@@ -56,8 +52,6 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
   const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
-
-  const allReports = useSelector(selectAllReports());
 
   const formMode = reportData === null ? 'create' : 'edit';
 
@@ -99,7 +93,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
         doAddReport(dispatch, newReport);
         bottomSheetModalRef.current?.close();
       } else if (formMode === 'edit' && !!reportData) {
-        const editReport: ReportStorage = {
+        const editReport: ReportSaved = {
           ...values,
           id: reportData.id,
         };
@@ -152,10 +146,6 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     open: open,
     close: close,
   }));
-
-  useEffect(() => {
-    // console.log(allReports);
-  }, [allReports]);
 
   return (
     <>

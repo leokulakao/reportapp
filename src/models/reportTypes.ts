@@ -60,3 +60,26 @@ export interface ReportsByDaysView {
   end: string;
   reports: ReportSaved[];
 }
+
+export interface ReportStatsYearView {
+  year: number;
+  statsMonths: ReportStatsMonthView[];
+}
+
+export interface ReportStatsMonthView {
+  year: number;
+  month: number;
+  hours: number;
+  publications: number;
+  videos: number;
+  returnVisits: number;
+  biblieStudies: number;
+  specialHours: number;
+}
+
+// backup
+
+export interface Backup {
+  version: string;
+  data: ReportsData;
+}
