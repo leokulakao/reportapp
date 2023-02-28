@@ -1,7 +1,8 @@
-import { Report } from '../../models';
+import { Report, ReportsData } from '../../models';
 
 export interface ReportsState {
   reports: ReportStorage[];
+  data: ReportsData;
 }
 
 export interface ReportStorage extends Report {

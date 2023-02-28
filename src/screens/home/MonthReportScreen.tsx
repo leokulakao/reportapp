@@ -10,7 +10,7 @@ import ReportForm, {
   ReportFormRef,
 } from '../../components/report-form/ReportForm';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
-import { selectReportsByMonth } from '../../store/reports/reportsSelectors';
+import { selectReportsByMonthNew } from '../../store/reports/reportsSelectors';
 import { ReportStorage } from '../../store/reports/reportsState';
 import Theme from '../../theme';
 import { HomeStackParamList } from './HomeStack';
@@ -26,7 +26,7 @@ const MonthReportScreen: React.FC<Props> = (props) => {
 
   const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportStorage>();
 
-  const reportsByMonth = useSelector(selectReportsByMonth(year, month));
+  const reportsByMonth = useSelector(selectReportsByMonthNew(year, month));
 
   const theme = useTheme<Theme>();
 

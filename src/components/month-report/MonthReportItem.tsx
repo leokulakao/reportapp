@@ -45,7 +45,11 @@ const MonthReportItem: React.FC<Props> = (props) => {
             break;
 
           case destructiveButtonIndex:
-            doDeleteReportById(dispatch, selectedReport.id);
+            doDeleteReportById(dispatch, {
+              year: new Date(selectedReport.date).getFullYear(),
+              month: new Date(selectedReport.date).getMonth(),
+              report: selectedReport,
+            });
             break;
 
           case cancelButtonIndex:

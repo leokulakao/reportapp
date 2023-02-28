@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
-import { Report } from '../../models';
+import { Report, ReportDeleteByIdInput } from '../../models';
 import {
   addReport,
   deleteAllReports,
-  deleteReportById,
+  deleteReportByIdNew,
   editReportById,
   uploadBackup,
 } from './reportsSlice';
@@ -25,9 +25,12 @@ export function doDeleteAllReports(dispatch: Dispatch) {
   }
 }
 
-export function doDeleteReportById(dispatch: Dispatch, id: string) {
+export function doDeleteReportById(
+  dispatch: Dispatch,
+  params: ReportDeleteByIdInput
+) {
   try {
-    dispatch(deleteReportById(id));
+    dispatch(deleteReportByIdNew(params));
   } catch (e) {
     console.log(e);
   }

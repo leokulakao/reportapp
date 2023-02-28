@@ -13,7 +13,8 @@ import {
   TextInput,
   StyleSheet,
   View,
-  // Text,
+  TouchableOpacity,
+  Text,
   // TouchableOpacity,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -29,7 +30,7 @@ import { useDispatch } from 'react-redux';
 import { Report } from '../../models';
 import {
   doAddReport,
-  // doDeleteAllReports,
+  doDeleteAllReports,
   doEditReportById,
 } from '../../store/reports/reportsService';
 import { useSelector } from 'react-redux';
@@ -141,7 +142,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     bottomSheetModalRef.current?.present();
   };
 
-  const close = () => { };
+  const close = () => {};
 
   useImperativeHandle(ref, () => ({
     open: open,
@@ -248,9 +249,9 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
             disabled={!isValid}
           />
         </View>
-        {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
+        <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
           <Text>{t('Delete')}</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </BottomSheetModalComp>
     </>
   );
