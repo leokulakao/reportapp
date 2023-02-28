@@ -19,8 +19,8 @@ import { useSelector } from 'react-redux';
 import { selectBackup } from '../../store/reports/reportsSelectors';
 import { useDispatch } from 'react-redux';
 import { doUploadBackup } from '../../store/reports/reportsService';
-import { Backup } from '../../store/reports/reportsState';
 import BottomSheetModalComp from '../../components/BottomSheetModalComp';
+import { Backup } from '../../models';
 
 type Props = NativeStackScreenProps<SettingsStackParamList, 'Backup'>;
 
@@ -60,7 +60,7 @@ const BackupScreen: React.FC<Props> = () => {
         })
           .then((r: string) => {
             const _backup: Backup = JSON.parse(r);
-            doUploadBackup(dispatch, _backup.reports);
+            doUploadBackup(dispatch, _backup);
 
             // Toggle bottom sheet
             bottomSheetModalRef.current?.present();

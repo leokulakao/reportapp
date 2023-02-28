@@ -5,11 +5,17 @@ import React, {
   useMemo,
   useRef,
   // useCallback,
-  useEffect,
 } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useFormik } from 'formik';
-import { TextInput, StyleSheet, View } from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  // TouchableOpacity,
+  // Text,
+  // TouchableOpacity,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@shopify/restyle';
 
@@ -20,19 +26,16 @@ import ReportFormItem from './ReportFormItem';
 import MainButton from '../buttons/MainButton';
 import { useDispatch } from 'react-redux';
 // import { addReport } from '../../store/slices/reportsSlice';
-import { Report } from '../../models';
+import { Report, ReportSaved } from '../../models';
 import {
   doAddReport,
   // doDeleteAllReports,
   doEditReportById,
 } from '../../store/reports/reportsService';
-import { useSelector } from 'react-redux';
-import { selectAllReports } from '../../store/reports/reportsSelectors';
-import { ReportStorage } from '../../store/reports/reportsState';
 import Theme from '../../theme';
 
 type Props = {
-  reportData?: ReportStorage | null;
+  reportData?: ReportSaved | null;
   hasAddButton: boolean;
   headerButton?: boolean;
 };
@@ -50,8 +53,6 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
   const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
-
-  const allReports = useSelector(selectAllReports());
 
   const formMode = reportData === null ? 'create' : 'edit';
 
@@ -93,11 +94,15 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
         doAddReport(dispatch, newReport);
         bottomSheetModalRef.current?.close();
       } else if (formMode === 'edit' && !!reportData) {
-        const editReport: ReportStorage = {
+        const editReport: ReportSaved = {
           ...values,
           id: reportData.id,
         };
-        doEditReportById(dispatch, editReport);
+        doEditReportById(dispatch, {
+          year: new Date(editReport.date).getFullYear(),
+          month: new Date(editReport.date).getMonth(),
+          report: editReport,
+        });
         bottomSheetModalRef.current?.close();
       }
     },
@@ -143,10 +148,6 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     close: close,
   }));
 
-  useEffect(() => {
-    // console.log(allReports);
-  }, [allReports]);
-
   return (
     <>
       {hasAddButton && (
@@ -176,6 +177,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
           onChange={(v) => setFieldValue('date', v)}
           value={values.date}
           marginB
+          isEdit={formMode === 'edit'}
         />
         <ReportFormItem
           type="number"

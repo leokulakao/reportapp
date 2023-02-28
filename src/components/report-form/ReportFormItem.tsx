@@ -26,6 +26,7 @@ type Props = {
   diffOnChange?: number;
   isMinutes?: boolean;
   marginB?: boolean;
+  isEdit?: boolean;
 };
 
 const ReportFormItem: React.FC<Props> = (props) => {
@@ -38,6 +39,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
     diffOnChange = 1,
     isMinutes = false,
     marginB = false,
+    isEdit = false,
   } = props;
 
   const theme = useTheme<Theme>();
@@ -108,7 +110,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
                 styles(theme).reportFormItemTextMarginH,
               ]}
               onChangeText={(text: string) => {
-                Number(text) && onChange(+text);
+                (!!Number(text) || +text === 0) && onChange(+text);
               }}
               value={value === 0 ? '' : value + ''}
               placeholder="0"
@@ -138,7 +140,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
       ) : (
         <TouchableOpacity
           onPress={() =>
-            Platform.OS === 'android'
+            Platform.OS === 'android' && isEdit === false
               ? onDateItemAndroidPress()
               : () => console.log('ios')
           }
@@ -147,6 +149,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             marginB && styles(theme).reportFormItemMargin,
           ]}
           activeOpacity={0.7}
+          disabled={isEdit}
         >
           <Icon
             name="calendar-outline"
@@ -161,7 +164,10 @@ const ReportFormItem: React.FC<Props> = (props) => {
           >
             {title}
           </Text>
-          {type === 'date' && typeof value && Platform.OS === 'ios' ? (
+          {type === 'date' &&
+          typeof value &&
+          Platform.OS === 'ios' &&
+          isEdit === false ? (
             <DateTimePicker
               locale={i18n.language}
               accentColor="#1F1F1F"
@@ -207,7 +213,7 @@ const styles = (theme: Theme) =>
       minWidth: 22,
       marginHorizontal: 15,
       fontSize: 14,
-      lineHeight: 22,
+      lineHeight: 18,
       color: theme.colors.textColor,
       backgroundColor: theme.colors.cardItemColor,
     },

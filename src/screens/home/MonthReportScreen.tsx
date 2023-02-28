@@ -10,8 +10,8 @@ import ReportForm, {
 } from '../../components/report-form/ReportForm';
 import ScreenHeader from '../../components/ScreenHeader';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
-import { selectReportsByMonth } from '../../store/reports/reportsSelectors';
-import { ReportStorage } from '../../store/reports/reportsState';
+import { ReportSaved } from '../../models';
+import { selectReportsByMonthView } from '../../store/reports/reportsSelectors';
 import Theme from '../../theme';
 import { HomeStackParamList } from './HomeStack';
 
@@ -24,9 +24,9 @@ const MonthReportScreen: React.FC<Props> = (props) => {
   const month = route.params.month;
   const reportFormRef = useRef<ReportFormRef>(null);
 
-  const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportStorage>();
+  const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportSaved>();
 
-  const reportsByMonth = useSelector(selectReportsByMonth(year, month));
+  const reportsByMonth = useSelector(selectReportsByMonthView(year, month));
 
   const theme = useTheme<Theme>();
 
@@ -39,7 +39,7 @@ const MonthReportScreen: React.FC<Props> = (props) => {
         <FlatList
           data={reportsByMonth.reportsByDays}
           ListHeaderComponent={() => <ScreenHeader title={`month-${month}`} />}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <MonthReportItem
               setReportFormDataEdit={setReportFormDataEdit}
               reportFormRef={reportFormRef}

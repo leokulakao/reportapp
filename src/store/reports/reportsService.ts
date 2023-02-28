@@ -1,5 +1,10 @@
 import { Dispatch } from 'redux';
-import { Report } from '../../models';
+import {
+  Backup,
+  Report,
+  ReportDeleteByIdInput,
+  ReportEditByIdInput,
+} from '../../models';
 import {
   addReport,
   deleteAllReports,
@@ -7,7 +12,6 @@ import {
   editReportById,
   uploadBackup,
 } from './reportsSlice';
-import { ReportStorage } from './reportsState';
 
 export function doAddReport(dispatch: Dispatch, report: Report) {
   try {
@@ -25,25 +29,31 @@ export function doDeleteAllReports(dispatch: Dispatch) {
   }
 }
 
-export function doDeleteReportById(dispatch: Dispatch, id: string) {
+export function doDeleteReportById(
+  dispatch: Dispatch,
+  params: ReportDeleteByIdInput
+) {
   try {
-    dispatch(deleteReportById(id));
+    dispatch(deleteReportById(params));
   } catch (e) {
     console.log(e);
   }
 }
 
-export function doEditReportById(dispatch: Dispatch, report: ReportStorage) {
+export function doEditReportById(
+  dispatch: Dispatch,
+  params: ReportEditByIdInput
+) {
   try {
-    dispatch(editReportById(report));
+    dispatch(editReportById(params));
   } catch (e) {
     console.log(e);
   }
 }
 
-export function doUploadBackup(dispatch: Dispatch, reports: ReportStorage[]) {
+export function doUploadBackup(dispatch: Dispatch, backup: Backup) {
   try {
-    dispatch(uploadBackup(reports));
+    dispatch(uploadBackup(backup));
   } catch (e) {
     console.log(e);
   }

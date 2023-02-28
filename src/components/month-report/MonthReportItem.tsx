@@ -5,17 +5,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 
-import { ReportsByDays, ReportStorage } from '../../store/reports/reportsState';
 import { doDeleteReportById } from '../../store/reports/reportsService';
 import { ReportFormRef } from '../report-form/ReportForm';
 import Theme from '../../theme';
 import { dateToLocale } from '../../utils/date';
 import i18n from '../../../localization';
+import { ReportsByDaysView, ReportSaved } from '../../models';
 
 type Props = {
-  reports: ReportsByDays;
+  reports: ReportsByDaysView;
   setReportFormDataEdit: React.Dispatch<
-    React.SetStateAction<ReportStorage | undefined>
+    React.SetStateAction<ReportSaved | undefined>
   >;
   reportFormRef: RefObject<ReportFormRef>;
 };
@@ -26,7 +26,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const theme = useTheme<Theme>();
 
-  const handleActionSheet = (selectedReport: ReportStorage) => {
+  const handleActionSheet = (selectedReport: ReportSaved) => {
     const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Cancel')];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
@@ -45,7 +45,11 @@ const MonthReportItem: React.FC<Props> = (props) => {
             break;
 
           case destructiveButtonIndex:
-            doDeleteReportById(dispatch, selectedReport.id);
+            doDeleteReportById(dispatch, {
+              year: new Date(selectedReport.date).getFullYear(),
+              month: new Date(selectedReport.date).getMonth(),
+              report: selectedReport,
+            });
             break;
 
           case cancelButtonIndex:

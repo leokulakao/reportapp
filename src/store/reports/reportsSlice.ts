@@ -1,13 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Report } from '../../models';
+import {
+  Backup,
+  Report,
+  ReportDeleteByIdInput,
+  ReportEditByIdInput,
+  ReportRounded,
+  ReportSaved,
+  ReportsDataMonths,
+  ReportsDataYear,
+} from '../../models';
 
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ReportsState, ReportStorage } from './reportsState';
+import { ReportsState } from './reportsState';
 
 const initialState: ReportsState = {
-  reports: [],
+  data: {
+    years: {},
+  },
 };
 
 export const reportsSlice = createSlice({
@@ -16,39 +27,129 @@ export const reportsSlice = createSlice({
   reducers: {
     addReport: (state: ReportsState, action: PayloadAction<Report>) => {
       const payload = action.payload;
-      const newReport: ReportStorage = {
-        ...payload,
+
+      const newReport: ReportSaved = {
         id: uuidv4(),
+        ...payload,
       };
-      state.reports.push(newReport);
+
+      // new version
+
+      const currentYear = new Date(payload.date).getFullYear();
+      const currentMonth = new Date(payload.date).getMonth();
+
+      const currentYearOnDate = state.data.years[currentYear];
+
+      // set new year
+      if (!currentYearOnDate) {
+        state.data.years[currentYear] = {
+          year: currentYear,
+          months: {},
+        } as ReportsDataYear;
+      }
+
+      const currentMonthOnDate =
+        state.data.years[currentYear].months[currentMonth];
+
+      // set new month
+      if (!currentMonthOnDate) {
+        state.data.years[currentYear].months[currentMonth] = {
+          year: currentYear,
+          month: currentMonth,
+          reports: [],
+          reportRounded: ReportRounded.NONE,
+        } as ReportsDataMonths;
+      }
+
+      // set new report
+      state.data.years[currentYear].months[currentMonth].reports.push(
+        newReport
+      );
+
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     deleteAllReports: (state: ReportsState) => {
-      state.reports = [];
+      state.data.years = {};
     },
 
-    deleteReportById: (state: ReportsState, action: PayloadAction<string>) => {
-      state.reports = state.reports.filter(
-        (report) => report.id !== action.payload
-      );
+    deleteReportById: (
+      state: ReportsState,
+      action: PayloadAction<ReportDeleteByIdInput>
+    ) => {
+      const payload = action.payload;
+      if (state.data.years[payload.year]) {
+        if (Object.keys(state.data.years[payload.year].months).length > 1) {
+          if (state.data.years[payload.year]?.months[payload.month]) {
+            if (
+              state.data.years[payload.year]?.months[payload.month].reports
+                .length > 1
+            ) {
+              state.data.years[payload.year].months[payload.month].reports =
+                state.data.years[payload.year]?.months[
+                  payload.month
+                ]?.reports.filter((report: ReportSaved) => {
+                  if (report.id !== payload.report.id) {
+                    return report;
+                  }
+                });
+            } else {
+              delete state.data.years[payload.year]?.months[payload.month];
+            }
+          }
+        } else {
+          if (
+            state.data.years[payload.year]?.months[payload.month] &&
+            state.data.years[payload.year]?.months[payload.month].reports
+              .length > 1
+          ) {
+            state.data.years[payload.year].months[payload.month].reports =
+              state.data.years[payload.year]?.months[
+                payload.month
+              ]?.reports.filter((report: ReportSaved) => {
+                if (report.id !== payload.report.id) {
+                  return report;
+                }
+              });
+          } else {
+            delete state.data.years[payload.year];
+          }
+        }
+      }
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     editReportById: (
       state: ReportsState,
-      action: PayloadAction<ReportStorage>
+      action: PayloadAction<ReportEditByIdInput>
     ) => {
-      for (let i = 0; i < state.reports.length; i++) {
-        if (state.reports[i].id === action.payload.id) {
-          state.reports[i] = action.payload;
+      const payload = action.payload;
+      if (state.data.years[payload.year]) {
+        if (state.data.years[payload.year]?.months[payload.month]) {
+          for (
+            let index = 0;
+            index <
+            state.data.years[payload.year]?.months[payload.month]?.reports
+              .length;
+            index++
+          ) {
+            if (
+              state.data.years[payload.year].months[payload.month].reports[
+                index
+              ].id === payload.report.id
+            ) {
+              state.data.years[payload.year].months[payload.month].reports[
+                index
+              ] = payload.report;
+            }
+          }
         }
       }
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
-    uploadBackup: (
-      state: ReportsState,
-      action: PayloadAction<ReportStorage[]>
-    ) => {
-      state.reports = action.payload;
+    uploadBackup: (state: ReportsState, action: PayloadAction<Backup>) => {
+      state.data = action.payload.data;
     },
   },
 });

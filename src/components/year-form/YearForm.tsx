@@ -1,5 +1,11 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { View, StyleSheet } from 'react-native';
 import BottomSheetModalComp from '../BottomSheetModalComp';
 import MainButton from '../buttons/MainButton';
@@ -29,11 +35,18 @@ const YearForm: React.FC<Props> = (props) => {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+  console.log('------>', minYear);
 
   const handleMainButtonPress = () => {
+    console.log(selectedIndex);
+    console.log(setYears(minYear));
     setYear(+setYears(minYear)[selectedIndex]);
     bottomSheetModalRef.current?.close();
   };
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [minYear]);
 
   const setYears = (minYear: number | null = null): string[] => {
     const currentYear: number = new Date().getFullYear();
