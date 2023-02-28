@@ -103,7 +103,11 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
           ...values,
           id: reportData.id,
         };
-        doEditReportById(dispatch, editReport);
+        doEditReportById(dispatch, {
+          year: new Date(editReport.date).getFullYear(),
+          month: new Date(editReport.date).getMonth(),
+          report: editReport,
+        });
         bottomSheetModalRef.current?.close();
       }
     },
@@ -174,6 +178,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
           onChange={(v) => setFieldValue('date', v)}
           value={values.date}
           marginB
+          isEdit={formMode === 'edit'}
         />
         <ReportFormItem
           type="number"

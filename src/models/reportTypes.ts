@@ -15,6 +15,8 @@ export interface ReportSaved extends Report {
   id: string;
 }
 
+// data
+
 export interface ReportsDataMonths {
   year: number;
   month: number;
@@ -32,10 +34,29 @@ export interface ReportsData {
   years: Record<number, ReportsDataYear>;
 }
 
-// slice interface
+// inputs
 
 export interface ReportDeleteByIdInput {
   year: number;
   month: number;
   report: ReportSaved;
+}
+
+export interface ReportEditByIdInput extends ReportDeleteByIdInput {}
+
+// views
+
+export interface ReportsByMonthView {
+  year: number;
+  month: number;
+  reportsByDays: ReportsByDaysView[];
+}
+
+export interface ReportsByDaysView {
+  year: number;
+  month: number;
+  day: number;
+  start: string;
+  end: string;
+  reports: ReportSaved[];
 }

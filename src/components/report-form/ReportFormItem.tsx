@@ -25,6 +25,7 @@ type Props = {
   diffOnChange?: number;
   isMinutes?: boolean;
   marginB?: boolean;
+  isEdit?: boolean;
 };
 
 const ReportFormItem: React.FC<Props> = (props) => {
@@ -37,6 +38,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
     diffOnChange = 1,
     isMinutes = false,
     marginB = false,
+    isEdit = false,
   } = props;
 
   const theme = useTheme<Theme>();
@@ -132,7 +134,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
       ) : (
         <TouchableOpacity
           onPress={() =>
-            Platform.OS === 'android'
+            Platform.OS === 'android' && isEdit === false
               ? onDateItemAndroidPress()
               : () => console.log('ios')
           }
@@ -141,6 +143,7 @@ const ReportFormItem: React.FC<Props> = (props) => {
             marginB && styles(theme).reportFormItemMargin,
           ]}
           activeOpacity={0.7}
+          disabled={isEdit}
         >
           <Icon
             name="calendar-outline"
@@ -155,7 +158,10 @@ const ReportFormItem: React.FC<Props> = (props) => {
           >
             {title}
           </Text>
-          {type === 'date' && typeof value && Platform.OS === 'ios' ? (
+          {type === 'date' &&
+          typeof value &&
+          Platform.OS === 'ios' &&
+          isEdit === false ? (
             <DateTimePicker
               locale={i18n.language}
               accentColor="#1F1F1F"

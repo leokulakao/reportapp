@@ -1,9 +1,13 @@
 import { Dispatch } from 'redux';
-import { Report, ReportDeleteByIdInput } from '../../models';
+import {
+  Report,
+  ReportDeleteByIdInput,
+  ReportEditByIdInput,
+} from '../../models';
 import {
   addReport,
   deleteAllReports,
-  deleteReportByIdNew,
+  deleteReportById,
   editReportById,
   uploadBackup,
 } from './reportsSlice';
@@ -30,15 +34,18 @@ export function doDeleteReportById(
   params: ReportDeleteByIdInput
 ) {
   try {
-    dispatch(deleteReportByIdNew(params));
+    dispatch(deleteReportById(params));
   } catch (e) {
     console.log(e);
   }
 }
 
-export function doEditReportById(dispatch: Dispatch, report: ReportStorage) {
+export function doEditReportById(
+  dispatch: Dispatch,
+  params: ReportEditByIdInput
+) {
   try {
-    dispatch(editReportById(report));
+    dispatch(editReportById(params));
   } catch (e) {
     console.log(e);
   }

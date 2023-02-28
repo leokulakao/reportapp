@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   Report,
   ReportDeleteByIdInput,
+  ReportEditByIdInput,
   ReportSaved,
   ReportsDataMonths,
   ReportsDataYear,
@@ -25,11 +26,11 @@ export const reportsSlice = createSlice({
   reducers: {
     addReport: (state: ReportsState, action: PayloadAction<Report>) => {
       const payload = action.payload;
-      const report: ReportStorage = {
-        ...payload,
-        id: uuidv4(),
-      };
-      state.reports.push(report);
+      // const report: ReportStorage = {
+      //   ...payload,
+      //   id: uuidv4(),
+      // };
+      // state.reports.push(report);
 
       const newReport: ReportSaved = {
         id: uuidv4(),
@@ -69,7 +70,7 @@ export const reportsSlice = createSlice({
         newReport
       );
 
-      console.log(state.data);
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     deleteAllReports: (state: ReportsState) => {
@@ -77,40 +78,79 @@ export const reportsSlice = createSlice({
       state.data.years = {};
     },
 
-    deleteReportById: (state: ReportsState, action: PayloadAction<string>) => {
-      state.reports = state.reports.filter(
-        (report) => report.id !== action.payload
-      );
-    },
-
-    deleteReportByIdNew: (
+    deleteReportById: (
       state: ReportsState,
       action: PayloadAction<ReportDeleteByIdInput>
     ) => {
       const payload = action.payload;
       if (state.data.years[payload.year]) {
-        if (state.data.years[payload.year]?.months[payload.month]) {
-          state.data.years[payload.year].months[payload.month].reports =
-            state.data.years[payload.year]?.months[
-              payload.month
-            ]?.reports.filter((report: ReportSaved) => {
-              if (report.id !== payload.report.id) {
-                return report;
-              }
-            });
+        if (Object.keys(state.data.years[payload.year].months).length > 1) {
+          if (state.data.years[payload.year]?.months[payload.month]) {
+            if (
+              state.data.years[payload.year]?.months[payload.month].reports
+                .length > 1
+            ) {
+              state.data.years[payload.year].months[payload.month].reports =
+                state.data.years[payload.year]?.months[
+                  payload.month
+                ]?.reports.filter((report: ReportSaved) => {
+                  if (report.id !== payload.report.id) {
+                    return report;
+                  }
+                });
+            } else {
+              delete state.data.years[payload.year]?.months[payload.month];
+            }
+          }
+        } else {
+          if (
+            state.data.years[payload.year]?.months[payload.month] &&
+            state.data.years[payload.year]?.months[payload.month].reports
+              .length > 1
+          ) {
+            state.data.years[payload.year].months[payload.month].reports =
+              state.data.years[payload.year]?.months[
+                payload.month
+              ]?.reports.filter((report: ReportSaved) => {
+                if (report.id !== payload.report.id) {
+                  return report;
+                }
+              });
+          } else {
+            delete state.data.years[payload.year];
+          }
         }
       }
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     editReportById: (
       state: ReportsState,
-      action: PayloadAction<ReportStorage>
+      action: PayloadAction<ReportEditByIdInput>
     ) => {
-      for (let i = 0; i < state.reports.length; i++) {
-        if (state.reports[i].id === action.payload.id) {
-          state.reports[i] = action.payload;
+      const payload = action.payload;
+      if (state.data.years[payload.year]) {
+        if (state.data.years[payload.year]?.months[payload.month]) {
+          for (
+            let index = 0;
+            index <
+            state.data.years[payload.year]?.months[payload.month]?.reports
+              .length;
+            index++
+          ) {
+            if (
+              state.data.years[payload.year].months[payload.month].reports[
+                index
+              ].id === payload.report.id
+            ) {
+              state.data.years[payload.year].months[payload.month].reports[
+                index
+              ] = payload.report;
+            }
+          }
         }
       }
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     uploadBackup: (
@@ -126,7 +166,6 @@ export const {
   addReport,
   deleteAllReports,
   deleteReportById,
-  deleteReportByIdNew,
   editReportById,
   uploadBackup,
 } = reportsSlice.actions;
