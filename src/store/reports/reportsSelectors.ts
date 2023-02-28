@@ -63,16 +63,7 @@ export const selectStatsReportsByYear = (year: number) =>
 
     monthsStr.forEach((month: string) => {
       const currentMonth = _data.years[year].months[+month];
-      // const lastMonth = _data.years[year].months[+month - 1] ?? null;
-
-      const start = new Date(year, currentMonth.month, 1, 1, 0, 0);
-      const end = new Date(year, currentMonth.month + 1, 1, 0, 0, 0);
-      const _r = currentMonth.reports
-        // .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .filter((elem) => {
-          const d = new Date(elem.date);
-          return d.getTime() >= start.getTime() && d.getTime() <= end.getTime();
-        });
+      const _r = currentMonth.reports;
 
       if (_r.length > 0) {
         let statHours: number = 0;

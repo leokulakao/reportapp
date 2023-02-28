@@ -1,7 +1,7 @@
 import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import { useTheme } from '@shopify/restyle';
-import { StyleSheet, Text, View, Share, Alert } from 'react-native';
+import { StyleSheet, Text, View, Share } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
@@ -26,22 +26,6 @@ const MonthItem: React.FC<Props> = (props) => {
     navigation?.navigate('MonthReport', { year: year, month: month });
 
   const shareMessage = () => {
-    if (stats) {
-      if (stats.minutes > 0 || stats.specialMinutes > 0) {
-        Alert.alert('Alert Title', 'My Alert Msg', [
-          {
-            text: 'Cancel',
-            onPress: () => shareConfig(),
-            style: 'cancel',
-          },
-          { text: 'OK', onPress: () => shareConfig() },
-        ]);
-      }
-    }
-  };
-
-  const shareConfig = () => {
-    //Here is the Share API
     if (stats) {
       Share.share({
         message: defaultTemplate(i18n, stats),
