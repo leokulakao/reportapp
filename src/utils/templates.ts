@@ -2,7 +2,7 @@ import { i18n } from 'i18next';
 import { ReportStatsMonthView } from '../models';
 
 export const defaultTemplate = (i18n: i18n, stats: ReportStatsMonthView) =>
-  `${i18n.t(`month-${stats?.month || 0}`)}:\n\t
+  `${i18n.t(`month-${stats?.month || 0}`)} ${stats?.year}:\n\t
   ${i18n.t('Hours')}: ${stats?.hours || 0}${
     stats?.publications
       ? `\n\t${i18n.t('Publications')}: ${stats?.publications || 0}`

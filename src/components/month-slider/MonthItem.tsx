@@ -23,7 +23,12 @@ const MonthItem: React.FC<Props> = (props) => {
   const [t, i18n] = useTranslation();
 
   const onPressToMonthNavigate = (month: number) =>
-    navigation?.navigate('MonthReport', { year: year, month: month });
+    navigation?.navigate('MonthReport', {
+      year: year,
+      month: month,
+      initialDate:
+        new Date().getMonth() === month ? new Date() : new Date(year, month, 1),
+    });
 
   const shareMessage = () => {
     if (stats) {

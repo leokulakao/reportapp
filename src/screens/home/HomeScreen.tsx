@@ -13,7 +13,6 @@ type Props = NativeStackScreenProps<HomeStackParamList, 'HomeScreen'>;
 const HomeScreen: React.FC<Props> = (props) => {
   const { navigation } = props;
   const theme = useTheme<Theme>();
-  // console.log(theme);
   return (
     <ScreenSafeAreaContainer
       style={{ backgroundColor: theme.colors.secondaryBackgroundColor }}

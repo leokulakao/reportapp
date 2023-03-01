@@ -38,6 +38,7 @@ type Props = {
   reportData?: ReportSaved | null;
   hasAddButton: boolean;
   headerButton?: boolean;
+  initialDate?: Date;
 };
 
 export type ReportFormRef = {
@@ -46,8 +47,15 @@ export type ReportFormRef = {
 };
 
 const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
-  const { reportData = null, hasAddButton, headerButton = false } = props;
+  const {
+    reportData = null,
+    hasAddButton,
+    headerButton = false,
+    initialDate = new Date(),
+  } = props;
   const theme = useTheme<Theme>();
+
+  console.log('initialDate ----------------', initialDate);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
@@ -117,6 +125,7 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
       setFieldValue('hours', reportData.hours);
       setFieldValue('minutes', reportData.minutes);
       setFieldValue('publications', reportData.publications);
+      setFieldValue('videos', reportData.videos);
       setFieldValue('returnVisits', reportData.returnVisits);
       setFieldValue('bibleStudies', reportData.bibleStudies);
       setFieldValue('specialHours', reportData.specialHours);
@@ -124,10 +133,11 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     } else {
       ReportSchema.fields.date.max(new Date());
       setFieldValue('title', '');
-      setFieldValue('date', new Date().toISOString());
+      setFieldValue('date', initialDate.toISOString());
       setFieldValue('hours', 0);
       setFieldValue('minutes', 0);
       setFieldValue('publications', 0);
+      setFieldValue('videos', 0);
       setFieldValue('returnVisits', 0);
       setFieldValue('bibleStudies', 0);
       setFieldValue('specialHours', 0);

@@ -11,7 +11,6 @@ import Theme from '../../theme';
 import HomeScreen from './HomeScreen';
 import MonthReportScreen from './MonthReportScreen';
 import ReportForm from '../../components/report-form/ReportForm';
-import { View } from 'react-native';
 
 // import type { StackNavigationOptions } from '@react-navigation/stack';
 
@@ -26,6 +25,7 @@ export type HomeStackParamList = {
   MonthReport: {
     year: number;
     month: number;
+    initialDate: Date;
   };
 };
 
@@ -48,17 +48,21 @@ const HomeStack: React.FC<Props> = () => {
         <Stack.Screen
           name="MonthReport"
           component={MonthReportScreen}
-          options={{
+          options={({ route }) => ({
             headerShown: true,
             title: '',
             headerStyle: {
               backgroundColor: theme.colors.backgroundColor,
             },
             headerRight: () => (
-              <ReportForm hasAddButton={true} headerButton={true} />
+              <ReportForm
+                hasAddButton={true}
+                headerButton={true}
+                initialDate={route.params.initialDate}
+              />
             ),
             // presentation: 'modal',
-          }}
+          })}
         />
       </Stack.Group>
     </Stack.Navigator>
