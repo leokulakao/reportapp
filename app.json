@@ -20,7 +20,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
@@ -51,6 +53,21 @@
       "eas": {
         "projectId": "63c87908-edcf-4dc2-892a-a055ad7f3ce8"
       }
+    },
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "your sentry organization slug here",
+            "project": "your sentry project name here",
+            "authToken": "your auth token here"
+          }
+        }
+      ]
     }
   }
 }
