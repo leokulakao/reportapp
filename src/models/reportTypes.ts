@@ -49,6 +49,11 @@ export interface ReportDeleteByIdInput {
 
 export interface ReportEditByIdInput extends ReportDeleteByIdInput {}
 
+export interface ReportCalculateMinutesPassedInput {
+  year: number;
+  month: number;
+}
+
 // views
 
 export interface ReportsByMonthView {

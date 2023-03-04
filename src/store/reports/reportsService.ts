@@ -7,6 +7,7 @@ import {
 } from '../../models';
 import {
   addReport,
+  calculateMinutesPassed,
   deleteAllReports,
   deleteReportById,
   editReportById,
@@ -16,6 +17,13 @@ import {
 export function doAddReport(dispatch: Dispatch, report: Report) {
   try {
     dispatch(addReport(report));
+
+    const currentYear = new Date(report.date).getFullYear();
+    const currentMonth = new Date(report.date).getMonth();
+
+    dispatch(
+      calculateMinutesPassed({ year: currentYear, month: currentMonth })
+    );
   } catch (e) {
     console.log(e);
   }
@@ -35,6 +43,9 @@ export function doDeleteReportById(
 ) {
   try {
     dispatch(deleteReportById(params));
+    dispatch(
+      calculateMinutesPassed({ year: params.year, month: params.month })
+    );
   } catch (e) {
     console.log(e);
   }
@@ -46,6 +57,9 @@ export function doEditReportById(
 ) {
   try {
     dispatch(editReportById(params));
+    dispatch(
+      calculateMinutesPassed({ year: params.year, month: params.month })
+    );
   } catch (e) {
     console.log(e);
   }

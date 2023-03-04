@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   Backup,
   Report,
+  ReportCalculateMinutesPassedInput,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
   ReportRounded,
@@ -66,7 +67,7 @@ export const reportsSlice = createSlice({
         newReport
       );
 
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     deleteAllReports: (state: ReportsState) => {
@@ -116,7 +117,7 @@ export const reportsSlice = createSlice({
           }
         }
       }
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     editReportById: (
@@ -145,11 +146,43 @@ export const reportsSlice = createSlice({
           }
         }
       }
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     uploadBackup: (state: ReportsState, action: PayloadAction<Backup>) => {
       state.data = action.payload.data;
+    },
+
+    calculateMinutesPassed: (
+      state: ReportsState,
+      action: PayloadAction<ReportCalculateMinutesPassedInput>
+    ) => {
+      const payload = action.payload;
+      console.log(' ------ > ', payload);
+      if (state.data.years[payload.year]?.months[payload.month]) {
+        let minutesCalculated = 0;
+        for (
+          let index = 0;
+          index <
+          state.data.years[payload.year]?.months[payload.month].reports.length;
+          index++
+        ) {
+          const report =
+            state.data.years[payload.year]?.months[payload.month].reports[
+              index
+            ];
+          minutesCalculated = minutesCalculated + report.minutes;
+        }
+        state.data.years[payload.year].months[payload.month].minutesPassed =
+          minutesCalculated;
+        console.log(
+          JSON.stringify(
+            state.data.years[payload.year].months[payload.month],
+            null,
+            2
+          )
+        );
+      }
     },
   },
 });
@@ -160,6 +193,7 @@ export const {
   deleteReportById,
   editReportById,
   uploadBackup,
+  calculateMinutesPassed,
 } = reportsSlice.actions;
 
 export default reportsSlice.reducer;
