@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
@@ -37,7 +37,7 @@
       }
     },
     "android": {
-      "versionCode": 1011,
+      "versionCode": 1012,
       "package": "com.reportapp.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
