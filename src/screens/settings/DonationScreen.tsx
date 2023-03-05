@@ -27,7 +27,7 @@ const DonationScreen: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles(theme).buttonContainer}>
           <MainButton
-            text={t('Donate')}
+            text={t('Contribute')}
             icon="heart"
             onPress={() => navigation?.navigate('PayPal')}
             style={styles(theme).button}

@@ -38,7 +38,14 @@ const MainButton: React.FC<Props> = (props) => {
         />
       )}
       {!!text && (
-        <View>
+        <>
+          {!!icon && (
+            <Icon
+              name={icon}
+              size={29}
+              color={iconColor || theme.colors.iconColor}
+            />
+          )}
           <Text
             style={[
               styles(theme).text,
@@ -47,16 +54,7 @@ const MainButton: React.FC<Props> = (props) => {
           >
             {text}
           </Text>
-          {!!icon && (
-            <View style={styles(theme).iconContainerAbsolute}>
-              <Icon
-                name={icon}
-                size={29}
-                color={iconColor || theme.colors.iconColor}
-              />
-            </View>
-          )}
-        </View>
+        </>
       )}
     </TouchableOpacity>
   );
@@ -81,11 +79,6 @@ const styles = (theme: Theme) =>
     text: {
       fontSize: 14,
       color: theme.colors.textColor,
-      marginHorizontal: 15,
-    },
-    iconContainerAbsolute: {
-      position: 'absolute',
-      top: -3,
-      left: -23,
+      marginHorizontal: 10,
     },
   });
