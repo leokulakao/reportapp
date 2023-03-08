@@ -91,11 +91,14 @@ export const selectStatsReportsByYear = (year: number) =>
 
         if (statMinutes >= 60) {
           statHours = statHours + Math.trunc(statMinutes / 60);
+          statMinutes = statMinutes - Math.trunc(statMinutes / 60) * 60;
         }
 
         if (statSpecialMinutes >= 60) {
           statSpecialHours =
             statSpecialHours + Math.trunc(statSpecialMinutes / 60);
+          statSpecialMinutes =
+            statSpecialMinutes - Math.trunc(statSpecialMinutes / 60) * 60;
         }
 
         result.statsMonths.push({
