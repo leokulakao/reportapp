@@ -55,13 +55,18 @@ export interface ReportCalculateMinutesPassedInput {
 }
 
 export interface ReportPassRemainingHoursInput
-  extends ReportCalculateMinutesPassedInput {}
+  extends ReportCalculateMinutesPassedInput {
+  minutesPassed: number;
+  reportRounded: ReportRounded;
+}
 
 // views
 
 export interface ReportsByMonthView {
   year: number;
   month: number;
+  minutesPassed: number;
+  reportRounded: ReportRounded;
   reportsByDays: ReportsByDaysView[];
 }
 
@@ -97,4 +102,11 @@ export interface ReportStatsMonthView {
 export interface Backup {
   version: string;
   data: ReportsData;
+}
+
+// alert
+
+export interface MinutesPassedAlert {
+  minutesPassed: number;
+  reportRounded: ReportRounded;
 }

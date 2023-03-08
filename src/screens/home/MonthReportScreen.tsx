@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MonthReportItem from '../../components/month-report/MonthReportItem';
@@ -11,7 +11,10 @@ import ReportForm, {
 import ScreenHeader from '../../components/ScreenHeader';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { ReportSaved } from '../../models';
-import { selectReportsByMonthView } from '../../store/reports/reportsSelectors';
+import {
+  selectMinutesPassedAlert,
+  selectReportsByMonthView,
+} from '../../store/reports/reportsSelectors';
 import { doPassRemainingHours } from '../../store/reports/reportsService';
 import Theme from '../../theme';
 import { HomeStackParamList } from './HomeStack';
@@ -30,14 +33,50 @@ const MonthReportScreen: React.FC<Props> = (props) => {
   const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportSaved>();
 
   const reportsByMonth = useSelector(selectReportsByMonthView(year, month));
+  const minutesPassedAlertData = useSelector(
+    selectMinutesPassedAlert(
+      month === 0 ? year - 1 : year,
+      month === 0 ? 11 : month - 1
+    )
+  );
 
   const theme = useTheme<Theme>();
 
+  const passHours = useCallback(() => {
+    console.log('123123123');
+    doPassRemainingHours(dispatch, {
+      year: year,
+      month: month,
+      minutesPassed: minutesPassedAlertData.minutesPassed,
+      reportRounded: minutesPassedAlertData.reportRounded,
+    });
+  }, [
+    dispatch,
+    minutesPassedAlertData.minutesPassed,
+    minutesPassedAlertData.reportRounded,
+    month,
+    year,
+  ]);
+
   useEffect(() => {
-    if (dispatch && year && month) {
-      doPassRemainingHours(dispatch, { year: year, month: month });
+    if (
+      reportsByMonth.reportsByDays.length === 0 &&
+      minutesPassedAlertData.minutesPassed > 0 &&
+      month === new Date().getMonth()
+    ) {
+      Alert.alert('Pass minutes', 'Do you want to pass the minutes?', [
+        {
+          text: 'Yes',
+          onPress: passHours,
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ]);
     }
-  }, [dispatch, year, month]);
+  }, [reportsByMonth, minutesPassedAlertData, month, passHours]);
 
   return (
     <ScreenSafeAreaContainer

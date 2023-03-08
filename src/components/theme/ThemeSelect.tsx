@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 // import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectThemeState } from '../../store/app/appSelectors';
@@ -18,10 +18,6 @@ const ThemeSelect: React.FC<Props> = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   // const { t, i18n } = useTranslation();
   const theme: ThemeNames = useSelector(selectThemeState());
-
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
 
   return (
     <BottomSheetSelect ref={ref}>

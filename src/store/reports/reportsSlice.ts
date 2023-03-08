@@ -34,6 +34,8 @@ export const reportsSlice = createSlice({
         ...payload,
       };
 
+      console.log(JSON.stringify(payload, null, 2));
+
       // new version
 
       const currentYear = new Date(payload.date).getFullYear();
@@ -158,7 +160,6 @@ export const reportsSlice = createSlice({
       action: PayloadAction<ReportCalculateMinutesPassedInput>
     ) => {
       const payload = action.payload;
-      console.log(' ------ > ', payload);
       if (state.data.years[payload.year]?.months[payload.month]) {
         let minutesCalculated = 0;
         for (
@@ -175,13 +176,6 @@ export const reportsSlice = createSlice({
         }
         state.data.years[payload.year].months[payload.month].minutesPassed =
           minutesCalculated;
-        console.log(
-          JSON.stringify(
-            state.data.years[payload.year].months[payload.month],
-            null,
-            2
-          )
-        );
       }
     },
   },

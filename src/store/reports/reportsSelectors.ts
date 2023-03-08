@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import {
   Backup,
+  MinutesPassedAlert,
+  ReportRounded,
   ReportsByDaysView,
   ReportsByMonthView,
   ReportStatsYearView,
@@ -11,26 +13,28 @@ const data = (state: RootState) => state.reports.data;
 
 export const selectReportsByMonthView = (year: number, month: number) =>
   createSelector(data, (_) => {
-    console.log(data);
     const _data = _;
     const result: ReportsByMonthView = {
       year: year,
       month: month,
+      minutesPassed: _data.years[year]?.months[month]?.minutesPassed || 0,
+      reportRounded:
+        _data.years[year]?.months[month]?.reportRounded || ReportRounded.NONE,
       reportsByDays: [],
     };
     // console.log(_reports);
     if (_data.years[year]?.months[month]?.reports.length > 0) {
-      const daysInMonth = new Date(year, month, 0).getDate();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
       for (let i = 0; i < daysInMonth; i++) {
         const day = i + 1;
-        const start = new Date(year, month, i, 24, 0, 0);
-        const end = new Date(year, month, day, 24, 0, 0);
+        const start = new Date(year, month, day);
+        const end = new Date(year, month, day + 1);
         const r = _data.years[year]?.months[month].reports
           // .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
           .filter((elem) => {
             const d = new Date(elem.date);
             return (
-              d.getTime() >= start.getTime() && d.getTime() <= end.getTime()
+              d.getTime() >= start.getTime() && d.getTime() < end.getTime()
             );
           });
         if (r.length > 0) {
@@ -46,6 +50,17 @@ export const selectReportsByMonthView = (year: number, month: number) =>
         }
       }
     }
+    return result;
+  });
+
+export const selectMinutesPassedAlert = (year: number, month: number) =>
+  createSelector(data, (_) => {
+    const _data = _;
+    const result: MinutesPassedAlert = {
+      minutesPassed: _data.years[year]?.months[month]?.minutesPassed || 0,
+      reportRounded:
+        _data.years[year]?.months[month]?.reportRounded || ReportRounded.NONE,
+    };
     return result;
   });
 

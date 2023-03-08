@@ -42,7 +42,6 @@ const Tab = createBottomTabNavigator<NavigationTabParamList>();
 const Navigation = () => {
   const appTheme: ThemeNames = useSelector(selectThemeState());
   const appearanceTheme: ColorSchemeName = useColorScheme();
-  console.log(appearanceTheme);
 
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
 
@@ -171,7 +170,11 @@ const TabBarButtonIcon: React.FC<TabBarButtonIconProps> = (props) => {
         name={iconName || 'alert'}
         size={22}
         // eslint-disable-next-line prettier/prettier
-        color={focused ? theme.colors.secondaryIconColor : theme.colors.contrastIconColor}
+        color={
+          focused
+            ? theme.colors.secondaryIconColor
+            : theme.colors.contrastIconColor
+        }
       />
     </View>
   );

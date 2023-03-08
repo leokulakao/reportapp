@@ -35,11 +35,8 @@ const YearForm: React.FC<Props> = (props) => {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  console.log('------>', minYear);
 
   const handleMainButtonPress = () => {
-    console.log(selectedIndex);
-    console.log(setYears(minYear));
     setYear(+setYears(minYear)[selectedIndex]);
     bottomSheetModalRef.current?.close();
   };
