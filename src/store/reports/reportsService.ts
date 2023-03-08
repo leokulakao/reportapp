@@ -4,6 +4,7 @@ import {
   Report,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
+  ReportPassRemainingHoursInput,
 } from '../../models';
 import {
   addReport,
@@ -68,6 +69,44 @@ export function doEditReportById(
 export function doUploadBackup(dispatch: Dispatch, backup: Backup) {
   try {
     dispatch(uploadBackup(backup));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function doPassRemainingHours(
+  dispatch: Dispatch,
+  params: ReportPassRemainingHoursInput
+) {
+  try {
+    const reportCurrentDate = new Date(
+      params.year,
+      params.month,
+      0
+      // getDaysInMonth(params.month, params.year) - 1
+    );
+
+    var nextmonthfirstday = new Date(params.year, params.month, 1);
+    const lastDayOfMonth = new Date(
+      reportCurrentDate.getFullYear(),
+      reportCurrentDate.getMonth(),
+      0
+    );
+    const reportCurrentMonth: Report = {
+      title: '',
+      date: lastDayOfMonth.toISOString(),
+      hours: 0,
+      minutes: 0,
+      publications: 0,
+      videos: 0,
+      returnVisits: 0,
+      bibleStudies: 0,
+      specialHours: 0,
+      specialMinutes: 0,
+    };
+    console.log('-------> nextmonthfirstday', nextmonthfirstday);
+    console.log('-------> current', reportCurrentMonth.date);
+    // doAddReport(dispatch)
   } catch (e) {
     console.log(e);
   }

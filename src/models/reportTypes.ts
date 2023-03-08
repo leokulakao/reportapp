@@ -54,6 +54,9 @@ export interface ReportCalculateMinutesPassedInput {
   month: number;
 }
 
+export interface ReportPassRemainingHoursInput
+  extends ReportCalculateMinutesPassedInput {}
+
 // views
 
 export interface ReportsByMonthView {

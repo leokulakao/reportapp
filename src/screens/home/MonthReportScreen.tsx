@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import MonthReportItem from '../../components/month-report/MonthReportItem';
 import ReportForm, {
@@ -12,6 +12,7 @@ import ScreenHeader from '../../components/ScreenHeader';
 import ScreenSafeAreaContainer from '../../components/ScreenSafeAreaContainer';
 import { ReportSaved } from '../../models';
 import { selectReportsByMonthView } from '../../store/reports/reportsSelectors';
+import { doPassRemainingHours } from '../../store/reports/reportsService';
 import Theme from '../../theme';
 import { HomeStackParamList } from './HomeStack';
 
@@ -19,6 +20,8 @@ type Props = NativeStackScreenProps<HomeStackParamList, 'MonthReport'>;
 
 const MonthReportScreen: React.FC<Props> = (props) => {
   const { route } = props;
+
+  const dispatch = useDispatch();
 
   const year = route.params.year;
   const month = route.params.month;
@@ -29,6 +32,12 @@ const MonthReportScreen: React.FC<Props> = (props) => {
   const reportsByMonth = useSelector(selectReportsByMonthView(year, month));
 
   const theme = useTheme<Theme>();
+
+  useEffect(() => {
+    if (dispatch && year && month) {
+      doPassRemainingHours(dispatch, { year: year, month: month });
+    }
+  }, [dispatch, year, month]);
 
   return (
     <ScreenSafeAreaContainer
