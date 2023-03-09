@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { useTheme } from '@shopify/restyle';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -16,6 +16,11 @@ const PayPalScreen: React.FC<Props> = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();
 
+  const url =
+    Platform.OS === 'ios'
+      ? 'https://arsk02.github.io/report-app/'
+      : 'https://www.paypal.com/donate/?hosted_button_id=2FEY4RET33XA4';
+
   return (
     <ScreenSafeAreaContainer
       style={styles(theme).screenContainer}
@@ -24,7 +29,7 @@ const PayPalScreen: React.FC<Props> = () => {
       <>
         <WebView
           source={{
-            uri: 'https://www.paypal.com/donate/?hosted_button_id=2FEY4RET33XA4',
+            uri: url,
           }}
         />
       </>
