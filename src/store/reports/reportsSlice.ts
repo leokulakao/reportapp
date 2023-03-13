@@ -179,6 +179,9 @@ export const reportsSlice = createSlice({
           minutesCalculated = minutesCalculated + report.minutes;
           specialMinutesCalculated =
             specialMinutesCalculated + report.specialMinutes;
+
+          if (minutesCalculated >= 60) minutesCalculated = 0;
+          if (specialMinutesCalculated >= 60) specialMinutesCalculated = 0;
         }
         state.data.years[payload.year].months[payload.month].minutesPassed =
           minutesCalculated;
@@ -186,6 +189,7 @@ export const reportsSlice = createSlice({
           payload.month
         ].spetialMinutesPassed = specialMinutesCalculated;
       }
+      console.log(JSON.stringify(state.data, null, 2));
     },
 
     updateReportRoundedState: (

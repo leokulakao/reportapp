@@ -66,6 +66,7 @@ const MonthItem: React.FC<Props> = (props) => {
 
   const shareAlert = () => {
     if (stats) {
+      console.log(stats);
       if (stats.minutes || stats.specialMinutes) {
         Alert.alert('Round Minutes', 'Do you want to rountd the minutes?', [
           {

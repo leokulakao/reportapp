@@ -119,6 +119,9 @@ export function doPassRemainingHours(
       month: reportPastDate.getMonth(),
       reportRoundedState: ReportRoundedState.PASSED,
     });
+    // dispatch(
+    //   calculateMinutesPassed({ year: params.year, month: params.month })
+    // );
   } catch (e) {
     console.log(e);
   }
@@ -152,16 +155,25 @@ export function doRoundRemainingHours(
         title: '[Minutes Rounded]',
         date: reportCurrentDate.toISOString(),
         hours: 0,
-        minutes: 0 - remainingMinutes,
+        minutes: 0 - params.minutesPassed,
         publications: 0,
         videos: 0,
         returnVisits: 0,
         bibleStudies: 0,
         specialHours: 0,
-        specialMinutes: 0 - remainingSpecialMinutes,
+        specialMinutes: 0 - params.spetialMinutesPassed,
       };
       doAddReport(dispatch, reportRoundRemaining);
     }
+    dispatch(
+      calculateMinutesPassed({ year: params.year, month: params.month })
+    );
+
+    doUpdateReportRoundedState(dispatch, {
+      year: reportCurrentDate.getFullYear(),
+      month: reportCurrentDate.getMonth(),
+      reportRoundedState: params.reportRoundedState,
+    });
   } catch (e) {
     console.log(e);
   }
