@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import {
   Backup,
   MinutesPassedAlert,
-  ReportRounded,
+  ReportRoundedState,
   ReportsByDaysView,
   ReportsByMonthView,
   ReportStatsYearView,
@@ -18,8 +18,11 @@ export const selectReportsByMonthView = (year: number, month: number) =>
       year: year,
       month: month,
       minutesPassed: _data.years[year]?.months[month]?.minutesPassed || 0,
+      spetialMinutesPassed:
+        _data.years[year]?.months[month]?.spetialMinutesPassed || 0,
       reportRounded:
-        _data.years[year]?.months[month]?.reportRounded || ReportRounded.NONE,
+        _data.years[year]?.months[month]?.reportRounded ||
+        ReportRoundedState.NONE,
       reportsByDays: [],
     };
     // console.log(_reports);
@@ -58,8 +61,11 @@ export const selectMinutesPassedAlert = (year: number, month: number) =>
     const _data = _;
     const result: MinutesPassedAlert = {
       minutesPassed: _data.years[year]?.months[month]?.minutesPassed || 0,
+      spetialMinutesPassed:
+        _data.years[year]?.months[month]?.spetialMinutesPassed || 0,
       reportRounded:
-        _data.years[year]?.months[month]?.reportRounded || ReportRounded.NONE,
+        _data.years[year]?.months[month]?.reportRounded ||
+        ReportRoundedState.NONE,
     };
     return result;
   });
@@ -127,6 +133,9 @@ export const selectStatsReportsByYear = (year: number) =>
           biblieStudies: statBibleStudies,
           specialHours: statSpecialHours,
           specialMinutes: statSpecialMinutes,
+          minutesPassed: currentMonth.minutesPassed,
+          spetialMinutesPassed: currentMonth.spetialMinutesPassed,
+          reportRounded: currentMonth.reportRounded,
         });
       }
     });

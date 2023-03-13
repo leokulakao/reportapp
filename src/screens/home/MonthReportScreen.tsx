@@ -28,6 +28,7 @@ const MonthReportScreen: React.FC<Props> = (props) => {
 
   const year = route.params.year;
   const month = route.params.month;
+
   const reportFormRef = useRef<ReportFormRef>(null);
 
   const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportSaved>();
@@ -48,11 +49,13 @@ const MonthReportScreen: React.FC<Props> = (props) => {
       year: year,
       month: month,
       minutesPassed: minutesPassedAlertData.minutesPassed,
+      spetialMinutesPassed: minutesPassedAlertData.spetialMinutesPassed,
       reportRounded: minutesPassedAlertData.reportRounded,
     });
   }, [
     dispatch,
     minutesPassedAlertData.minutesPassed,
+    minutesPassedAlertData.spetialMinutesPassed,
     minutesPassedAlertData.reportRounded,
     month,
     year,

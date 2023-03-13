@@ -5,10 +5,11 @@ import {
   ReportCalculateMinutesPassedInput,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
-  ReportRounded,
+  ReportRoundedState,
   ReportSaved,
   ReportsDataMonths,
   ReportsDataYear,
+  ReportUpdateStateReportRoundedState,
 } from '../../models';
 
 import 'react-native-get-random-values';
@@ -60,7 +61,9 @@ export const reportsSlice = createSlice({
           year: currentYear,
           month: currentMonth,
           reports: [],
-          reportRounded: ReportRounded.NONE,
+          minutesPassed: 0,
+          spetialMinutesPassed: 0,
+          reportRounded: ReportRoundedState.NONE,
         } as ReportsDataMonths;
       }
 
@@ -162,6 +165,7 @@ export const reportsSlice = createSlice({
       const payload = action.payload;
       if (state.data.years[payload.year]?.months[payload.month]) {
         let minutesCalculated = 0;
+        let specialMinutesCalculated = 0;
         for (
           let index = 0;
           index <
@@ -173,10 +177,27 @@ export const reportsSlice = createSlice({
               index
             ];
           minutesCalculated = minutesCalculated + report.minutes;
+          specialMinutesCalculated =
+            specialMinutesCalculated + report.specialMinutes;
         }
         state.data.years[payload.year].months[payload.month].minutesPassed =
           minutesCalculated;
+        state.data.years[payload.year].months[
+          payload.month
+        ].spetialMinutesPassed = specialMinutesCalculated;
       }
+    },
+
+    updateReportRoundedState: (
+      state: ReportsState,
+      action: PayloadAction<ReportUpdateStateReportRoundedState>
+    ) => {
+      const payload = action.payload;
+      if (state.data.years[payload.year]?.months[payload.month]) {
+        state.data.years[payload.year].months[payload.month].reportRounded =
+          payload.reportRoundedState;
+      }
+      console.log(JSON.stringify(state.data, null, 2));
     },
   },
 });
@@ -188,6 +209,7 @@ export const {
   editReportById,
   uploadBackup,
   calculateMinutesPassed,
+  updateReportRoundedState,
 } = reportsSlice.actions;
 
 export default reportsSlice.reducer;

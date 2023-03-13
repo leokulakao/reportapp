@@ -5,6 +5,9 @@ import {
   ReportDeleteByIdInput,
   ReportEditByIdInput,
   ReportPassRemainingHoursInput,
+  ReportRoundedState,
+  ReportRoundMinutes,
+  ReportUpdateStateReportRoundedState,
 } from '../../models';
 import {
   addReport,
@@ -12,6 +15,7 @@ import {
   deleteAllReports,
   deleteReportById,
   editReportById,
+  updateReportRoundedState,
   uploadBackup,
 } from './reportsSlice';
 
@@ -93,7 +97,7 @@ export function doPassRemainingHours(
       returnVisits: 0,
       bibleStudies: 0,
       specialHours: 0,
-      specialMinutes: 0,
+      specialMinutes: params.spetialMinutesPassed,
     };
 
     const reportPastMonth: Report = {
@@ -106,10 +110,69 @@ export function doPassRemainingHours(
       returnVisits: 0,
       bibleStudies: 0,
       specialHours: 0,
-      specialMinutes: 0,
+      specialMinutes: 0 - params.spetialMinutesPassed,
     };
     doAddReport(dispatch, reportCurrentMonth);
     doAddReport(dispatch, reportPastMonth);
+    doUpdateReportRoundedState(dispatch, {
+      year: reportPastDate.getFullYear(),
+      month: reportPastDate.getMonth(),
+      reportRoundedState: ReportRoundedState.PASSED,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function doRoundRemainingHours(
+  dispatch: Dispatch,
+  params: ReportRoundMinutes
+) {
+  try {
+    const reportCurrentDate = new Date(params.year, params.month + 1, 0);
+    const remainingMinutes = 60 - params.minutesPassed;
+    const remainingSpecialMinutes = 60 - params.spetialMinutesPassed;
+
+    if (params.reportRoundedState === ReportRoundedState.ROUNDED_UP) {
+      const reportRoundRemaining: Report = {
+        title: '[Minutes Rounded]',
+        date: reportCurrentDate.toISOString(),
+        hours: 0,
+        minutes: remainingMinutes,
+        publications: 0,
+        videos: 0,
+        returnVisits: 0,
+        bibleStudies: 0,
+        specialHours: 0,
+        specialMinutes: remainingSpecialMinutes,
+      };
+      doAddReport(dispatch, reportRoundRemaining);
+    } else if (params.reportRoundedState === ReportRoundedState.ROUNDED_DOWN) {
+      const reportRoundRemaining: Report = {
+        title: '[Minutes Rounded]',
+        date: reportCurrentDate.toISOString(),
+        hours: 0,
+        minutes: 0 - remainingMinutes,
+        publications: 0,
+        videos: 0,
+        returnVisits: 0,
+        bibleStudies: 0,
+        specialHours: 0,
+        specialMinutes: 0 - remainingSpecialMinutes,
+      };
+      doAddReport(dispatch, reportRoundRemaining);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function doUpdateReportRoundedState(
+  dispatch: Dispatch,
+  params: ReportUpdateStateReportRoundedState
+) {
+  try {
+    dispatch(updateReportRoundedState(params));
   } catch (e) {
     console.log(e);
   }
