@@ -84,5 +84,6 @@ export default {
     'Do you want to round the minutes?': 'Do you want to round the minutes?',
     'Round up': 'Round up',
     'Round down': 'Round down',
+    Rounded: 'Rounded',
   },
 };
