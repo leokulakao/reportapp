@@ -11,6 +11,8 @@ import Theme from '../../theme';
 import { dateToLocale } from '../../utils/date';
 import i18n from '../../../localization';
 import { ReportsByDaysView, ReportSaved } from '../../models';
+// import Pill from '../Pill';
+import MonthReportPills from './MonthReportPills';
 
 type Props = {
   reports: ReportsByDaysView;
@@ -25,6 +27,8 @@ const MonthReportItem: React.FC<Props> = (props) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const dispatch = useDispatch();
   const theme = useTheme<Theme>();
+
+  console.log(JSON.stringify(reports, null, 2));
 
   const handleActionSheet = (selectedReport: ReportSaved) => {
     const options = [i18n.t('Delete'), i18n.t('Edit'), i18n.t('Cancel')];
@@ -61,9 +65,7 @@ const MonthReportItem: React.FC<Props> = (props) => {
 
   return (
     <View style={styles(theme).container}>
-      <View style={styles(theme).title}>
-        <Text style={styles(theme).titleText}>{reports?.day}</Text>
-      </View>
+      <MonthReportPills reports={reports} />
       {reports.reports.length > 0 ? (
         reports.reports.map((report, index) => (
           <View style={styles(theme).item} key={index}>
@@ -97,13 +99,18 @@ const styles = (theme: Theme) =>
     container: {
       paddingBottom: 10,
     },
-    title: {
-      paddingTop: 10,
-      paddingBottom: 10,
+    pills: {
+      // justifyContent: 'center',
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      // paddingTop: 10,
+      // paddingBottom: 10,
       paddingLeft: 20,
       paddingRight: 20,
     },
     titleText: {
+      justifyContent: 'center',
       fontSize: 14,
       color: theme.colors.secondaryTextColor,
     },
