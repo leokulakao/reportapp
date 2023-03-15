@@ -76,12 +76,16 @@ export interface ReportRoundMinutes extends Year, Month, MinutesPassed {
   reportRoundedState:
     | ReportRoundedState.ROUNDED_UP
     | ReportRoundedState.ROUNDED_DOWN;
+  title: string;
 }
 
 export interface ReportPassRemainingHoursInput
   extends Year,
     Month,
-    MinutesPassed {}
+    MinutesPassed {
+  titleNext: string;
+  titlePrev: string;
+}
 
 // views
 

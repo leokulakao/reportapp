@@ -75,6 +75,9 @@ export default {
     'Transfer minutes': 'Перенос минут',
     'Do you want to transfer minutes from the previous month?':
       'Do you want to transfer minutes from the previous month?',
+    'Transferred from the previous month':
+      'Transferred from the previous month',
+    'Transferred to the next month': 'Transferred to the next month',
 
     // Rounding minutes
     'Rounding minutes': 'Rounding minutes',

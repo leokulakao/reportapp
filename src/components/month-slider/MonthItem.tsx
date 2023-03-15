@@ -46,6 +46,7 @@ const MonthItem: React.FC<Props> = (props) => {
         minutesPassed: stats?.minutesPassed,
         spetialMinutesPassed: stats?.spetialMinutesPassed,
         reportRoundedState: state,
+        title: i18n.t('Rounded'),
       });
       setCanShareReport(true);
       // setTimeout(() => shareReport(), 1000);

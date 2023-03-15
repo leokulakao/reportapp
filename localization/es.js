@@ -76,6 +76,9 @@ export default {
     'Transfer minutes': 'Transferir minutos',
     'Do you want to transfer minutes from the previous month?':
       '¿Quieres transferir minutos del mes anterior?',
+    'Transferred from the previous month':
+      'Transferred from the previous month',
+    'Transferred to the next month': 'Transferred to the next month',
 
     // Rounding minutes
     'Rounding minutes': 'Redondear minutos',

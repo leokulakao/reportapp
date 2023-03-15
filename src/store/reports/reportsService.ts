@@ -88,7 +88,7 @@ export function doPassRemainingHours(
     const reportPastDate = new Date(params.year, params.month, 0);
 
     const reportCurrentMonth: Report = {
-      title: '[Minutes from past month]',
+      title: params.titlePrev,
       date: reportCurrentDate.toISOString(),
       hours: 0,
       minutes: params.minutesPassed,
@@ -101,7 +101,7 @@ export function doPassRemainingHours(
     };
 
     const reportPastMonth: Report = {
-      title: '[Minutes to next month]',
+      title: params.titleNext,
       date: reportPastDate.toISOString(),
       hours: 0,
       minutes: 0 - params.minutesPassed,
@@ -138,7 +138,7 @@ export function doRoundRemainingHours(
 
     if (params.reportRoundedState === ReportRoundedState.ROUNDED_UP) {
       const reportRoundRemaining: Report = {
-        title: '[Minutes Rounded]',
+        title: params.title,
         date: reportCurrentDate.toISOString(),
         hours: 0,
         minutes: remainingMinutes,
@@ -152,7 +152,7 @@ export function doRoundRemainingHours(
       doAddReport(dispatch, reportRoundRemaining);
     } else if (params.reportRoundedState === ReportRoundedState.ROUNDED_DOWN) {
       const reportRoundRemaining: Report = {
-        title: '[Minutes Rounded]',
+        title: params.title,
         date: reportCurrentDate.toISOString(),
         hours: 0,
         minutes: 0 - params.minutesPassed,

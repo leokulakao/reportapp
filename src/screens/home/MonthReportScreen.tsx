@@ -54,6 +54,8 @@ const MonthReportScreen: React.FC<Props> = (props) => {
       minutesPassed: minutesPassedAlertData.minutesPassed,
       spetialMinutesPassed: minutesPassedAlertData.spetialMinutesPassed,
       reportRounded: minutesPassedAlertData.reportRounded,
+      titleNext: i18n.t('Transferred to the next month'),
+      titlePrev: i18n.t('Transferred from the previous month'),
     });
   }, [
     dispatch,
@@ -61,6 +63,7 @@ const MonthReportScreen: React.FC<Props> = (props) => {
     minutesPassedAlertData.spetialMinutesPassed,
     minutesPassedAlertData.reportRounded,
     month,
+    i18n,
     year,
   ]);
 
