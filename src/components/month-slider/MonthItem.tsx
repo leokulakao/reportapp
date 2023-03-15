@@ -68,25 +68,30 @@ const MonthItem: React.FC<Props> = (props) => {
     if (stats) {
       console.log(stats);
       if (stats.minutes || stats.specialMinutes) {
-        Alert.alert('Round Minutes', 'Do you want to rountd the minutes?', [
-          {
-            text: 'Round up',
-            onPress: () => {
-              roundMinutes(ReportRoundedState.ROUNDED_UP);
+        Alert.alert(
+          i18n.t('Rounding minutes'),
+          i18n.t('Do you want to round the minutes?') ||
+            'Do you want to round the minutes?',
+          [
+            {
+              text: i18n.t('Round up') || 'Round up',
+              onPress: () => {
+                roundMinutes(ReportRoundedState.ROUNDED_UP);
+              },
             },
-          },
-          {
-            text: 'Round down',
-            onPress: () => {
-              roundMinutes(ReportRoundedState.ROUNDED_DOWN);
+            {
+              text: i18n.t('Round down') || '',
+              onPress: () => {
+                roundMinutes(ReportRoundedState.ROUNDED_DOWN);
+              },
             },
-          },
-          {
-            text: 'Cancel',
-            onPress: () => shareReport(),
-            style: 'cancel',
-          },
-        ]);
+            {
+              text: i18n.t('Cancel') || '',
+              onPress: () => shareReport(),
+              style: 'cancel',
+            },
+          ]
+        );
       } else {
         shareReport();
       }

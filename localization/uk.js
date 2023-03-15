@@ -70,5 +70,16 @@ export default {
     Donate: 'Пожертвувати',
 
     'Privacy Policy': 'Політика конфіденційності',
+
+    // Transfer minutes
+    'Transfer minutes': 'Перенос минут',
+    'Do you want to transfer minutes from the previous month?':
+      'Do you want to transfer minutes from the previous month?',
+
+    // Rounding minutes
+    'Rounding minutes': 'Rounding minutes',
+    'Do you want to round the minutes?': 'Do you want to round the minutes?',
+    'Round up': 'Round up',
+    'Round down': 'Round down',
   },
 };

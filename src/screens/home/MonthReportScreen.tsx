@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -29,6 +30,9 @@ const MonthReportScreen: React.FC<Props> = (props) => {
   const year = route.params.year;
   const month = route.params.month;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [t, i18n] = useTranslation();
+
   const reportFormRef = useRef<ReportFormRef>(null);
 
   const [reportFormDataEdit, setReportFormDataEdit] = useState<ReportSaved>();
@@ -44,7 +48,6 @@ const MonthReportScreen: React.FC<Props> = (props) => {
   const theme = useTheme<Theme>();
 
   const passHours = useCallback(() => {
-    console.log('123123123');
     doPassRemainingHours(dispatch, {
       year: year,
       month: month,
@@ -67,19 +70,24 @@ const MonthReportScreen: React.FC<Props> = (props) => {
       minutesPassedAlertData.minutesPassed > 0 &&
       month === new Date().getMonth()
     ) {
-      Alert.alert('Pass minutes', 'Do you want to pass the minutes?', [
-        {
-          text: 'Yes',
-          onPress: passHours,
-        },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ]);
+      Alert.alert(
+        i18n.t('Transfer minutes'),
+        i18n.t('Do you want to transfer minutes from the previous month?') ||
+          'Do you want to transfer minutes from the previous month?',
+        [
+          {
+            text: i18n.t('Yes') || 'Yes',
+            onPress: passHours,
+          },
+          {
+            text: i18n.t('Cancel') || 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+        ]
+      );
     }
-  }, [reportsByMonth, minutesPassedAlertData, month, passHours]);
+  }, [reportsByMonth, minutesPassedAlertData, month, passHours, i18n]);
 
   return (
     <ScreenSafeAreaContainer

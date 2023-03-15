@@ -71,5 +71,16 @@ export default {
     Donate: 'Donar',
 
     'Privacy Policy': 'Política de privacidad',
+
+    // Transfer minutes
+    'Transfer minutes': 'Transferir minutos',
+    'Do you want to transfer minutes from the previous month?':
+      '¿Quieres transferir minutos del mes anterior?',
+
+    // Rounding minutes
+    'Rounding minutes': 'Redondear minutos',
+    'Do you want to round the minutes?': '¿Quieres redondear los minutos?',
+    'Round up': 'Round up',
+    'Round down': 'Round down',
   },
 };
