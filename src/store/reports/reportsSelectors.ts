@@ -80,10 +80,11 @@ export const selectStatsReportsByYear = (year: number) =>
           statPublications = statPublications + elem.publications;
           statVideos = statVideos + elem.videos;
           statReturnVisits = statReturnVisits + elem.returnVisits;
+          statBibleStudies = statBibleStudies + elem.bibleStudies;
 
-          if (elem.bibleStudies > statBibleStudies) {
-            statBibleStudies = elem.bibleStudies;
-          }
+          // if (elem.bibleStudies > statBibleStudies) {
+          //   statBibleStudies = elem.bibleStudies;
+          // }
 
           statSpecialHours = statSpecialHours + elem.specialHours;
           statSpecialMinutes = statSpecialMinutes + elem.specialMinutes;
