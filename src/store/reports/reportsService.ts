@@ -133,8 +133,10 @@ export function doRoundRemainingHours(
 ) {
   try {
     const reportCurrentDate = new Date(params.year, params.month + 1, 0);
-    const remainingMinutes = 60 - params.minutesPassed;
-    const remainingSpecialMinutes = 60 - params.spetialMinutesPassed;
+    const remainingMinutes =
+      params.minutesPassed === 0 ? 0 : 60 - params.minutesPassed;
+    const remainingSpecialMinutes =
+      params.spetialMinutesPassed === 0 ? 0 : 60 - params.spetialMinutesPassed;
 
     if (params.reportRoundedState === ReportRoundedState.ROUNDED_UP) {
       const reportRoundRemaining: Report = {
