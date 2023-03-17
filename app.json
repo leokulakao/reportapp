@@ -2,7 +2,7 @@
   "expo": {
     "name": "Report App",
     "slug": "reportapp",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "owner": "reportapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
-      "buildNumber": "1",
+      "buildNumber": "0",
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
@@ -37,7 +37,7 @@
       }
     },
     "android": {
-      "versionCode": 1021,
+      "versionCode": 1100,
       "package": "com.reportapp.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
