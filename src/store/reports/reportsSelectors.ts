@@ -88,6 +88,7 @@ export const selectReportsByMonthView = (year: number, month: number) =>
         }
       }
     }
+    result.reportsByDays.reverse();
     return result;
   });
 
