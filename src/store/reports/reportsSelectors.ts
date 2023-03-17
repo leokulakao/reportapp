@@ -13,7 +13,6 @@ const data = (state: RootState) => state.reports.data;
 
 export const selectReportsByMonthView = (year: number, month: number) =>
   createSelector(data, (_) => {
-    console.log(data);
     const _data = _;
     const result: ReportsByMonthView = {
       year: year,

@@ -61,6 +61,7 @@ const MonthReportPills: React.FC<Props> = (props) => {
         text={reports.day + ''}
         color={theme.colors.backgroundColor}
         textColor={theme.colors.secondaryTextColor}
+        border={false}
       />
       {pillHoursMinutesTmpl ? (
         <Pill text={pillHoursMinutesTmpl} icon={'time-outline'} />

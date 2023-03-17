@@ -97,7 +97,7 @@ export default MonthReportItem;
 const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      paddingBottom: 10,
+      marginBottom: 20,
     },
     pills: {
       // justifyContent: 'center',
