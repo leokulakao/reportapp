@@ -69,6 +69,7 @@ export default {
 
     // DONATE SCREEN
     Donate: 'Donate',
+    Contribute: 'Contribute',
 
     'Privacy Policy': 'Privacy Policy',
 

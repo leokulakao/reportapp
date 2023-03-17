@@ -68,6 +68,7 @@ export default {
 
     // DONATE SCREEN
     Donate: 'Пожертвувати',
+    Contribute: 'Пожертвувати',
 
     'Privacy Policy': 'Політика конфіденційності',
 

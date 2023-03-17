@@ -3,8 +3,10 @@ import {
   Backup,
   MinutesPassedAlert,
   ReportRoundedState,
+  ReportSaved,
   ReportsByDaysView,
   ReportsByMonthView,
+  ReportStatsDayView,
   ReportStatsYearView,
 } from '../../models/reportTypes';
 import { RootState } from '../rootState';
@@ -40,6 +42,38 @@ export const selectReportsByMonthView = (year: number, month: number) =>
               d.getTime() >= start.getTime() && d.getTime() < end.getTime()
             );
           });
+
+        let statHoursDay: number = 0;
+        let statMinutesDay: number = 0;
+        let statPublicationsDay: number = 0;
+        let statVideosDay: number = 0;
+        let statReturnVisitsDay: number = 0;
+        let statBibleStudiesDay: number = 0;
+        let statSpecialHoursDay: number = 0;
+        let statSpecialMinutesDay: number = 0;
+
+        r.forEach((report: ReportSaved) => {
+          statHoursDay = statHoursDay + report.hours;
+          statMinutesDay = statMinutesDay + report.minutes;
+          statPublicationsDay = statPublicationsDay + report.publications;
+          statVideosDay = statVideosDay + report.videos;
+          statReturnVisitsDay = statReturnVisitsDay + report.returnVisits;
+          statBibleStudiesDay = statBibleStudiesDay + report.bibleStudies;
+          statSpecialHoursDay = statSpecialHoursDay + report.specialHours;
+          statSpecialMinutesDay = statSpecialMinutesDay + report.specialMinutes;
+        });
+
+        const statsDay: ReportStatsDayView = {
+          hours: statHoursDay,
+          minutes: statMinutesDay,
+          publications: statPublicationsDay,
+          videos: statVideosDay,
+          returnVisits: statReturnVisitsDay,
+          biblieStudies: statBibleStudiesDay,
+          specialHours: statSpecialHoursDay,
+          specialMinutes: statSpecialMinutesDay,
+        };
+
         if (r.length > 0) {
           const _reportByDays: ReportsByDaysView = {
             year: year,
@@ -48,6 +82,7 @@ export const selectReportsByMonthView = (year: number, month: number) =>
             start: start.toISOString(),
             end: end.toISOString(),
             reports: r,
+            statsDay: statsDay,
           };
           result.reportsByDays.push(_reportByDays);
         }
@@ -101,10 +136,11 @@ export const selectStatsReportsByYear = (year: number) =>
           statPublications = statPublications + elem.publications;
           statVideos = statVideos + elem.videos;
           statReturnVisits = statReturnVisits + elem.returnVisits;
+          statBibleStudies = statBibleStudies + elem.bibleStudies;
 
-          if (elem.bibleStudies > statBibleStudies) {
-            statBibleStudies = elem.bibleStudies;
-          }
+          // if (elem.bibleStudies > statBibleStudies) {
+          //   statBibleStudies = elem.bibleStudies;
+          // }
 
           statSpecialHours = statSpecialHours + elem.specialHours;
           statSpecialMinutes = statSpecialMinutes + elem.specialMinutes;

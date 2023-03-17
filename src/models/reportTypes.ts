@@ -98,6 +98,7 @@ export interface ReportsByDaysView extends Month, Year {
   start: string;
   end: string;
   reports: ReportSaved[];
+  statsDay: ReportStatsDayView;
 }
 
 export interface ReportStatsYearView extends Year {
@@ -105,6 +106,17 @@ export interface ReportStatsYearView extends Year {
 }
 
 export interface ReportStatsMonthView extends Month, Year, MinutesPassed {
+  hours: number;
+  minutes: number;
+  publications: number;
+  videos: number;
+  returnVisits: number;
+  biblieStudies: number;
+  specialHours: number;
+  specialMinutes: number;
+}
+
+export interface ReportStatsDayView {
   hours: number;
   minutes: number;
   publications: number;
