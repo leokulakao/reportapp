@@ -4,6 +4,7 @@ import { useTheme } from '@shopify/restyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Theme from '../../theme';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   item: string;
@@ -18,13 +19,15 @@ const BottomSheetSelectItem: React.FC<Props> = ({
 }) => {
   const theme = useTheme<Theme>();
 
+  const { t } = useTranslation();
+
   return (
     <TouchableOpacity
       onPress={() => onPress()}
       style={styles(theme).selectItem}
       activeOpacity={0.7}
     >
-      <Text style={styles(theme).selectItemText}>{item}</Text>
+      <Text style={styles(theme).selectItemText}>{t(item)}</Text>
       {isActive ? (
         <Icon
           name="checkmark-outline"

@@ -1,13 +1,15 @@
 import { NavigationProp } from '@react-navigation/native';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTheme } from '@shopify/restyle';
-import { StyleSheet, Text, View, Share } from 'react-native';
+import { StyleSheet, Text, View, Share, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 import { useTranslation } from 'react-i18next';
 import { defaultTemplate } from '../../utils/templates';
-import { ReportStatsMonthView } from '../../models';
+import { ReportRoundedState, ReportStatsMonthView } from '../../models';
+import { doRoundRemainingHours } from '../../store/reports/reportsService';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   year: number;
@@ -19,8 +21,11 @@ type Props = {
 const MonthItem: React.FC<Props> = (props) => {
   const { year, month, navigation, stats } = props;
   const theme = useTheme<Theme>();
+  const dispatch = useDispatch();
 
   const [t, i18n] = useTranslation();
+
+  const [canShareReport, setCanShareReport] = useState<boolean>(false);
 
   const onPressToMonthNavigate = (month: number) =>
     navigation?.navigate('MonthReport', {
@@ -30,7 +35,25 @@ const MonthItem: React.FC<Props> = (props) => {
         new Date().getMonth() === month ? new Date() : new Date(year, month, 1),
     });
 
-  const shareMessage = () => {
+  const roundMinutes = (
+    state: ReportRoundedState.ROUNDED_UP | ReportRoundedState.ROUNDED_DOWN
+  ) => {
+    if (stats) {
+      doRoundRemainingHours(dispatch, {
+        year: year,
+        month: month,
+        reportRounded: stats?.reportRounded,
+        minutesPassed: stats?.minutesPassed,
+        spetialMinutesPassed: stats?.spetialMinutesPassed,
+        reportRoundedState: state,
+        title: i18n.t('Rounded'),
+      });
+      setCanShareReport(true);
+      // setTimeout(() => shareReport(), 1000);
+    }
+  };
+
+  const shareReport = useCallback(() => {
     if (stats) {
       Share.share({
         message: defaultTemplate(i18n, stats),
@@ -40,7 +63,48 @@ const MonthItem: React.FC<Props> = (props) => {
         //If any thing goes wrong it comes here
         .catch((errorMsg) => console.log(errorMsg));
     }
+  }, [stats, i18n]);
+
+  const shareAlert = () => {
+    if (stats) {
+      console.log(stats);
+      if (stats.minutes || stats.specialMinutes) {
+        Alert.alert(
+          i18n.t('Rounding minutes'),
+          i18n.t('Do you want to round the minutes?') ||
+            'Do you want to round the minutes?',
+          [
+            {
+              text: i18n.t('Round up') || 'Round up',
+              onPress: () => {
+                roundMinutes(ReportRoundedState.ROUNDED_UP);
+              },
+            },
+            {
+              text: i18n.t('Round down') || '',
+              onPress: () => {
+                roundMinutes(ReportRoundedState.ROUNDED_DOWN);
+              },
+            },
+            {
+              text: i18n.t('Cancel') || '',
+              onPress: () => shareReport(),
+              style: 'cancel',
+            },
+          ]
+        );
+      } else {
+        shareReport();
+      }
+    }
   };
+
+  useEffect(() => {
+    if (stats && canShareReport) {
+      shareReport();
+      setCanShareReport(false);
+    }
+  }, [stats, canShareReport, shareReport]);
 
   return (
     <View style={styles(theme).item}>
@@ -131,7 +195,7 @@ const MonthItem: React.FC<Props> = (props) => {
           !stats && styles(theme).buttonShareDiseabled,
         ]}
         disabled={!stats}
-        onPress={() => shareMessage()}
+        onPress={() => shareAlert()}
       >
         <Icon name="share-outline" size={22} color={theme.colors.textColor} />
         <Text style={styles(theme).buttonShareText}>{t('Send Report')}</Text>

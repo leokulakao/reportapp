@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   Backup,
   Report,
+  ReportCalculateMinutesPassedInput,
   ReportDeleteByIdInput,
   ReportEditByIdInput,
-  ReportRounded,
+  ReportRoundedState,
   ReportSaved,
   ReportsDataMonths,
   ReportsDataYear,
+  ReportUpdateStateReportRoundedState,
 } from '../../models';
 
 import 'react-native-get-random-values';
@@ -33,6 +35,8 @@ export const reportsSlice = createSlice({
         ...payload,
       };
 
+      console.log(JSON.stringify(payload, null, 2));
+
       // new version
 
       const currentYear = new Date(payload.date).getFullYear();
@@ -57,7 +61,9 @@ export const reportsSlice = createSlice({
           year: currentYear,
           month: currentMonth,
           reports: [],
-          reportRounded: ReportRounded.NONE,
+          minutesPassed: 0,
+          spetialMinutesPassed: 0,
+          reportRounded: ReportRoundedState.NONE,
         } as ReportsDataMonths;
       }
 
@@ -66,7 +72,7 @@ export const reportsSlice = createSlice({
         newReport
       );
 
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     deleteAllReports: (state: ReportsState) => {
@@ -116,7 +122,7 @@ export const reportsSlice = createSlice({
           }
         }
       }
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     editReportById: (
@@ -145,11 +151,57 @@ export const reportsSlice = createSlice({
           }
         }
       }
-      console.log(JSON.stringify(state.data, null, 2));
+      // console.log(JSON.stringify(state.data, null, 2));
     },
 
     uploadBackup: (state: ReportsState, action: PayloadAction<Backup>) => {
       state.data = action.payload.data;
+    },
+
+    calculateMinutesPassed: (
+      state: ReportsState,
+      action: PayloadAction<ReportCalculateMinutesPassedInput>
+    ) => {
+      const payload = action.payload;
+      if (state.data.years[payload.year]?.months[payload.month]) {
+        let minutesCalculated = 0;
+        let specialMinutesCalculated = 0;
+        for (
+          let index = 0;
+          index <
+          state.data.years[payload.year]?.months[payload.month].reports.length;
+          index++
+        ) {
+          const report =
+            state.data.years[payload.year]?.months[payload.month].reports[
+              index
+            ];
+          minutesCalculated = minutesCalculated + report.minutes;
+          specialMinutesCalculated =
+            specialMinutesCalculated + report.specialMinutes;
+
+          if (minutesCalculated >= 60) minutesCalculated = 0;
+          if (specialMinutesCalculated >= 60) specialMinutesCalculated = 0;
+        }
+        state.data.years[payload.year].months[payload.month].minutesPassed =
+          minutesCalculated;
+        state.data.years[payload.year].months[
+          payload.month
+        ].spetialMinutesPassed = specialMinutesCalculated;
+      }
+      console.log(JSON.stringify(state.data, null, 2));
+    },
+
+    updateReportRoundedState: (
+      state: ReportsState,
+      action: PayloadAction<ReportUpdateStateReportRoundedState>
+    ) => {
+      const payload = action.payload;
+      if (state.data.years[payload.year]?.months[payload.month]) {
+        state.data.years[payload.year].months[payload.month].reportRounded =
+          payload.reportRoundedState;
+      }
+      console.log(JSON.stringify(state.data, null, 2));
     },
   },
 });
@@ -160,6 +212,8 @@ export const {
   deleteReportById,
   editReportById,
   uploadBackup,
+  calculateMinutesPassed,
+  updateReportRoundedState,
 } = reportsSlice.actions;
 
 export default reportsSlice.reducer;

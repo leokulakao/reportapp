@@ -19,7 +19,7 @@ import LanguageSelect from '../../components/language/LanguageSelect';
 import ThemeSelect from '../../components/theme/ThemeSelect';
 import { SettingsStackParamList } from './SettingsStack';
 
-type Props = NativeStackScreenProps<SettingsStackParamList, 'Settings'>;
+type Props = NativeStackScreenProps<SettingsStackParamList, 'SettingsScreen'>;
 
 const SettingsScreen: React.FC<Props> = (props) => {
   const { navigation } = props;

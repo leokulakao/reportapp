@@ -41,8 +41,6 @@ const MonthSlider: React.FC<Props> = (props) => {
 
   const stats = useSelector(selectStatsReportsByYear(year));
 
-  // console.log('------------>', year, stats);
-
   useEffect(() => {
     const newMonths = getMonths(year);
     setDefaultIndex(newMonths.length - 1);

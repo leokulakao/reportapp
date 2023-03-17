@@ -34,11 +34,12 @@ export default {
     Minutes: 'Minutes',
     Publications: 'Publications',
     Videos: 'Videos',
-    'Return Visits': 'Retirn Visits',
+    'Return Visits': 'Return Visits',
     'Bible Studies': 'Bible Studies',
     'Special Hours': 'Special Hours',
     'Special Minutes': 'Special Minutes',
     Notes: 'Notes',
+    Special: 'Special',
 
     'Add a title': 'Add a title',
     'Send Report': 'Send report',
@@ -72,5 +73,25 @@ export default {
     Contribute: 'Contribute',
 
     'Privacy Policy': 'Privacy Policy',
+
+    // Themes
+    auto: 'Auto',
+    light: 'Light',
+    dark: 'Dark',
+
+    // Transfer minutes
+    'Transfer minutes': 'Transfer minutes',
+    'Do you want to transfer minutes from the previous month?':
+      'Do you want to transfer minutes from the previous month?',
+    'Transferred from the previous month':
+      'Transferred from the previous month',
+    'Transferred to the next month': 'Transferred to the next month',
+
+    // Rounding minutes
+    'Rounding minutes': 'Rounding minutes',
+    'Do you want to round the minutes?': 'Do you want to round the minutes?',
+    'Round up': 'Round up',
+    'Round down': 'Round down',
+    Rounded: 'Rounded',
   },
 };

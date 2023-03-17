@@ -48,7 +48,6 @@ const ReportFormItem: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
 
   const onDateItemAndroidPress = () => {
-    console.log(value);
     DateTimePickerAndroid.open({
       value: new Date(value),
       mode: 'date',

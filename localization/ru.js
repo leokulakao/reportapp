@@ -39,6 +39,7 @@ export default {
     'Special Hours': 'Специальные часы',
     'Special Minutes': 'Специальные минуты',
     Notes: 'Заметки',
+    Special: 'Специальные',
 
     'Add a title': 'Добавить заголовок',
     'Send Report': 'Отправить отчет',
@@ -72,5 +73,24 @@ export default {
     Contribute: 'Пожертвовать',
 
     'Privacy Policy': 'Политика конфиденциальности',
+
+    // Themes
+    auto: 'Автоматическая',
+    light: 'Светлая',
+    dark: 'Темная',
+
+    // Transfer minutes
+    'Transfer minutes': 'Перенос минут',
+    'Do you want to transfer minutes from the previous month?':
+      'Хотите перенести минуты с прошлого месяца?',
+    'Transferred from the previous month': 'Перенесенное с прошлого месяца',
+    'Transferred to the next month': 'Перенесенное на следующий месяц',
+
+    // Rounding minutes
+    'Rounding minutes': 'Округление минут',
+    'Do you want to round the minutes?': 'Хотите округлить минуты?',
+    'Round up': 'Округление до большего',
+    'Round down': 'Округление до меньшего',
+    Rounded: 'Округленно',
   },
 };

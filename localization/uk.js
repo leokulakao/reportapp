@@ -39,6 +39,7 @@ export default {
     'Special Hours': 'Спеціальні години',
     'Special Minutes': 'Спеціальні хвилини',
     Notes: 'Примітки',
+    Special: 'Спеціальні',
 
     'Add a title': 'Додати заголовок',
     'Send Report': 'Відправити звіт',
@@ -71,5 +72,24 @@ export default {
     Contribute: 'Пожертвувати',
 
     'Privacy Policy': 'Політика конфіденційності',
+
+    // Themes
+    auto: 'Автоматична',
+    light: 'Світла',
+    dark: 'Темна',
+
+    // Transfer minutes
+    'Transfer minutes': 'Перенесення хвилин',
+    'Do you want to transfer minutes from the previous month?':
+      'Хочете перенести хвилини з попереднього місяця?',
+    'Transferred from the previous month': 'Перенесено з попереднього місяця',
+    'Transferred to the next month': 'Перенесено на наступний місяць',
+
+    // Rounding minutes
+    'Rounding minutes': 'Заокруглення хвилин',
+    'Do you want to round the minutes?': 'Хочете заокруглити хвилини?',
+    'Round up': 'Заокруглити до більшого',
+    'Round down': 'Заокруглити до меншого',
+    Rounded: 'Заокругленні',
   },
 };

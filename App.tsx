@@ -17,8 +17,6 @@ SplashScreen.preventAutoHideAsync();
 const App = () => {
   const persistor = persistStore(store);
 
-  console.log(Constants.manifest?.splash?.image);
-
   return (
     <AnimatedAppLoader image={Constants.manifest?.splash?.image as string}>
       <Provider store={store}>

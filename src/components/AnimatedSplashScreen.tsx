@@ -33,7 +33,6 @@ const AnimatedSplashScreen: React.FC<Props> = (props) => {
     } catch (e) {
       // handle errors
     } finally {
-      console.log('>>>>', true);
       setAppReady(true);
     }
   }, []);
