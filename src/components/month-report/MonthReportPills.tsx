@@ -26,7 +26,9 @@ const MonthReportPills: React.FC<Props> = (props) => {
       : ''
   }${reports.statsDay.minutes ? reports.statsDay.minutes + i18n.t('m') : ''}${
     reports.statsDay.specialHours || reports.statsDay.specialMinutes
-      ? '(Special:' +
+      ? '(' +
+        i18n.t('Special') +
+        ':' +
         `${
           reports.statsDay.specialHours
             ? ' ' + reports.statsDay.specialHours + i18n.t('h')

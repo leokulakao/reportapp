@@ -39,6 +39,7 @@ export default {
     'Special Hours': 'Horas especiales',
     'Special Minutes': 'Minutos especiales',
     Notes: 'Observaciones',
+    Special: 'Especiales',
 
     'Add a title': 'Añade un titulo',
     'Send Report': 'Enviar informe',
@@ -73,19 +74,23 @@ export default {
 
     'Privacy Policy': 'Política de privacidad',
 
+    // Themes
+    auto: 'Automático',
+    light: 'Claro',
+    dark: 'Oscuro',
+
     // Transfer minutes
     'Transfer minutes': 'Transferir minutos',
     'Do you want to transfer minutes from the previous month?':
       '¿Quieres transferir minutos del mes anterior?',
-    'Transferred from the previous month':
-      'Transferred from the previous month',
-    'Transferred to the next month': 'Transferred to the next month',
+    'Transferred from the previous month': 'Transferido del mes pasado',
+    'Transferred to the next month': 'Transferido al mes siguiente',
 
     // Rounding minutes
     'Rounding minutes': 'Redondear minutos',
     'Do you want to round the minutes?': '¿Quieres redondear los minutos?',
-    'Round up': 'Round up',
-    'Round down': 'Round down',
-    Rounded: 'Rounded',
+    'Round up': 'Redondear a la hora superior',
+    'Round down': 'Redondear a la hora inferior',
+    Rounded: 'Redondeos',
   },
 };
