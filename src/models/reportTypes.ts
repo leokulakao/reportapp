@@ -64,6 +64,7 @@ export interface ReportsByDaysView {
   start: string;
   end: string;
   reports: ReportSaved[];
+  statsDay: ReportStatsDayView;
 }
 
 export interface ReportStatsYearView {
@@ -74,6 +75,17 @@ export interface ReportStatsYearView {
 export interface ReportStatsMonthView {
   year: number;
   month: number;
+  hours: number;
+  minutes: number;
+  publications: number;
+  videos: number;
+  returnVisits: number;
+  biblieStudies: number;
+  specialHours: number;
+  specialMinutes: number;
+}
+
+export interface ReportStatsDayView {
   hours: number;
   minutes: number;
   publications: number;
