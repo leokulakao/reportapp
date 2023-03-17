@@ -12,9 +12,9 @@ import {
   TextInput,
   StyleSheet,
   View,
-  TouchableOpacity,
   // TouchableOpacity,
-  Text,
+  // TouchableOpacity,
+  // Text,
   // TouchableOpacity,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,6 @@ import { useDispatch } from 'react-redux';
 import { Report, ReportSaved } from '../../models';
 import {
   doAddReport,
-  doDeleteAllReports,
   // doDeleteAllReports,
   doEditReportById,
 } from '../../store/reports/reportsService';
@@ -262,9 +261,9 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
             disabled={!isValid}
           />
         </View>
-        <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
+        {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
           <Text>{t('Delete')}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </BottomSheetModalComp>
     </>
   );
