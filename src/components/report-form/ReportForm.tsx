@@ -1,9 +1,11 @@
 import React, {
   forwardRef,
+  useEffect,
   // useState,
   useImperativeHandle,
   useMemo,
   useRef,
+  useState,
   // useCallback,
 } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -34,6 +36,11 @@ import {
   doEditReportById,
 } from '../../store/reports/reportsService';
 import Theme from '../../theme';
+import StopWatchButton, {
+  StopWatchButtonRef,
+} from '../buttons/StopWatchButton';
+
+export type ReportFormModeType = 'create' | 'edit' | 'stopwatch';
 
 type Props = {
   reportData?: ReportSaved | null;
@@ -61,11 +68,16 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
   const dispatch = useDispatch();
 
-  const formMode = reportData === null ? 'create' : 'edit';
+  const [formMode, setFormMode] = useState<ReportFormModeType>('create');
 
   // BottomSheetModal Ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ['90%'], []);
+
+  // animation width
+  const [width, setWidth] = useState<number | null>(null);
+
+  const stopWatchButtonRef = useRef<StopWatchButtonRef>(null);
 
   // Formik form
   const {
@@ -93,7 +105,6 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
       specialMinutes: 0,
     },
     onSubmit: () => {
-      console.log('123', formMode);
       if (formMode === 'create') {
         const newReport: Report = {
           ...values,
@@ -117,35 +128,49 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
   const handlePresentModalPress = () => open();
 
-  const setFieldReportData = () => {
-    if (reportData?.id != null && formMode === 'edit') {
-      setFieldValue('title', reportData.title);
-      setFieldValue('date', new Date(reportData.date).toISOString());
-      setFieldValue('hours', reportData.hours);
-      setFieldValue('minutes', reportData.minutes);
-      setFieldValue('publications', reportData.publications);
-      setFieldValue('videos', reportData.videos);
-      setFieldValue('returnVisits', reportData.returnVisits);
-      setFieldValue('bibleStudies', reportData.bibleStudies);
-      setFieldValue('specialHours', reportData.specialHours);
-      setFieldValue('specialMinutes', reportData.specialMinutes);
-    } else {
-      ReportSchema.fields.date.max(new Date());
-      setFieldValue('title', '');
-      setFieldValue('date', initialDate.toISOString());
-      setFieldValue('hours', 0);
-      setFieldValue('minutes', 0);
-      setFieldValue('publications', 0);
-      setFieldValue('videos', 0);
-      setFieldValue('returnVisits', 0);
-      setFieldValue('bibleStudies', 0);
-      setFieldValue('specialHours', 0);
-      setFieldValue('specialMinutes', 0);
+  const handleStopWatchButton = () => {
+    stopWatchButtonRef.current?.mode === 'off'
+      ? setStopWatchOn()
+      : setStopWatchOff();
+  };
+
+  const setFieldReportData = (report: ReportSaved | null) => {
+    if (report) {
+      if (report?.id != null) {
+        setFieldValue('title', report.title);
+        setFieldValue('date', new Date(report.date).toISOString());
+        setFieldValue('hours', report.hours);
+        setFieldValue('minutes', report.minutes);
+        setFieldValue('publications', report.publications);
+        setFieldValue('videos', report.videos);
+        setFieldValue('returnVisits', report.returnVisits);
+        setFieldValue('bibleStudies', report.bibleStudies);
+        setFieldValue('specialHours', report.specialHours);
+        setFieldValue('specialMinutes', report.specialMinutes);
+      } else {
+        ReportSchema.fields.date.max(new Date());
+        setFieldValue('title', '');
+        setFieldValue('date', initialDate.toISOString());
+        setFieldValue('hours', 0);
+        setFieldValue('minutes', 0);
+        setFieldValue('publications', 0);
+        setFieldValue('videos', 0);
+        setFieldValue('returnVisits', 0);
+        setFieldValue('bibleStudies', 0);
+        setFieldValue('specialHours', 0);
+        setFieldValue('specialMinutes', 0);
+      }
     }
   };
 
+  useEffect(() => {
+    if (reportData) {
+      setFormMode('edit');
+    }
+  }, [reportData]);
+
   const open = () => {
-    setFieldReportData();
+    setFieldReportData(reportData);
     bottomSheetModalRef.current?.present();
   };
 
@@ -155,6 +180,16 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
     open: open,
     close: close,
   }));
+
+  const setStopWatchOn = () => {
+    stopWatchButtonRef.current?.on();
+    setFormMode('stopwatch');
+  };
+
+  const setStopWatchOff = () => {
+    stopWatchButtonRef.current?.off();
+    setFormMode('create');
+  };
 
   return (
     <>
@@ -172,98 +207,125 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
         keyboardBlurBehavior="restore"
         android_keyboardInputMode="adjustResize"
       >
-        <TextInput
-          style={styles(theme).reportTitleinput}
-          onChangeText={handleChange('title')}
-          value={values.title}
-          placeholder={`${t('Add a title')}...`}
-          placeholderTextColor={theme.colors.secondaryTextColor}
-        />
-        <ReportFormItem
-          type="date"
-          title={t('Date')}
-          onChange={(v) => setFieldValue('date', v)}
-          value={values.date}
-          marginB
-          isEdit={formMode === 'edit'}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Hours')}
-          icon="time-outline"
-          value={values.hours}
-          onChange={(v) => setFieldValue('hours', v)}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Minutes')}
-          icon="time-outline"
-          value={values.minutes}
-          onChange={(v) => setFieldValue('minutes', v)}
-          diffOnChange={5}
-          marginB
-          isMinutes
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Publications')}
-          icon="library-outline"
-          value={values.publications}
-          onChange={(v) => setFieldValue('publications', v)}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Videos')}
-          icon="play-outline"
-          value={values.videos}
-          onChange={(v) => setFieldValue('videos', v)}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Return Visits')}
-          icon="chatbubbles-outline"
-          value={values.returnVisits}
-          onChange={(v) => setFieldValue('returnVisits', v)}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Bible Studies')}
-          icon="people-outline"
-          value={values.bibleStudies}
-          onChange={(v) => setFieldValue('bibleStudies', v)}
-          marginB
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Special Hours')}
-          icon="time-outline"
-          value={values.specialHours}
-          onChange={(v) => setFieldValue('specialHours', v)}
-        />
-        <ReportFormItem
-          type="number"
-          title={t('Special Minutes')}
-          icon="time-outline"
-          value={values.specialMinutes}
-          onChange={(v) => setFieldValue('specialMinutes', v)}
-          diffOnChange={5}
-          marginB
-          isMinutes
-        />
-
-        <View style={styles(theme).sheetButtonsContainer}>
-          <MainButton
-            icon="checkmark"
-            style={{ backgroundColor: theme.colors.cardItemColor }}
-            onPress={() => {
-              handleSubmit();
-            }}
-            disabled={!isValid}
+        <View
+          onLayout={(event) => {
+            if (event.nativeEvent.layout.width > 0) {
+              setWidth(event.nativeEvent.layout.width);
+            }
+          }}
+        >
+          <TextInput
+            style={styles(theme).reportTitleinput}
+            onChangeText={handleChange('title')}
+            value={values.title}
+            placeholder={`${t('Add a title')}...`}
+            placeholderTextColor={theme.colors.secondaryTextColor}
           />
-        </View>
-        {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
+          <ReportFormItem
+            type="date"
+            title={t('Date')}
+            onChange={(v) => setFieldValue('date', v)}
+            value={values.date}
+            marginB
+            isEdit={formMode === 'edit'}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Hours')}
+            icon="time-outline"
+            value={values.hours}
+            onChange={(v) => setFieldValue('hours', v)}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Minutes')}
+            icon="time-outline"
+            value={values.minutes}
+            onChange={(v) => setFieldValue('minutes', v)}
+            diffOnChange={5}
+            marginB
+            isMinutes
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Publications')}
+            icon="library-outline"
+            value={values.publications}
+            onChange={(v) => setFieldValue('publications', v)}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Videos')}
+            icon="play-outline"
+            value={values.videos}
+            onChange={(v) => setFieldValue('videos', v)}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Return Visits')}
+            icon="chatbubbles-outline"
+            value={values.returnVisits}
+            onChange={(v) => setFieldValue('returnVisits', v)}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Bible Studies')}
+            icon="people-outline"
+            value={values.bibleStudies}
+            onChange={(v) => setFieldValue('bibleStudies', v)}
+            marginB
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Special Hours')}
+            icon="time-outline"
+            value={values.specialHours}
+            onChange={(v) => setFieldValue('specialHours', v)}
+          />
+          <ReportFormItem
+            type="number"
+            title={t('Special Minutes')}
+            icon="time-outline"
+            value={values.specialMinutes}
+            onChange={(v) => setFieldValue('specialMinutes', v)}
+            diffOnChange={5}
+            marginB
+            isMinutes
+          />
+          {/* <TouchableOpacity onPress={() => doDeleteAllReports(dispatch)}>
           <Text>{t('Delete')}</Text>
         </TouchableOpacity> */}
+        </View>
+        {!!width && width > 0 ? (
+          <View style={styles(theme).sheetButtonsContainer}>
+            {formMode !== 'edit' ? (
+              <StopWatchButton
+                ref={stopWatchButtonRef}
+                onPress={() => {
+                  handleStopWatchButton();
+                }}
+                outsideBlockWidth={width}
+              />
+            ) : (
+              <></>
+            )}
+            <MainButton
+              icon={
+                formMode === 'create' || formMode === 'edit'
+                  ? 'checkmark'
+                  : 'pause-outline'
+              }
+              style={{ backgroundColor: theme.colors.cardItemColor }}
+              onPress={() => {
+                handleSubmit();
+              }}
+              disabled={formMode === 'create' ?? !isValid}
+              marginLeft
+            />
+          </View>
+        ) : (
+          <></>
+        )}
       </BottomSheetModalComp>
     </>
   );

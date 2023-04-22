@@ -1,6 +1,6 @@
 import { useTheme } from '@shopify/restyle';
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Theme from '../../theme';
 
@@ -12,10 +12,20 @@ type Props = {
   textColor?: string;
   style?: object;
   disabled?: boolean;
+  marginLeft?: boolean;
 };
 
 const MainButton: React.FC<Props> = (props) => {
-  const { icon, iconColor, onPress, text, textColor, style, disabled } = props;
+  const {
+    icon,
+    iconColor,
+    onPress,
+    text,
+    textColor,
+    style,
+    disabled,
+    marginLeft,
+  } = props;
 
   const theme = useTheme<Theme>();
 
@@ -25,6 +35,7 @@ const MainButton: React.FC<Props> = (props) => {
       disabled={disabled}
       style={[
         styles(theme).button,
+        marginLeft && styles(theme).buttonMarginLeft,
         disabled && styles(theme).buttonDisabled,
         style,
       ]}
@@ -72,6 +83,9 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       borderRadius: 8,
       backgroundColor: theme.colors.secondaryBackgroundColor,
+    },
+    buttonMarginLeft: {
+      marginLeft: 5,
     },
     buttonDisabled: {
       opacity: 0.4,

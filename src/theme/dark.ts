@@ -11,7 +11,8 @@ const palette = {
 
   grayFont: '#AAAEB2',
 
-  green: '#68BF79',
+  green: 'rgb(104,191,121)',
+  red: 'rgb(191,104,104)',
   pink: '#C94F82',
 };
 
@@ -43,6 +44,7 @@ const theme = createTheme({
     // OTHER
     accentColor: palette.gray,
     greenColor: palette.green,
+    redColor: palette.red,
     pinkColor: palette.pink,
   },
   spacing: {},
