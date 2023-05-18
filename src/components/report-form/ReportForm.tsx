@@ -39,6 +39,12 @@ import Theme from '../../theme';
 import StopWatchButton, {
   StopWatchButtonRef,
 } from '../buttons/StopWatchButton';
+import {
+  doStopwatchStart,
+  doStopwatchStop,
+} from '../../store/stopwatch/stopwatchService';
+import { useSelector } from 'react-redux';
+import { selectStopWatch } from '../../store/stopwatch/stopwatchSelectors';
 
 export type ReportFormModeType = 'create' | 'edit' | 'stopwatch';
 
@@ -68,6 +74,8 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
 
   const dispatch = useDispatch();
 
+  const stopwatchData = useSelector(selectStopWatch());
+
   const [formMode, setFormMode] = useState<ReportFormModeType>('create');
 
   // BottomSheetModal Ref
@@ -78,6 +86,21 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
   const [width, setWidth] = useState<number | null>(null);
 
   const stopWatchButtonRef = useRef<StopWatchButtonRef>(null);
+
+  // useEffect(() => {
+  //   console.log('stopwatchData ---------->', stopwatchData);
+
+  useEffect(() => {
+    if (
+      formMode === 'stopwatch' &&
+      stopWatchButtonRef.current?.mode === 'off'
+    ) {
+      console.log('formMode', stopWatchButtonRef.current?.mode);
+      stopWatchButtonRef.current?.on();
+    }
+    console.log('formMode', stopWatchButtonRef.current?.mode);
+    console.log('formMode general', formMode);
+  }, []);
 
   // Formik form
   const {
@@ -184,11 +207,15 @@ const ReportForm = forwardRef<ReportFormRef, Props>((props, ref) => {
   const setStopWatchOn = () => {
     stopWatchButtonRef.current?.on();
     setFormMode('stopwatch');
+
+    doStopwatchStart(dispatch);
   };
 
   const setStopWatchOff = () => {
     stopWatchButtonRef.current?.off();
     setFormMode('create');
+
+    doStopwatchStop(dispatch);
   };
 
   return (

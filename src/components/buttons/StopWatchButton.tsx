@@ -60,6 +60,7 @@ const StopWatchButton = forwardRef<StopWatchButtonRef, Props>((props, ref) => {
   });
 
   const _animateButtonOn = () => {
+    console.log('StopWatchButton -  on');
     buttonWidth.value = outsideBlockWidth / 2 - 5;
     buttonRoudios.value = 8;
     buttonColor.value = theme.colors.redColor;
