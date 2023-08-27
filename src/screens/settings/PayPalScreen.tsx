@@ -16,10 +16,12 @@ const PayPalScreen: React.FC<Props> = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<Theme>();
 
-  const url =
-    Platform.OS === 'ios'
-      ? 'https://arsk02.github.io/report-app/'
-      : 'https://www.paypal.com/donate/?hosted_button_id=2FEY4RET33XA4';
+  const url = 'https://www.paypal.com/donate/?hosted_button_id=2FEY4RET33XA4';
+
+  // const url =
+  //   Platform.OS === 'ios'
+  //     ? 'https://arsk02.github.io/report-app/'
+  //     : 'https://www.paypal.com/donate/?hosted_button_id=2FEY4RET33XA4';
 
   return (
     <ScreenSafeAreaContainer

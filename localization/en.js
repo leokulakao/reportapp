@@ -71,6 +71,11 @@ export default {
     // DONATE SCREEN
     Donate: 'Donate',
     Contribute: 'Contribute',
+    Send: 'Send',
+
+    'About us': 'About us',
+    'About us text':
+      'We are a small app development team. Thank you very much for using our app. We made it with a lot of love and affection. We decided that the app is free so that you can use it without problems. Even so, we would appreciate it if you would help us with a donation to be able to continue updating and improving the app. Thank you! Arsen and Lev.',
 
     'Privacy Policy': 'Privacy Policy',
 

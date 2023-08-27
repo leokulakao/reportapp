@@ -20,7 +20,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
@@ -51,6 +53,9 @@
       "eas": {
         "projectId": "63c87908-edcf-4dc2-892a-a055ad7f3ce8"
       }
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }

@@ -71,6 +71,11 @@ export default {
     // DONATE SCREEN
     Donate: 'Donar',
     Contribute: 'Contribuir',
+    Send: 'Enviar',
+
+    'About us': 'Sobre nosotros',
+    'About us text':
+      'Somos un pequeño equipo de desarrollo de aplicaciones. Muchas gracias por utilizar nuestra aplicación. Lo hicimos con mucho amor y cariño. Decidimos que la aplicación sea gratuita para que puedas usarla sin problemas. Aún así te agradeceríamos que nos ayudaras con una donación para poder seguir actualizando y mejorando la aplicación. ¡Gracias! Arsen y Lev.',
 
     'Privacy Policy': 'Política de privacidad',
 
