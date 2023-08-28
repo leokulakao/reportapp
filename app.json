@@ -2,7 +2,7 @@
   "expo": {
     "name": "Report App",
     "slug": "reportapp",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "owner": "reportapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.reportapp.app",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
@@ -34,10 +34,15 @@
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }
+      },
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+        "CFBundleLocalizations" : ["en, es, ru, uk"],
+        "CFBundleDevelopmentRegion" : "en"
       }
     },
     "android": {
-      "versionCode": 1102,
+      "versionCode": 1203,
       "package": "com.reportapp.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -46,6 +51,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "locales": {
+      "en": "./localization/en.js",
+      "es": "./localization/es.js",
+      "ru": "./localization/ru.js",
+      "uk": "./localization/uk.js"
     },
     "extra": {
       "eas": {
