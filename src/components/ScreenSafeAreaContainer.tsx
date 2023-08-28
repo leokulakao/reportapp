@@ -4,7 +4,7 @@ import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
   scrollContainer?: any;
   paddingHorizontal?: any;
   disableSafeAreaEdges?: Edge[];
